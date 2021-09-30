@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Marketplace.s.modelo;
+package marketplaceT.marketplaceTd.modelo;
 
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,20 +24,14 @@ public class atencionpedido {
     private int id;
     
     private Date Fechapedido;
-    private int idpedido;
+    @ManyToOne
+    @JoinColumn(name="idpedido")
+    private pedido pedido;
     private int orden;
-    private int idpersona;
+    @ManyToOne
+    @JoinColumn(name="idpersona")
+    private persona persona;
 
-    public atencionpedido() {
-    }
-
-    public atencionpedido(int id, Date Fechapedido, int idpedido, int orden, int idpersona) {
-        this.id = id;
-        this.Fechapedido = Fechapedido;
-        this.idpedido = idpedido;
-        this.orden = orden;
-        this.idpersona = idpersona;
-    }
 
     public int getId() {
         return id;
@@ -53,13 +49,15 @@ public class atencionpedido {
         this.Fechapedido = Fechapedido;
     }
 
-    public int getIdpedido() {
-        return idpedido;
+    public pedido getPedido() {
+        return pedido;
     }
 
-    public void setIdpedido(int idpedido) {
-        this.idpedido = idpedido;
+    public void setPedido(pedido pedido) {
+        this.pedido = pedido;
     }
+
+    
 
     public int getOrden() {
         return orden;
@@ -69,13 +67,20 @@ public class atencionpedido {
         this.orden = orden;
     }
 
-    public int getIdpersona() {
-        return idpersona;
+    public persona getIdpersona() {
+        return persona;
     }
 
-    public void setIdpersona(int idpersona) {
-        this.idpersona = idpersona;
+    public void setIdpersona(persona persona) {
+        this.persona = persona;
     }
+
+    @Override
+    public String toString() {
+        return "atencionpedido{" + "id=" + id + ", Fechapedido=" + Fechapedido + ", pedido=" + pedido + ", orden=" + orden + ", persona=" + persona + '}';
+    }
+
+    
     
     
     

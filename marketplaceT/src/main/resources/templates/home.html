@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="template :: head">
+    </head>
+    <body>
+        <header th:replace="template :: header"></header>
+
+        <div class="container">
+            <h1 class="text-center" >Bienvenido</h1>
+            <div style="position: relative; display: inline-block; text-align: center;" class="container-fluid">
+                <img src="https://www.universidadecommerce.net/wp-content/uploads/marketplace-1-800x394.jpg" class="container-fluid" alt="...">
+                <button style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);" 
+                        class="btn btn-primary button">Registrate</button>
+            </div>  
+        </div>
+
+        <footer th:replace="template :: footer"></footer>
+
+    </body>
+</html>

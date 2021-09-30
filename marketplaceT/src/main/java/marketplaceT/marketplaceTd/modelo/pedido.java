@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Marketplace.s.modelo;
+package marketplaceT.marketplaceTd.modelo;
 
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -19,36 +21,26 @@ import javax.persistence.Id;
 public class pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPedido;
+    private int id;
     
     private Date fechapedido;
     private Date fechaenvio;
     private int estado;
-    private int idtipopago;
-    private int idCliente;
+    @ManyToOne
+    @JoinColumn(name="idtipopago")
+    private tipopago tipopago;
+    @ManyToOne
+    @JoinColumn(name="idcliente")
+    private persona persona;
     private int cantidad;
     private double total;
 
-    public pedido() {
-    }
-
-    public pedido(int idPedido, Date fechapedido, Date fechaenvio, int estado, int idtipopago, int idCliente, int cantidad, double total) {
-        this.idPedido = idPedido;
-        this.fechapedido = fechapedido;
-        this.fechaenvio = fechaenvio;
-        this.estado = estado;
-        this.idtipopago = idtipopago;
-        this.idCliente = idCliente;
-        this.cantidad = cantidad;
-        this.total = total;
-    }
-
     public int getIdPedido() {
-        return idPedido;
+        return id;
     }
 
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
+    public void setIdPedido(int id) {
+        this.id = id;
     }
 
     public Date getFechapedido() {
@@ -75,20 +67,20 @@ public class pedido {
         this.estado = estado;
     }
 
-    public int getIdtipopago() {
-        return idtipopago;
+    public tipopago getTipopago() {
+        return tipopago;
     }
 
-    public void setIdtipopago(int idtipopago) {
-        this.idtipopago = idtipopago;
+    public void setTipopago(tipopago tipopago) {
+        this.tipopago = tipopago;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public persona getPersona() {
+        return persona;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setPersona(persona persona) {
+        this.persona = persona;
     }
 
     public int getCantidad() {
@@ -106,5 +98,12 @@ public class pedido {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    @Override
+    public String toString() {
+        return "pedido{" + "idPedido=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", persona=" + persona + ", cantidad=" + cantidad + ", total=" + total + '}';
+    }
+
+    
     
 }

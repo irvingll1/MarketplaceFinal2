@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Marketplace.s.modelo;
+package marketplaceT.marketplaceTd.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -18,26 +20,19 @@ import javax.persistence.Id;
 public class distrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idDistrito;
+    private int id;
     
     private String descripcion;
-    private int idProvincia;
+    @ManyToOne
+    @JoinColumn(name="idprovincia")
+    private provincia provincia;
 
-    public distrito() {
+    public int getId() {
+        return id;
     }
 
-    public distrito(int idDistrito, String descripcion, int idProvincia) {
-        this.idDistrito = idDistrito;
-        this.descripcion = descripcion;
-        this.idProvincia = idProvincia;
-    }
-
-    public int getIdDistrito() {
-        return idDistrito;
-    }
-
-    public void setIdDistrito(int idDistrito) {
-        this.idDistrito = idDistrito;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -48,13 +43,20 @@ public class distrito {
         this.descripcion = descripcion;
     }
 
-    public int getIdProvincia() {
-        return idProvincia;
+    public provincia getProvincia() {
+        return provincia;
     }
 
-    public void setIdProvincia(int idProvincia) {
-        this.idProvincia = idProvincia;
+    public void setProvincia(provincia provincia) {
+        this.provincia = provincia;
     }
+
+    @Override
+    public String toString() {
+        return "distrito{" + "id=" + id + ", descripcion=" + descripcion + ", provincia=" + provincia + '}';
+    }
+
+    
     
     
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Marketplace.s.modelo;
+package marketplaceT.marketplaceTd.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

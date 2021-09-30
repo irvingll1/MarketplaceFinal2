@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Marketplace.s.modelo;
+package marketplaceT.marketplaceTd.modelo;
 
 import java.util.Date;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ import javax.persistence.Id;
 public class calificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idcalifica;
+    private int id;
     
     private int numero;
     private int cometario;
@@ -30,7 +30,7 @@ public class calificacion {
     }
 
     public calificacion(int idcalifica, int numero, int cometario, int idpersona, Date fecha) {
-        this.idcalifica = idcalifica;
+        this.id = idcalifica;
         this.numero = numero;
         this.cometario = cometario;
         this.idpersona = idpersona;
@@ -38,11 +38,11 @@ public class calificacion {
     }
 
     public int getIdcalifica() {
-        return idcalifica;
+        return id;
     }
 
     public void setIdcalifica(int idcalifica) {
-        this.idcalifica = idcalifica;
+        this.id = idcalifica;
     }
 
     public int getNumero() {

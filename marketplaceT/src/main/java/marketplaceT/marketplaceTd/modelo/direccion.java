@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Marketplace.s.modelo;
+package marketplaceT.marketplaceTd.modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ import javax.persistence.Id;
 public class direccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int iddireccion;
+    private int id;
     
     private String descripcion;
     private int iddistrito;
@@ -26,18 +26,18 @@ public class direccion {
     public direccion() {
     }
 
-    public direccion(int iddireccion, String descripcion, int iddistrito) {
-        this.iddireccion = iddireccion;
+    public direccion(int id, String descripcion, int iddistrito) {
+        this.id = id;
         this.descripcion = descripcion;
         this.iddistrito = iddistrito;
     }
 
     public int getIddireccion() {
-        return iddireccion;
+        return id;
     }
 
-    public void setIddireccion(int iddireccion) {
-        this.iddireccion = iddireccion;
+    public void setIddireccion(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
