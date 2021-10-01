@@ -9,8 +9,7 @@ package marketplaceT.marketplaceTd.controller;
 import marketplaceT.marketplaceTd.modelo.usuario;
 import java.util.List;
 import javax.validation.Valid;
-import marketplaceT.marketplaceTd.interfaceservice.IPersonaService;
-import marketplaceT.marketplaceTd.interfaceservice.IRolService;
+
 import marketplaceT.marketplaceTd.interfaceservice.IUsuarioService;
 import marketplaceT.marketplaceTd.modelo.rol;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author PC
  */
 @Controller
-@RequestMapping("/views/clientes")
+@RequestMapping
 public class UsuarioController {
 //    @Autowired
 //    private IPersonaService personaService;
@@ -41,101 +40,98 @@ public class UsuarioController {
 //    @Autowired
 //    private IRolService rolService;
     @Secured("ROLE_USER")
-    @GetMapping("/")
+    @GetMapping("/listar")
     public String listarClientes(Model model) {
             List<usuario> listadoClientes = usuarioService.listar();
             //List<rol> listadoRol=rolService.listar();
 
             model.addAttribute("titulo", "Lista de Usuarios");
-            model.addAttribute("clientes", listadoClientes);
-            //model.addAttribute("roles", listadoRol);
+            model.addAttribute("usuarios", listadoClientes);
 
-            return "/views/clientes/listar";
+            return "/listar";
     }
     @Secured("ROLE_ADMIN")
     @GetMapping("/create")
     public String crear(Model model) {
 
-            usuario cliente = new usuario();
-            //List<usuario> listCiudades = usuarioService.listar();
+            usuario usuario = new usuario();
+            model.addAttribute("titulo", "Formulario: Nuevo Usuario");
+            model.addAttribute("usuario", usuario);
 
-            model.addAttribute("titulo", "Formulario: Nuevo Cliente");
-            model.addAttribute("cliente", cliente);
-            //model.addAttribute("ciudades", listCiudades);
-
-            return "/views/clientes/frmCrear";
+            return "frmCrear";
     }
+    
     @Secured({"ROLE_ADMIN","ROLE_USER"})
     @PostMapping("/save")
-    public String guardar(@Valid @ModelAttribute usuario cliente, BindingResult result,
+    public String guardar(@Valid @ModelAttribute usuario usuario, BindingResult result,
                     Model model, RedirectAttributes attribute) {
             //List<usuario> listCiudades = usuarioService.listar();
 
             if (result.hasErrors()) {
-                    model.addAttribute("titulo", "Formulario: Nuevo Cliente");
-                    model.addAttribute("cliente", cliente);
-                   // model.addAttribute("ciudades", listCiudades);
+                    model.addAttribute("titulo", "Formulario: Nuevo usuario");
+                    model.addAttribute("usuario", usuario);
                     System.out.println("Existieron errores en el formulario");			
-                    return "/views/clientes/frmCrear";
+                    return "frmCrear";
             }
 
-            usuarioService.save(cliente);
+            usuarioService.save(usuario);
             System.out.println("Cliente guardado con exito!");
             attribute.addFlashAttribute("success", "Cliente guardado con exito!");
-            return "redirect:/views/clientes/";
+            return "redirect:/listar";
     }
     @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/edit/{id}")
-    public String editar(@PathVariable("id") int idCliente, Model model, RedirectAttributes attribute) {
+    public String editar(@PathVariable("id") int idUsuario, Model model, RedirectAttributes attribute) {
 
-            usuario cliente = null;
+            usuario usuario = null;
 
-            if (idCliente > 0) {
-                    cliente = usuarioService.listarId(idCliente);
+            if (idUsuario > 0) {
+                    usuario = usuarioService.listarId(idUsuario);
 
-                    if (cliente == null) {
+                    if (usuario == null) {
                             System.out.println("Error: El ID del cliente no existe!");
                             attribute.addFlashAttribute("error", "ATENCION: El ID del cliente no existe!");
-                            return "redirect:/views/clientes/";
+                            return "redirect:/listar";
                     }
             }else {
                     System.out.println("Error: Error con el ID del Cliente");
                     attribute.addFlashAttribute("error", "ATENCION: Error con el ID del cliente");
-                    return "redirect:/views/clientes/";
+                    return "redirect:/listar";
             }
 
            // List<usuario> listCiudades = usuarioService.listar();
 
             model.addAttribute("titulo", "Formulario: Editar Cliente");
-            model.addAttribute("cliente", cliente);
+            model.addAttribute("usuario", usuario);
           //  model.addAttribute("ciudades", listCiudades);
 
-            return "/views/clientes/frmCrear";
+            return "frmCrear";
     }
+    
     @Secured("ROLE_ADMIN")
     @GetMapping("/delete/{id}")
-    public String eliminar(@PathVariable("id") int idCliente, RedirectAttributes attribute) {
+    public String eliminar(@PathVariable("id") int idUsuario, RedirectAttributes attribute) {
 
-            usuario cliente = null;
+            usuario usuario = null;
 
-            if (idCliente > 0) {
-                    cliente = usuarioService.listarId(idCliente);
+            if (idUsuario > 0) {
+                    usuario = usuarioService.listarId(idUsuario);
 
-                    if (cliente == null) {
+                    if (usuario == null) {
                             System.out.println("Error: El ID del cliente no existe!");
-                            attribute.addFlashAttribute("error", "ATENCION: El ID del cliente no existe!");
-                            return "redirect:/views/clientes/";
+                            attribute.addFlashAttribute("error", "ATENCION: El ID del usuario no existe!");
+                            return "redirect:/listar";
                     }
             }else {
                     System.out.println("Error: Error con el ID del Cliente");
                     attribute.addFlashAttribute("error", "ATENCION: Error con el ID del Cliente!");
-                    return "redirect:/views/clientes/";
+                    return "redirect:/listar";
             }		
 
-            usuarioService.delete(idCliente);
+            usuarioService.delete(idUsuario);
             System.out.println("Registro Eliminado con Exito!");
             attribute.addFlashAttribute("warning", "Registro Eliminado con Exito!");
 
-            return "redirect:/views/clientes/";
+            return "redirect:/listar";
     }
 }

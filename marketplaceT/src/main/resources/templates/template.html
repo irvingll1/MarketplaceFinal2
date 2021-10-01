@@ -9,6 +9,7 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <!--        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
         <link rel="stylesheet" th:href="@{/css/signin.css}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
 
@@ -16,7 +17,7 @@
         <header th:fragment="header">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="#home">
+                    <a class="navbar-brand" th:href="@{/index}">
                         <strong>MarketplaceUTP</strong>
                     </a>
 
@@ -35,7 +36,7 @@
                                     <span class="sr-only sr-only-focusable">(current)</span></a>
                             </li>
                             <li class="nav-item" sec:authorize="isAuthenticated()">
-                                <a class="nav-link"th:href="@{/views/clientes/}">Usuarios</a>
+                                <a class="nav-link"th:href="@{/listar}">Usuarios</a>
                             </li>
                         </ul>
                     </div>
@@ -102,7 +103,14 @@
             crossorigin="anonymous"></script>
 
             <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+            <script>
+            function myFunction() {
+                var option_value = document.getElementById("tipopersona").value;
+                if (option_value === "2") {
+                   $('#myModal').modal('show');
+                 }
+            }
+            </script>
         </footer>
 
     </body>

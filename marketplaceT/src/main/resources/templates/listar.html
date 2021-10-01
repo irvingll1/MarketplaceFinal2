@@ -29,19 +29,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="cl:${clientes}">
+				<tr th:each="cl:${usuarios}">
 					<th scope="row" th:text="${cl.id}"></th>
 					<td th:text="${cl.usuario}"></td>
 					<td th:text="${cl.contrasena}"></td>
                                         <td th:text="${cl.estado}"></td>
 
 					<td sec:authorize="hasRole('ROLE_USER')">
-						<a class="btn btn-success btn-sm" th:href="@{/views/clientes/edit/} + ${cl.id}"
+						<a class="btn btn-success btn-sm" th:href="@{/edit/} + ${cl.id}"
 							th:text="'Editar'" title="Editar Registro">
 						</a>
 					</td>	
 					<td sec:authorize="hasRole('ROLE_ADMIN')">
-						<a class="btn btn-danger btn-sm" th:href="@{/views/clientes/delete/} + ${cl.id}"
+						<a class="btn btn-danger btn-sm" th:href="@{/delete/} + ${cl.id}"
 							th:text="'Eliminar'" title="Eliminar Registro"
 							onclick="return confirm('Esta seguro de eliminar el registro?');">
 						</a>
