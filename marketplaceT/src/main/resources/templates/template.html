@@ -4,17 +4,19 @@
     <head th:fragment="head">
         <meta charset="UTF-8">
         <title>Marketplace</title>
-<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" > -->
+        <!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" > -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<!--        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+        <!--        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
         <link rel="stylesheet" th:href="@{/css/signin.css}">
+        <link th:href="@{css/styles.css}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     </head>
     <body>
 
         <!-- BARRA DE NAVEGACION -->
-        <header th:fragment="header">
+        <header th:fragment="cabecera">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
                     <a class="navbar-brand" th:href="@{/index}">
@@ -37,6 +39,15 @@
                             </li>
                             <li class="nav-item" sec:authorize="isAuthenticated()">
                                 <a class="nav-link"th:href="@{/listar}">Usuarios</a>
+                            </li>
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <a class="nav-link"th:href="@{/vendedor}">Vendedor</a>
+                            </li>
+                            <li class="nav-item" sec:authorize="isAuthenticated()" >
+                                <a class="nav-link"th:href="@{/tienda}">Tienda</a>
+                            </li>
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <a class="nav-link"th:href="@{/carrito}">Carrito</a>
                             </li>
                         </ul>
                     </div>
@@ -61,6 +72,7 @@
                 </div>
             </nav>
 
+
             <!-- MENSAJES -->
             <div class="alert alert-success alert-dismissable" role="alert" th:if="${success != null}">
                 <label th:text="${success}"></label>
@@ -78,21 +90,57 @@
                 <label th:text="${info}"></label>
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div>
-
-
         </header>
+        <!--        BARRA LATERAL VENDEDOR-->
+        
+        <div class="row">
+            <div th:fragment="menuvendedor">
+            <nav  class="full-box cover dashboard-sideBar">
+                <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;height:100vh;">
+                    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                        <span class="fs-4 active">Menu de Vendedor</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a th:href="@{/adminproductos}" class="nav-link text-white" >
 
+                                Administracion Catalogo de Productos
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/adminpedidos}" class="nav-link text-white">
+                                Administracion de Pedidos
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/adminatencion}" class="nav-link text-white">
+                                Administracion de Atencion pedidos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="nav-link text-white">
+                                Reporte de Pedidos
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </nav>
+            </div>
+            <div class="container"></div>
+        </div>
+        
         <!-- CONTENIDO -->
-        <div class="container"></div>
-
+        
 
         <!-- PIE DE PAGINA -->
         <footer th:fragment="footer" class="bg-dark text-center text-white fixed-bottom">
 
             <div class="container">
-                <p>ClinicaUTP - 2021</p>
+                <p>MarketplaceUTP - 2021</p>
             </div>
-
             <!--            <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
                         <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
                         <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
@@ -103,14 +151,6 @@
             crossorigin="anonymous"></script>
 
             <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-            <script>
-            function myFunction() {
-                var option_value = document.getElementById("tipopersona").value;
-                if (option_value === "2") {
-                   $('#myModal').modal('show');
-                 }
-            }
-            </script>
         </footer>
 
     </body>

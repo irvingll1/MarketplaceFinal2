@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.Itipopago;
 import marketplaceT.marketplaceTd.interfaceservice.ItipopagoService;
 import marketplaceT.marketplaceTd.modelo.tipopago;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class tipopagoService implements ItipopagoService{
 
     @Autowired

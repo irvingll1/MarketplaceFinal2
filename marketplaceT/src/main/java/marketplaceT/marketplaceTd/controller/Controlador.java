@@ -11,7 +11,16 @@ import java.util.List;
 import javax.validation.Valid;
 
 import marketplaceT.marketplaceTd.interfaceservice.IUsuarioService;
-import marketplaceT.marketplaceTd.modelo.rol;
+import marketplaceT.marketplaceTd.interfaceservice.IcategoriaproductoService;
+import marketplaceT.marketplaceTd.interfaceservice.IdistritoService;
+import marketplaceT.marketplaceTd.interfaceservice.IproductoService;
+import marketplaceT.marketplaceTd.interfaceservice.IprovinciaService;
+import marketplaceT.marketplaceTd.interfaceservice.ItiendaService;
+import marketplaceT.marketplaceTd.modelo.categoriaproducto;
+import marketplaceT.marketplaceTd.modelo.distrito;
+import marketplaceT.marketplaceTd.modelo.producto;
+import marketplaceT.marketplaceTd.modelo.provincia;
+import marketplaceT.marketplaceTd.modelo.tienda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -30,26 +39,38 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping
-public class UsuarioController {
+public class Controlador {
 //    @Autowired
 //    private IPersonaService personaService;
 
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private IprovinciaService provinciaService;
     
-//    @Autowired
-//    private IRolService rolService;
+    @Autowired
+    private IdistritoService distritoService;
+    
+    @Autowired
+    private ItiendaService tiendaService;
+    
+    @Autowired
+    private IproductoService productoService;
+    
+    @Autowired
+    private IcategoriaproductoService categoriaproductoService;
+
     @Secured("ROLE_USER")
     @GetMapping("/listar")
     public String listarClientes(Model model) {
-            List<usuario> listadoClientes = usuarioService.listar();
-            //List<rol> listadoRol=rolService.listar();
-
-            model.addAttribute("titulo", "Lista de Usuarios");
+            List<usuario> listadoClientes = usuarioService.listar();        
+            model.addAttribute("titulo", "Lista de usuarios");
             model.addAttribute("usuarios", listadoClientes);
-
-            return "/listar";
+            
+            return "listar";
     }
+    
     @Secured("ROLE_ADMIN")
     @GetMapping("/create")
     public String crear(Model model) {
@@ -134,4 +155,68 @@ public class UsuarioController {
 
             return "redirect:/listar";
     }
+    
+    //TIENDA Cliente!!!!!!!!!!
+    
+    @GetMapping("/tienda")
+    public String crearTienda(Model model) {
+        List<provincia>  listadoprovincia =provinciaService.listar();
+        List<distrito>  listadodistrito =distritoService.listar();
+        List<tienda>  listadotienda =tiendaService.listar();
+        List<producto> listadoproducto = productoService.listar();
+        model.addAttribute("provincias", listadoprovincia);
+        model.addAttribute("distritos", listadodistrito);
+        model.addAttribute("tiendas", listadotienda);
+        model.addAttribute("productos", listadoproducto);
+        return "frmtienda";
+    }
+    
+    @GetMapping("/carrito")
+    public String crearcarrito() {
+
+        return "frmcarrito";
+    }
+
+    
+    //Tienda VEndedor
+    @GetMapping("/vendedor")
+    public String adminVendedor(Model model) {
+        List<producto> listadoproducto = productoService.listar();
+        List<categoriaproducto> categoriaproducto = categoriaproductoService.listar();
+        model.addAttribute("productos", listadoproducto);
+        model.addAttribute("catproductos", categoriaproducto);
+        return "frmVendedorProductos";
+    }
+    @GetMapping("/createproducto")
+    public String crearproducto(Model model) {
+
+        producto producto = new producto();
+        model.addAttribute("producto", producto);
+
+        return "frmVendedorProductos";
+    }
+    
+    
+    @GetMapping("/adminproductos")
+    public String ProductosVendedor(Model model) {
+
+        List<producto> listadoproducto = productoService.listar();
+        model.addAttribute("productos", listadoproducto);
+        return "frmVendedorProductos";
+    }
+    
+    @GetMapping("/adminpedidos")
+    public String PedidosVendedor() {
+
+        return "frmVendedorPedidos";
+    }
+    @GetMapping("/adminatencion")
+    public String AtencionPedidosVendedor() {
+
+        return "frmVendedorAtencionP";
+    }
+    
+    
+    
+    
 }

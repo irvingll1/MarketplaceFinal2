@@ -5,7 +5,7 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
-import java.util.Date;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
  * @author PC
  */
 @Entity
-public class producto {
+public class producto implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,11 +29,12 @@ public class producto {
     private String estado;
     private int precio;
     private String unidadmedida;
-    private Date fechaadquision;
-    private Date fechavencimiento;
     @ManyToOne
-    @JoinColumn(name="iddetallepedido")
-    private detallepedido detallepedido;
+    @JoinColumn(name="idcategoriaproducto")
+    private categoriaproducto categoriaproducto;
+    @ManyToOne
+    @JoinColumn(name="idtienda")
+    private tienda tienda;
 
     public int getId() {
         return id;
@@ -91,35 +92,25 @@ public class producto {
         this.unidadmedida = unidadmedida;
     }
 
-    public Date getFechaadquision() {
-        return fechaadquision;
+    public categoriaproducto getCategoriaproducto() {
+        return categoriaproducto;
     }
 
-    public void setFechaadquision(Date fechaadquision) {
-        this.fechaadquision = fechaadquision;
+    public void setCategoriaproducto(categoriaproducto categoriaproducto) {
+        this.categoriaproducto = categoriaproducto;
     }
 
-    public Date getFechavencimiento() {
-        return fechavencimiento;
+    public tienda getTienda() {
+        return tienda;
     }
 
-    public void setFechavencimiento(Date fechavencimiento) {
-        this.fechavencimiento = fechavencimiento;
-    }
-
-    public detallepedido getDetallepedido() {
-        return detallepedido;
-    }
-
-    public void setDetallepedido(detallepedido detallepedido) {
-        this.detallepedido = detallepedido;
+    public void setTienda(tienda tienda) {
+        this.tienda = tienda;
     }
 
     @Override
     public String toString() {
-        return "producto{" + "idproducto=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", marca=" + marca + ", estado=" + estado + ", precio=" + precio + ", unidadmedida=" + unidadmedida + ", fechaadquision=" + fechaadquision + ", fechavencimiento=" + fechavencimiento + ", detallepedido=" + detallepedido + '}';
+        return "producto{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", marca=" + marca + ", estado=" + estado + ", precio=" + precio + ", unidadmedida=" + unidadmedida + ", categoriaproducto=" + categoriaproducto + ", tienda=" + tienda + '}';
     }
-
-    
-    
+  
 }

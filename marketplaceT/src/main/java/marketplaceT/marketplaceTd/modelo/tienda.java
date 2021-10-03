@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ import javax.persistence.ManyToOne;
  * @author PC
  */
 @Entity
-public class tienda {
+public class tienda implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,14 +26,13 @@ public class tienda {
     private String nombre;
     private int telefono;
     private String descripcion;
-    private String coordenadas;
+    private String latitud;
+    private String longitud; 
     private int estado;
     @ManyToOne
     @JoinColumn(name="iddireccion")
     private direccion direccion;
-    @ManyToOne
-    @JoinColumn(name="idcalifica")
-    private calificacion calificacion;
+
 
     public int getId() {
         return id;
@@ -68,14 +68,23 @@ public class tienda {
         this.descripcion = descripcion;
     }
 
-    public String getCoordenadas() {
-        return coordenadas;
+    public String getLatitud() {
+        return latitud;
     }
 
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
     }
 
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
+    }
+
+  
     public int getEstado() {
         return estado;
     }
@@ -92,18 +101,13 @@ public class tienda {
         this.direccion = direccion;
     }
 
-    public calificacion getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(calificacion calificacion) {
-        this.calificacion = calificacion;
-    }
-
     @Override
     public String toString() {
-        return "tienda{" + "idTienda=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", descripcion=" + descripcion + ", coordenadas=" + coordenadas + ", estado=" + estado + ", direccion=" + direccion + ", calificacion=" + calificacion + '}';
+        return "tienda{" + "id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", descripcion=" + descripcion + ", latitud=" + latitud + ", longitud=" + longitud + ", estado=" + estado + ", direccion=" + direccion + '}';
     }
+
+    
+    
 
    
     

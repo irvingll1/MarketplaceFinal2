@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ import javax.persistence.ManyToOne;
  * @author PC
  */
 @Entity
-public class pedido {
+public class pedido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

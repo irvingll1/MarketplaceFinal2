@@ -11,11 +11,13 @@ import marketplaceT.marketplaceTd.interfaces.Idireccion;
 import marketplaceT.marketplaceTd.interfaceservice.IdireccionService;
 import marketplaceT.marketplaceTd.modelo.direccion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class direccionService implements IdireccionService {
 
     @Autowired

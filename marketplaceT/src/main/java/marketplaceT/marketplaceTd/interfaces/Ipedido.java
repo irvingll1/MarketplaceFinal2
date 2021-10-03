@@ -6,10 +6,12 @@
 package marketplaceT.marketplaceTd.interfaces;
 import marketplaceT.marketplaceTd.modelo.pedido;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 /**
  *
  * @author PC
  */
+@Repository
 public interface Ipedido extends CrudRepository<pedido, Integer>{
     
 }

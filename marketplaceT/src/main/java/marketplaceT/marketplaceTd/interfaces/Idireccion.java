@@ -6,10 +6,12 @@
 package marketplaceT.marketplaceTd.interfaces;
 import marketplaceT.marketplaceTd.modelo.direccion;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 /**
  *
  * @author PC
  */
+@Repository
 public interface Idireccion extends CrudRepository<direccion, Integer>{
     
 }

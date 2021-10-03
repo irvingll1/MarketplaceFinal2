@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.Ipedido;
 import marketplaceT.marketplaceTd.interfaceservice.IpedidoService;
 import marketplaceT.marketplaceTd.modelo.pedido;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class pedidoService implements IpedidoService{
 
     @Autowired

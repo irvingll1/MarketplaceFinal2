@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.Icategoriaproducto;
 import marketplaceT.marketplaceTd.interfaceservice.IcategoriaproductoService;
 import marketplaceT.marketplaceTd.modelo.categoriaproducto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class categoriaproductosService implements IcategoriaproductoService{
 
     @Autowired

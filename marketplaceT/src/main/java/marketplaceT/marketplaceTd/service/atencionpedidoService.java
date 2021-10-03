@@ -10,12 +10,14 @@ import marketplaceT.marketplaceTd.interfaces.Iatencionpedido;
 import marketplaceT.marketplaceTd.interfaceservice.IatencionpedidoService;
 import marketplaceT.marketplaceTd.modelo.atencionpedido;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 /**
  *
  * @author PC
  */
+@Service
 public class atencionpedidoService implements IatencionpedidoService{
 
     @Autowired

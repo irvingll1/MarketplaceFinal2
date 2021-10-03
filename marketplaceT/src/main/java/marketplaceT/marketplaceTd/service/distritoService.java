@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.IDistrito;
 import marketplaceT.marketplaceTd.interfaceservice.IdistritoService;
 import marketplaceT.marketplaceTd.modelo.distrito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class distritoService implements IdistritoService{
 
     @Autowired

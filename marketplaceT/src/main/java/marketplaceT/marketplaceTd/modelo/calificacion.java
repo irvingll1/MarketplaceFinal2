@@ -5,18 +5,22 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author PC
  */
 @Entity
-public class calificacion {
+public class calificacion implements Serializable{
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,24 +29,17 @@ public class calificacion {
     private int cometario;
     private int idpersona;
     private Date fecha;
+    
+    @ManyToOne
+    @JoinColumn(name="idtienda")
+    private tienda tienda;
 
-    public calificacion() {
-    }
-
-    public calificacion(int idcalifica, int numero, int cometario, int idpersona, Date fecha) {
-        this.id = idcalifica;
-        this.numero = numero;
-        this.cometario = cometario;
-        this.idpersona = idpersona;
-        this.fecha = fecha;
-    }
-
-    public int getIdcalifica() {
+    public int getId() {
         return id;
     }
 
-    public void setIdcalifica(int idcalifica) {
-        this.id = idcalifica;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumero() {
@@ -76,6 +73,20 @@ public class calificacion {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public tienda getTienda() {
+        return tienda;
+    }
+
+    public void setTienda(tienda tienda) {
+        this.tienda = tienda;
+    }
+
+    @Override
+    public String toString() {
+        return "calificacion{" + "id=" + id + ", numero=" + numero + ", cometario=" + cometario + ", idpersona=" + idpersona + ", fecha=" + fecha + ", tienda=" + tienda + '}';
+    }
+
     
     
     

@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,24 +16,13 @@ import javax.persistence.Id;
  * @author PC
  */
 @Entity
-public class categoriaproducto {
+public class categoriaproducto implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     private String nombre;
     private String descripcion;
-    private int idproducto;
-
-    public categoriaproducto() {
-    }
-
-    public categoriaproducto(int id, String nombre, String descripcion, int idproducto) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.idproducto = idproducto;
-    }
 
     public int getId() {
         return id;
@@ -58,13 +48,11 @@ public class categoriaproducto {
         this.descripcion = descripcion;
     }
 
-    public int getIdproducto() {
-        return idproducto;
+    @Override
+    public String toString() {
+        return "categoriaproducto{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
 
-    public void setIdproducto(int idproducto) {
-        this.idproducto = idproducto;
-    }
     
     
     

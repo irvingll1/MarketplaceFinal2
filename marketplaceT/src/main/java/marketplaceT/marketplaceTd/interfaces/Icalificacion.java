@@ -7,11 +7,13 @@ package marketplaceT.marketplaceTd.interfaces;
 
 import marketplaceT.marketplaceTd.modelo.calificacion;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author PC
  */
+@Repository
 public interface Icalificacion extends CrudRepository<calificacion, Integer>{
     
 }

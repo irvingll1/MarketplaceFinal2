@@ -5,17 +5,20 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author PC
  */
 @Entity
-public class detallepedido {
+public class detallepedido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -24,26 +27,19 @@ public class detallepedido {
     private int cantidad;
     private double precio;
     private double subtotal;
-    private int idpedido;
+    @ManyToOne
+    @JoinColumn(name="idpedido")
+    private pedido pedido;
+    @ManyToOne
+    @JoinColumn(name="idproducto")
+    private producto producto;
 
-    public detallepedido() {
-    }
-
-    public detallepedido(int id, int estado, int cantidad, double precio, double subtotal, int idpedido) {
-        this.id = id;
-        this.estado = estado;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.subtotal = subtotal;
-        this.idpedido = idpedido;
-    }
-
-    public int getIddetallepedido() {
+    public int getId() {
         return id;
     }
 
-    public void setIddetallepedido(int iddetallepedido) {
-        this.id = iddetallepedido;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getEstado() {
@@ -78,13 +74,29 @@ public class detallepedido {
         this.subtotal = subtotal;
     }
 
-    public int getIdpedido() {
-        return idpedido;
+    public pedido getPedido() {
+        return pedido;
     }
 
-    public void setIdpedido(int idpedido) {
-        this.idpedido = idpedido;
+    public void setPedido(pedido pedido) {
+        this.pedido = pedido;
     }
+
+    public producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(producto producto) {
+        this.producto = producto;
+    }
+
+    @Override
+    public String toString() {
+        return "detallepedido{" + "id=" + id + ", estado=" + estado + ", cantidad=" + cantidad + ", precio=" + precio + ", subtotal=" + subtotal + ", pedido=" + pedido + ", producto=" + producto + '}';
+    }
+
+    
+    
     
     
 }

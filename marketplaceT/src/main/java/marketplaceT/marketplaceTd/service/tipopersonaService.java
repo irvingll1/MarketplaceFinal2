@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.Itipopersona;
 import marketplaceT.marketplaceTd.interfaceservice.ItipopersonaService;
 import marketplaceT.marketplaceTd.modelo.tipopersona;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class tipopersonaService implements ItipopersonaService{
 
     @Autowired

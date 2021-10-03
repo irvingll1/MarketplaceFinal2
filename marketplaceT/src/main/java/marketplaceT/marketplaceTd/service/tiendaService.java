@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.Itienda;
 import marketplaceT.marketplaceTd.interfaceservice.ItiendaService;
 import marketplaceT.marketplaceTd.modelo.tienda;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class tiendaService implements ItiendaService{
 
     @Autowired

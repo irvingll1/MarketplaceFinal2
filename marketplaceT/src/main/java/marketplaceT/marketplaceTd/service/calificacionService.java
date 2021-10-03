@@ -10,11 +10,13 @@ import marketplaceT.marketplaceTd.interfaces.Icalificacion;
 import marketplaceT.marketplaceTd.interfaceservice.IcalificacionService;
 import marketplaceT.marketplaceTd.modelo.calificacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class calificacionService implements IcalificacionService{
 
     @Autowired

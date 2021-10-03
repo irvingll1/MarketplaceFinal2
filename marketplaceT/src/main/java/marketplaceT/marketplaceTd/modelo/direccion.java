@@ -5,32 +5,33 @@
  */
 package marketplaceT.marketplaceTd.modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author PC
  */
 @Entity
-public class direccion {
+public class direccion implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     private String descripcion;
-    private int iddistrito;
+    @ManyToOne
+    @JoinColumn(name="iddistrito")
+    private distrito distrito;
 
-    public direccion() {
-    }
-
-    public direccion(int id, String descripcion, int iddistrito) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.iddistrito = iddistrito;
-    }
+    
 
     public int getIddireccion() {
         return id;
@@ -48,13 +49,28 @@ public class direccion {
         this.descripcion = descripcion;
     }
 
-    public int getIddistrito() {
-        return iddistrito;
+    public int getId() {
+        return id;
     }
 
-    public void setIddistrito(int iddistrito) {
-        this.iddistrito = iddistrito;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public distrito getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(distrito distrito) {
+        this.distrito = distrito;
+    }
+
+    @Override
+    public String toString() {
+        return "direccion{" + "id=" + id + ", descripcion=" + descripcion + ", distrito=" + distrito + '}';
+    }
+
+    
     
     
     

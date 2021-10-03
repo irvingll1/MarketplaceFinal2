@@ -10,15 +10,19 @@ import marketplaceT.marketplaceTd.interfaces.IProvincia;
 import marketplaceT.marketplaceTd.interfaceservice.IprovinciaService;
 import marketplaceT.marketplaceTd.modelo.provincia;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author PC
  */
+@Service
 public class provinciaService implements IprovinciaService{
 
     @Autowired
     private IProvincia data;
+    
+    
     @Override
     public List<provincia> listar() {
         return (List<provincia>)data.findAll();
