@@ -6,6 +6,7 @@
 package marketplaceT.marketplaceTd.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,6 @@ import javax.persistence.Table;
  * @author PC
  */
 @Entity
-@Table(name="usuario")
 public class usuario implements Serializable{
     
     private static final long serialVersionUID = 1L;

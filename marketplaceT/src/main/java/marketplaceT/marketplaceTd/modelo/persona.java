@@ -7,12 +7,19 @@ package marketplaceT.marketplaceTd.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 /**
  *
@@ -27,10 +34,13 @@ public class persona implements Serializable{
     private String nombre;
     private String apellidos;
     private String sexo;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = ISO.DATE)
     private Date fechanacimieno;
     private String email;
     private int telefono;
     private int dni;
+    
     @ManyToOne
     @JoinColumn(name="iddireccion")
     private direccion direccion;
@@ -40,7 +50,7 @@ public class persona implements Serializable{
     @ManyToOne
     @JoinColumn(name="idtienda")
     private tienda tienda;
-    @ManyToOne
+    @ManyToOne   
     @JoinColumn(name="idtipopersona")
     private tipopersona tipopersona;
 

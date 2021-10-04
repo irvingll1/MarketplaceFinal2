@@ -39,7 +39,7 @@ public class PersonaService implements IPersonaService{
         persona perso = data.save(p);
 
     }
-
+    
     @Override
     public void delete(int id) {
         data.deleteById(id);

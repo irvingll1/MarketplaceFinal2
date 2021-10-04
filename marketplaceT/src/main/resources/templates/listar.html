@@ -12,7 +12,7 @@
 	
 	<div class="container">
 		
-		<a class="btn btn-primary btn-sm" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/create}"
+		<a class="btn btn-primary btn-sm" th:href="@{/create}"
 			th:text="'Nuevo Cliente'" title="Crear Nuevo Registro">
 		</a>
 		
@@ -23,8 +23,8 @@
 					<th scope="col">usuario</th>
 					<th scope="col">contraseña</th>
                                         <th scope="col">estado</th>
-                                        <th scope="col" sec:authorize="hasRole('ROLE_USER')">Editar</th>
-					<th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+                                        <th scope="col">Editar</th>
+					<th scope="col">Eliminar</th>
 
 				</tr>
 			</thead>
@@ -35,12 +35,12 @@
 					<td th:text="${cl.contrasena}"></td>
                                         <td th:text="${cl.estado}"></td>
 
-					<td sec:authorize="hasRole('ROLE_USER')">
+					<td>
 						<a class="btn btn-success btn-sm" th:href="@{/edit/} + ${cl.id}"
 							th:text="'Editar'" title="Editar Registro">
 						</a>
 					</td>	
-					<td sec:authorize="hasRole('ROLE_ADMIN')">
+					<td>
 						<a class="btn btn-danger btn-sm" th:href="@{/delete/} + ${cl.id}"
 							th:text="'Eliminar'" title="Eliminar Registro"
 							onclick="return confirm('Esta seguro de eliminar el registro?');">

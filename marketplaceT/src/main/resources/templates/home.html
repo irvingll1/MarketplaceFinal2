@@ -6,11 +6,17 @@
         <header th:replace="template :: cabecera"></header>
 
         <div class="container">
-            <h1 class="text-center" >Bienvenido</h1>
+            <h1 class="text-center" >Bienvenido al Marketplace</h1>
             <div style="position: relative; display: inline-block; text-align: center;" class="container-fluid">
                 <img src="https://www.universidadecommerce.net/wp-content/uploads/marketplace-1-800x394.jpg" class="container-fluid" alt="...">
-                <a class="btn btn-primary centrado" th:href="@{/registrop}" th:text="Registrate" title="Crear Nuevo">                      
-                </a>
+                
+                <br><br><br><br>
+                <div class="centrado">
+                    <div><a class="btn btn-dark" th:href="@{/registrocliente}" th:text="'Registrate Cliente'" title="Crear Nuevo">                      
+                        </a></div><br>
+                    <div><a class="btn btn-dark" th:href="@{/registrovendedor}" th:text="'Registrate Vendedor'" title="Crear Nuevo">                      
+                </a></div>
+                </div>
             </div>  
         </div>
 

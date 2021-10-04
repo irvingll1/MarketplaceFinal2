@@ -14,4 +14,5 @@ public interface IUsuarioService {
     public usuario listarId(int id);
     public void save(usuario p);
     public void delete(int id);
+
 }

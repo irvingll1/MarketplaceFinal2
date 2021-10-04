@@ -33,6 +33,9 @@ public class pedido implements Serializable{
     @ManyToOne
     @JoinColumn(name="idcliente")
     private persona persona;
+    @ManyToOne
+    @JoinColumn(name="idtienda")
+    private tienda tienda;
     private int cantidad;
     private double total;
 

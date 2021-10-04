@@ -27,6 +27,7 @@ public class UsuarioService implements IUsuarioService{
     @Override
     public List<usuario> listar() {
         return (List<usuario>)data.findAll();
+        
     }
 
     @Override

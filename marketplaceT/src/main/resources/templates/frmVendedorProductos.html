@@ -9,13 +9,13 @@
             <div class="column" th:replace="template :: menuvendedor"></div>
 
             <div class="column">
-                <div>
-                    <h1 class="text-center" >Productos</h1>
-                    <a class="btn btn-primary btn-sm" th:href="@{/agregarp}"
-                       th:text="'Agregar Producto'" title="Agregar Producto">
+               
+                <h1>Productos</h1>
+                    <a class="btn btn-primary btn-sm text-center" th:href="@{/agregarp}"
+                       th:text="'Agregar Producto'" title="Agregar Producto ">
                     </a>
-                    <br>
-                    <table class="table">
+                    <br> <br>
+                    <table id="example" class="table text-center" style="width: 50%;margin-left: auto;margin-right: auto;">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Id</th>
@@ -50,10 +50,9 @@
                             </tr>
                         </tbody>
                     </table>
-
-                </div>
             </div>
         </div>
+        
         <footer th:replace="template :: footer"></footer>
 
     </body>

@@ -10,7 +10,9 @@
                 <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
                 <div class="card-body">
 
-                    <form th:action="@{/savepersona}" th:object="${cliente}" method="post">
+                    <form th:action="@{/savepersonavendedor}" th:object="${cliente} " method="post">
+                        <a class="text-info">Datos Personales</a>
+                        <hr>
                         <div class="form-group row">
 
                             <input type="hidden" th:field="*{id}">
@@ -88,55 +90,69 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="direccion">Distrito</label> 
-                            <input type="text"  th:field="*{direccion}" class="form-control form-control-sm col-md-6" id="direccion"
-                                   placeholder="direccion del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}"
-                                   th:errors="*{direccion}">
+                            <select th:field="*{direccion}" class="form-control form-control-sm col-md-6" id="direccion"> 
+					<option th:each="ciudad:${ciudades}"
+						th:value="${ciudad.id}"
+						th:text="${ciudad.ciudad}"		
+					/>					
+                            </select>
+                        </div>  
+                        <a class="text-info">Datos de la empresa</a><hr>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="nombre">Nombre Empresa</label> 
+                            <input type="text"  th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
+                                   placeholder="nombre de la empresa"> 
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                   th:errors="*{nombre}">
                             </small>
                         </div>
-
-
                         <div class="form-group row">
-                            <label class="col-md-2" for="ciudad">usuario</label> 
-                            <select th:field="*{tipopersona}" class="form-control form-control-sm col-md-6" id="tipopersona" onchange ="myFunction()"> 
-                                <option th:value="1">Cliente</option>
-                                <option th:value="2">Vendedor</option>
-                            </select>
+                            <label class="col-md-2" for="dni">Telefono</label> 
+                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                                   placeholder="dni del cliente"> 
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                   th:errors="*{dni}">
+                            </small>
                         </div>
-                        <div class="container">
-                              
-                              <!-- Modal -->
-                              <div class="modal fade" id="myModal" role="dialog">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title">Registro de Empresa</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                          <label for="username" class="text-dark">Nombre:</label><br>
-                                          <input type="text" name="username" id="username" class="form-control">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="password" class="text-dark">Ruc:</label><br>
-                                          <input type="text" name="password" id="password" class="form-control">
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="password" class="text-dark">Descripcion:</label><br>
-                                        <input type="text" name="password" id="password" class="form-control">
-                                      </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                            </div>
-
+                        <div class="form-group row">
+                            <label class="col-md-2" for="dni">Descripcion</label> 
+                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                                   placeholder="dni del cliente"> 
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                   th:errors="*{dni}">
+                            </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="dni">Latitud</label> 
+                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                                   placeholder="dni del cliente"> 
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                   th:errors="*{dni}">
+                            </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="dni">Longitud</label> 
+                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                                   placeholder="dni del cliente"> 
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                   th:errors="*{dni}">
+                            </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="dni">Direccion Empresa</label> 
+                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                                   placeholder="dni del cliente"> 
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                   th:errors="*{dni}">
+                            </small>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div class="card-footer bg-dark">
                             <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
                         </div>
@@ -147,7 +163,7 @@
         
         
         <div class="container">
-
+        
             
 
         </div>

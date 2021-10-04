@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -29,7 +30,7 @@ public class tienda implements Serializable{
     private String latitud;
     private String longitud; 
     private int estado;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="iddireccion")
     private direccion direccion;
 
@@ -42,7 +43,6 @@ public class tienda implements Serializable{
         this.id = id;
     }
 
-    
 
     public String getNombre() {
         return nombre;
