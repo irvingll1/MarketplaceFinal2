@@ -4,8 +4,6 @@
     </head>
     <body>
         <header th:replace="template :: cabecera"></header>
-
-
         <div class="card bg-light">
             <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
             <div class="card-body">
@@ -18,23 +16,23 @@
                         <input type="hidden" th:field="*{id}">
                         <label class="col-md-2" for="nombre">Nombre:</label> 
                         <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
-                               placeholder="Nombres del cliente"> 
-                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                               placeholder="Nombres del cliente" required> 
+<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
                                th:errors="*{nombre}">
-                        </small>
+                        </small>-->
                     </div>
 
                     <div class="form-group row">
                         <label class="col-md-2" for="apellidos">Apellidos:</label> 
                         <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos"
-                               placeholder="Apellidos del cliente"> 
-                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
+                               placeholder="Apellidos del cliente" required> 
+<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
                                th:errors="*{apellidos}">
-                        </small>
+                        </small>-->
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="apellidos">Sexo</label> 
-                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo"> 
+                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" required> 
                             <option th:value="masculino">masculino</option>
                             <option th:value="femenino">femenino</option>
                         </select>
@@ -42,41 +40,41 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="fechanacimieno">Fecha Nacimiento</label> 
                         <input type="date"  th:field="*{fechanacimieno}" class="form-control form-control-sm col-md-6" id="fechanacimieno"
-                               placeholder="Fecha Nacimiento"> 
+                               placeholder="Fecha Nacimiento" required> 
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="email">Email:</label> 
                         <input type="email" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email"
-                               placeholder="Email del cliente"> 
-                        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                               placeholder="Email del cliente" required> 
+<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
                                th:errors="*{email}">
-                        </small>
+                        </small>-->
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="telefono">Telefono</label> 
                         <input type="text"  th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
-                               placeholder="Telefono del cliente"> 
-                        <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
+                               placeholder="Telefono del cliente" required> 
+<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
                                th:errors="*{telefono}">
-                        </small>
+                        </small>-->
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="dni">DNI</label> 
                         <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                               placeholder="dni del cliente"> 
+                               placeholder="dni del cliente" required> 
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
                                th:errors="*{dni}">
                         </small>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="direccion">direccion</label> 
-                        <input type="text" th:field="${direccion}"  th:text="${direccion.descripcion}" class="form-control form-control-sm col-md-6" name="direccion"
-                               placeholder="direccion del cliente"> 
+                        <input type="text" th:field="*{direccion}" class="form-control form-control-sm col-md-6" name="direccion"
+                               placeholder="direccion del cliente" required> 
 
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="provincia">Provincia</label>                
-                        <select class="form-control form-control-sm col-md-6" id="provincia"> 
+                        <select class="form-control form-control-sm col-md-6" id="provincia" required> 
                             <option th:each="provincia:${provinciascrear}"
                                     th:value="${provincia.id}"
                                     th:text="${provincia.descripcion}"		
@@ -85,17 +83,14 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="distrito">Distrito</label> 
-                        <select class="form-control form-control-sm col-md-6" name="distrito"> 
+                        <select th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
                         <option th:each="distrito:${distritoscrear}"
                                 th:value="${distrito.id}"
                                 th:text="${distrito.descripcion}"		
                                 />					
                         </select>
-                    </div>             
+                    </div>
                     <div class="card-footer bg-dark">
-<!--                        <a class="btn btn-success btn-sm" th:href="@{/savepersonacliente}+${distrito}+${descripcion}"
-							th:text="'Guardar'" title="Editar Registro">
-                        </a>-->
                         <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
                     </div>
 

@@ -8,8 +8,10 @@ package marketplaceT.marketplaceTd.service;
 import java.util.List;
 import java.util.Optional;
 import marketplaceT.marketplaceTd.interfaces.IPersona;
+import marketplaceT.marketplaceTd.interfaces.IRol;
 import marketplaceT.marketplaceTd.interfaceservice.IPersonaService;
 import marketplaceT.marketplaceTd.modelo.persona;
+import marketplaceT.marketplaceTd.modelo.rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class PersonaService implements IPersonaService{
 
     @Autowired
     private IPersona data;
+
     
     @Override
     public List<persona> listar() {
@@ -35,14 +38,17 @@ public class PersonaService implements IPersonaService{
 
     @Override
     public void save(persona p) {
-        int resp = 0;
         persona perso = data.save(p);
-
     }
     
     @Override
     public void delete(int id) {
         data.deleteById(id);
+    }
+
+    @Override
+    public List<persona> buscarnombre(int dni){
+        return data.buscarnombre(dni);
     }
     
 }

@@ -27,6 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
  */
 @Entity
 public class persona implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,19 +41,16 @@ public class persona implements Serializable{
     private String email;
     private int telefono;
     private int dni;
-    
-    @ManyToOne
-    @JoinColumn(name="iddireccion")
-    private direccion direccion;
+    private String direccion;
     @ManyToOne
     @JoinColumn(name="idusuario")
     private usuario usuario;
     @ManyToOne
     @JoinColumn(name="idtienda")
     private tienda tienda;
-    @ManyToOne   
-    @JoinColumn(name="idtipopersona")
-    private tipopersona tipopersona;
+    @ManyToOne
+    @JoinColumn(name="iddistrito")
+    private distrito distrito;
 
     public int getId() {
         return id;
@@ -118,11 +116,11 @@ public class persona implements Serializable{
         this.dni = dni;
     }
 
-    public direccion getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(direccion direccion) {
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
@@ -142,18 +140,20 @@ public class persona implements Serializable{
         this.tienda = tienda;
     }
 
-    public tipopersona getTipopersona() {
-        return tipopersona;
+
+    public distrito getDistrito() {
+        return distrito;
     }
 
-    public void setTipopersona(tipopersona tipopersona) {
-        this.tipopersona = tipopersona;
+    public void setDistrito(distrito distrito) {
+        this.distrito = distrito;
     }
 
     @Override
     public String toString() {
-        return "persona{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo + ", fechanacimieno=" + fechanacimieno + ", email=" + email + ", telefono=" + telefono + ", dni=" + dni + ", direccion=" + direccion + ", usuario=" + usuario + ", tienda=" + tienda + ", tipopersona=" + tipopersona + '}';
+        return "persona{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo + ", fechanacimieno=" + fechanacimieno + ", email=" + email + ", telefono=" + telefono + ", dni=" + dni + ", direccion=" + direccion + ", usuario=" + usuario + ", tienda=" + tienda + ", distrito=" + distrito + '}';
     }
 
+    
     
 }

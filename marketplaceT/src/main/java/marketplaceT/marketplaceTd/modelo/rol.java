@@ -29,9 +29,7 @@ public class rol implements Serializable{
     private int id;
     
     private String nombre;
-    @ManyToOne
-    @JoinColumn(name="idusuario")
-    private usuario usuario;
+    private int idusuario;
 
     public int getId() {
         return id;
@@ -49,18 +47,21 @@ public class rol implements Serializable{
         this.nombre = nombre;
     }
 
-    public usuario getUsuario() {
-        return usuario;
+    public int getIdusuario() {
+        return idusuario;
     }
 
-    public void setUsuario(usuario usuario) {
-        this.usuario = usuario;
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
     }
 
     @Override
     public String toString() {
-        return "rol{" + "id=" + id + ", nombre=" + nombre + ", usuario=" + usuario + '}';
+        return "rol{" + "id=" + id + ", nombre=" + nombre + ", idusuario=" + idusuario + '}';
     }
+
+
+    
 
     
 

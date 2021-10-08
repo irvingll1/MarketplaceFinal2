@@ -11,34 +11,62 @@
                 class="carrito"
                 id="pills-contact"
                 role="tabpanel"
-              >
-              <br>
-            <table class="table table-hover">
-                <thead>
-                    <tr class="text-primary">
-                        <th scope="col">#</th>
-                        <th scope="col">Productos</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody class="tbody">
+                >
+                <br>
+                <form action="/comprar" method="post">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-primary">
+                                <th scope="col">#</th>
+                                <th scope="col">Productos</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
 
 
 
-                </tbody>
-            </table>
-            <br><br>
-            <div class="row mx-4">
-                <div class="col">
-                    <h3 class="itemCartTotal">Total: 0</h3>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <button class="btn btn-success">COMPRAR</button>
-                </div>
+                        </tbody>
+                    </table>
+
+                    <div class="row mx-4">
+                        <div class="col d-flex justify-content-end">
+                            <h3 class="itemCartTotal">Total: 0</h3>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="container">
+                        <h4>Detalle de compra</h4>
+                        <hr>
+                        <div class="row align-items-start">
+                            <div class="col">
+                                <label>Metodo de pago</label>
+
+                                <select class="form-control form-control-sm col-md-6" name="tipopago"> 
+                                    <option th:each="tipopago:${tipopagos}"
+                                            th:value="${tipopago.id}"
+                                            th:text="${tipopago.nombre}"		
+                                            />					
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="" for="fecha">Fecha Estimada</label> 
+                                <input type="datetime-local" class="form-control form-control-sm" id="fecha"
+                                       placeholder="Fecha Estimada">
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn btn-success">COMPRAR</button>
+                    </div>
+                </form>
             </div>
+            <hr>
         </div>
-
         <footer th:replace="template :: footer"></footer>
 
     </body>

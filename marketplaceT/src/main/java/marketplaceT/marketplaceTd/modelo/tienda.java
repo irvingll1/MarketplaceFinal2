@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -30,10 +29,10 @@ public class tienda implements Serializable{
     private String latitud;
     private String longitud; 
     private int estado;
-    @OneToOne
-    @JoinColumn(name="iddireccion")
-    private direccion direccion;
-
+    private String direccion;
+    @ManyToOne
+    @JoinColumn(name="iddistrito")
+    private distrito distrito;
 
     public int getId() {
         return id;
@@ -93,22 +92,40 @@ public class tienda implements Serializable{
         this.estado = estado;
     }
 
-    public direccion getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(direccion direccion) {
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    @Override
-    public String toString() {
-        return "tienda{" + "id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", descripcion=" + descripcion + ", latitud=" + latitud + ", longitud=" + longitud + ", estado=" + estado + ", direccion=" + direccion + '}';
+    public distrito getDistrito() {
+        return distrito;
     }
 
-    
-    
+    public void setDistrito(distrito distrito) {
+        this.distrito = distrito;
+    }
 
-   
+    public tienda(int id,String nombre, int telefono, String descripcion, String latitud, String longitud, int estado, String direccion, distrito distrito) {
+        this.id=id;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.descripcion = descripcion;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.estado = estado;
+        this.direccion = direccion;
+        this.distrito = distrito;
+    }
+
+    public tienda() {
+    }
+    
+    @Override
+    public String toString() {
+        return "tienda{" + "id=" + id + ", nombre=" + nombre + ", telefono=" + telefono + ", descripcion=" + descripcion + ", latitud=" + latitud + ", longitud=" + longitud + ", estado=" + estado + ", direccion=" + direccion + ", distrito=" + distrito + '}';
+    }
     
 }

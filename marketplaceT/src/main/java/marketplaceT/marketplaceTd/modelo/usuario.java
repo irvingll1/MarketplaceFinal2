@@ -61,6 +61,18 @@ public class usuario implements Serializable{
         this.estado = estado;
     }
 
+    public usuario(int id,String usuario, String contrasena, int estado) {
+        this.id=id;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.estado = estado;
+    }
+
+    public usuario() {
+    }
+
+    
+    
     @Override
     public String toString() {
         return "usuario{" + "id=" + id + ", usuario=" + usuario + ", contrasena=" + contrasena + ", estado=" + estado + '}';

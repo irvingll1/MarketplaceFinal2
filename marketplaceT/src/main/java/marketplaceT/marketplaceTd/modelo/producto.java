@@ -1,4 +1,4 @@
-/*
+            /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -22,12 +23,12 @@ public class producto implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+    private String foto;
     private String nombre;
     private String descripcion;
     private String marca;
     private String estado;
-    private int precio;
+    private double precio;
     private String unidadmedida;
     @ManyToOne
     @JoinColumn(name="idcategoriaproducto")
@@ -42,6 +43,14 @@ public class producto implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
     
     public String getNombre() {
@@ -76,11 +85,11 @@ public class producto implements Serializable{
         this.estado = estado;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -110,7 +119,8 @@ public class producto implements Serializable{
 
     @Override
     public String toString() {
-        return "producto{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", marca=" + marca + ", estado=" + estado + ", precio=" + precio + ", unidadmedida=" + unidadmedida + ", categoriaproducto=" + categoriaproducto + ", tienda=" + tienda + '}';
+        return "producto{" + "id=" + id + ", foto=" + foto + ", nombre=" + nombre + ", descripcion=" + descripcion + ", marca=" + marca + ", estado=" + estado + ", precio=" + precio + ", unidadmedida=" + unidadmedida + ", categoriaproducto=" + categoriaproducto + ", tienda=" + tienda + '}';
     }
-  
+
+      
 }

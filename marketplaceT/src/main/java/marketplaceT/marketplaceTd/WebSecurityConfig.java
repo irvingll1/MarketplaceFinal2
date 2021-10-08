@@ -30,10 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LoginSuccessMessage successMesage;
+    
+    
+    private int idCliente;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/index", "/registrocliente/**", "/registrovendedor/**", "/savepersonacliente/**", "/carrito/**","/static/**", "/tienda/**", "/home", "/", "/css/**", "/js/**", "/images/**").permitAll()
+        http.authorizeRequests().antMatchers("/index", "/registrocliente/**",
+                "/registrovendedor/**", "/savepersonacliente/**","/savepersonavendedor/**",
+                "/carrito/**","/static/**", "/tienda/**", "/home", "/", "/css/**", 
+                "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

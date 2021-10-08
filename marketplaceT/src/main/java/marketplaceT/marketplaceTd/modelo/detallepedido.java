@@ -27,12 +27,11 @@ public class detallepedido implements Serializable{
     private int cantidad;
     private double precio;
     private double subtotal;
-    @ManyToOne
-    @JoinColumn(name="idpedido")
-    private pedido pedido;
-    @ManyToOne
-    @JoinColumn(name="idproducto")
-    private producto producto;
+    
+    private int idpedido;
+    private int idproducto;
+
+    private int idcliente;
 
     public int getId() {
         return id;
@@ -74,26 +73,36 @@ public class detallepedido implements Serializable{
         this.subtotal = subtotal;
     }
 
-    public pedido getPedido() {
-        return pedido;
+    public int getIdpedido() {
+        return idpedido;
     }
 
-    public void setPedido(pedido pedido) {
-        this.pedido = pedido;
+    public void setIdpedido(int idpedido) {
+        this.idpedido = idpedido;
     }
 
-    public producto getProducto() {
-        return producto;
+    public int getIdproducto() {
+        return idproducto;
     }
 
-    public void setProducto(producto producto) {
-        this.producto = producto;
+    public void setIdproducto(int idproducto) {
+        this.idproducto = idproducto;
+    }
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
     }
 
     @Override
     public String toString() {
-        return "detallepedido{" + "id=" + id + ", estado=" + estado + ", cantidad=" + cantidad + ", precio=" + precio + ", subtotal=" + subtotal + ", pedido=" + pedido + ", producto=" + producto + '}';
+        return "detallepedido{" + "id=" + id + ", estado=" + estado + ", cantidad=" + cantidad + ", precio=" + precio + ", subtotal=" + subtotal + ", idpedido=" + idpedido + ", idproducto=" + idproducto + ", idcliente=" + idcliente + '}';
     }
+
+    
 
     
     

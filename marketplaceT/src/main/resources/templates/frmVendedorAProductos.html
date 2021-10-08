@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="template :: head">
+    </head>
+    <body>
+        <header th:replace="template :: cabecera"></header>
+        <div class="card bg-light">
+        <div class="row">
+            <div class="column" th:replace="template :: menuvendedor"></div>
+
+            <div class="column">
+
+                <h1>Agregar Productos</h1>
+                <br> <br>
+                <div class="card-body">
+
+                    <form th:action="@{/saveproductos}" th:object="${producto}" method="post" style="width: 350%;margin-left: auto;margin-right: auto;">
+                        <div class="form-group row">
+
+                            <input type="hidden" th:field="*{id}">
+                            
+                            <label class="col-md-2" for="urlfoto">Url de Foto</label> 
+                            <input type="text" th:field="*{foto}" class="form-control form-control-sm col-md-6" id="foto"
+                                   placeholder="foto del producto"> 
+            
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="nombre">Nombre</label> 
+                            <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
+                                   placeholder="nombre del producto"> 
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="descripcion">Descripcion</label> 
+                            <input type="text"  th:field="*{descripcion}" class="form-control form-control-sm col-md-6" id="descripcion"
+                                   placeholder="descripcion del producto"> 
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="marca">Marca</label> 
+                            <input type="text"  th:field="*{marca}" class="form-control form-control-sm col-md-6" id="marca"
+                                   placeholder="marca del producto"> 
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="estado">Estado</label> 
+                            <select th:field="*{estado}" class="form-control form-control-sm col-md-6" id="tienda"> 
+                                <option th:value="1" th:text="activo"/>	
+                                <option th:value="0" th:text="desactivo"/>	
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="precio">Precio</label> 
+                            <input type="text"  th:field="*{precio}" class="form-control form-control-sm col-md-6" id="precio"
+                                   placeholder="precio del producto"> 
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="categoria">Categoria Producto</label> 
+                            <select th:field="*{categoriaproducto}" class="form-control form-control-sm col-md-6" id="provincia"> 
+                                <option th:each="cate:${categoriaproductos}"
+                                        th:value="${cate.id}"
+                                        th:text="${cate.nombre}"		
+                                        />					
+                            </select> 
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="unidadmedida">Unidad Medida</label> 
+                            <select th:field="*{unidadmedida}" class="form-control form-control-sm col-md-6" id="tienda"> 
+                                <option th:value="litros" th:text="litros"/>	
+                                <option th:value="gramos" th:text="gramos"/>	
+                            </select>
+                        </div>
+
+                        <div class="card-footer bg-dark">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+        <footer th:replace="template :: footer"></footer>
+
+    </body>
+</html>

@@ -5,166 +5,148 @@
     <body>
         <header th:replace="template :: cabecera"></header>
 
-        
+
         <div class="card bg-light">
-                <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
-                <div class="card-body">
+            <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+            <div class="card-body">
 
-                    <form th:action="@{/savepersonavendedor}" th:object="${cliente} " method="post">
-                        <a class="text-info">Datos Personales</a>
-                        <hr>
-                        <div class="form-group row">
+                <form th:action="@{/savepersonavendedor}" th:object="${cliente} " method="post"> 
+                    <a class="text-info">Datos Personales</a>
+                    <hr>
+                    <div class="form-group row">
 
-                            <input type="hidden" th:field="*{id}">
-                            <label class="col-md-2" for="nombres">Nombre:</label> 
-                            <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
-                                   placeholder="Nombres del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
-                                   th:errors="*{nombre}">
-                            </small>
-                        </div>
+                        <input type="hidden" th:field="*{id}">
+                        <label class="col-md-2" for="nombres">Nombre:</label> 
+                        <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
+                               placeholder="Nombres del cliente" required> 
+                    </div>
 
-                        <div class="form-group row">
-                            <label class="col-md-2" for="apellidos">Apellidos:</label> 
-                            <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos"
-                                   placeholder="Apellidos del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
-                                   th:errors="*{apellidos}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="apellidos">Sexo</label> 
-                            <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo"> 
-                                <option th:value="masculino">masculino</option>
-                                <option th:value="femenino">femenino</option>
-                            </select>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="fechanacimieno">Fecha Nacimiento</label> 
-                            <input type="date"  th:field="*{fechanacimieno}" class="form-control form-control-sm col-md-6" id="fechanacimieno"
-                                   placeholder="Fecha Nacimiento"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('fechanacimieno')}"
-                                   th:errors="*{fechanacimieno}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="email">Email:</label> 
-                            <input type="text" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email"
-                                   placeholder="Email del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
-                                   th:errors="*{email}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="telefono">Telefono</label> 
-                            <input type="text"  th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
-                                   placeholder="Telefono del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
-                                   th:errors="*{telefono}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="dni">DNI</label> 
-                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                                   placeholder="dni del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                                   th:errors="*{dni}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="direccion">direccion</label> 
-                            <input type="text"  th:field="*{direccion}" class="form-control form-control-sm col-md-6" id="direccion"
-                                   placeholder="direccion del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}"
-                                   th:errors="*{direccion}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="direccion">Provincia</label>                
-                            <select th:field="*{direccion}" class="form-control form-control-sm col-md-6" id="direccion"> 
-					<option th:each="ciudad:${ciudades}"
-						th:value="${ciudad.id}"
-						th:text="${ciudad.ciudad}"		
-					/>					
-				</select>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="direccion">Distrito</label> 
-                            <select th:field="*{direccion}" class="form-control form-control-sm col-md-6" id="direccion"> 
-					<option th:each="ciudad:${ciudades}"
-						th:value="${ciudad.id}"
-						th:text="${ciudad.ciudad}"		
-					/>					
-                            </select>
-                        </div>  
-                        <a class="text-info">Datos de la empresa</a><hr>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="nombre">Nombre Empresa</label> 
-                            <input type="text"  th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
-                                   placeholder="nombre de la empresa"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
-                                   th:errors="*{nombre}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="dni">Telefono</label> 
-                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                                   placeholder="dni del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                                   th:errors="*{dni}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="dni">Descripcion</label> 
-                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                                   placeholder="dni del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                                   th:errors="*{dni}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="dni">Latitud</label> 
-                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                                   placeholder="dni del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                                   th:errors="*{dni}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="dni">Longitud</label> 
-                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                                   placeholder="dni del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                                   th:errors="*{dni}">
-                            </small>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2" for="dni">Direccion Empresa</label> 
-                            <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                                   placeholder="dni del cliente"> 
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                                   th:errors="*{dni}">
-                            </small>
-                        </div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <div class="card-footer bg-dark">
-                            <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-                        </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="apellidos">Apellidos:</label> 
+                        <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos"
+                               placeholder="Apellidos del cliente" required> 
 
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="apellidos">Sexo</label> 
+                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" required> 
+                            <option th:value="masculino">masculino</option>
+                            <option th:value="femenino">femenino</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="fechanacimieno">Fecha Nacimiento</label> 
+                        <input type="date"  th:field="*{fechanacimieno}" class="form-control form-control-sm col-md-6" id="fechanacimieno"
+                               placeholder="Fecha Nacimiento" required> 
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="email">Email:</label> 
+                        <input type="text" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email"
+                               placeholder="Email del cliente" required> 
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="telefono">Telefono</label> 
+                        <input type="text"  th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
+                               placeholder="Telefono del cliente" required> 
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="dni">DNI</label> 
+                        <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                               placeholder="dni del cliente" required> 
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="direccion">Direccion</label> 
+                        <input type="text" th:field="*{direccion}" class="form-control form-control-sm col-md-6" name="direccion"
+                               placeholder="direccion del cliente" required> 
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="provincia">Provincia</label>                
+                        <select class="form-control form-control-sm col-md-6" id="provincia" required> 
+                            <option th:each="provincia:${provinciascrear}"
+                                    th:value="${provincia.id}"
+                                    th:text="${provincia.descripcion}"		
+                                    />					
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="distrito">Distrito</label> 
+                        <select th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
+                            <option th:each="distrito:${distritoscrear}"
+                                    th:value="${distrito.id}"
+                                    th:text="${distrito.descripcion}"		
+                                    />					
+                        </select>
+                    </div> 
+                    <a class="text-info">Datos de la empresa</a><hr>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="nombre">Nombre Empresa</label> 
+                        <input type="text"  th:field="*{tienda.nombre}" class="form-control form-control-sm col-md-6"
+                               placeholder="Nombre de la Empresa"> 
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="dni">Telefono</label> 
+                        <input type="text"  th:field="*{tienda.telefono}" class="form-control form-control-sm col-md-6"
+                               placeholder="Telefono"> 
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="dni">Descripcion</label> 
+                        <input type="text"  th:field="*{tienda.descripcion}" class="form-control form-control-sm col-md-6"
+                               placeholder="Descripcion"> 
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="dni">Latitud</label> 
+                        <input type="text"  th:field="*{tienda.latitud}" class="form-control form-control-sm col-md-6"
+                               placeholder="Latitud"> 
+
+                    </div>
+                    <div class="form-group row">
+                        <input hidden="" type="text"  th:field="*{tienda.estado}" th:value="1"> 
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="dni">Longitud</label> 
+                        <input type="text"  th:field="*{tienda.longitud}" class="form-control form-control-sm col-md-6"
+                               placeholder="Longitud"> 
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="dni">Direccion Empresa</label> 
+                        <input type="text"  th:field="*{tienda.direccion}" class="form-control form-control-sm col-md-6"
+                               placeholder="Direccion Empresa"> 
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="provincia">Provincia</label>                
+                        <select class="form-control form-control-sm col-md-6" id="provincia" required> 
+                            <option th:each="provincia:${provinciascrear}"
+                                    th:value="${provincia.id}"
+                                    th:text="${provincia.descripcion}"		
+                                    />					
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="distrito">Distrito</label> 
+                        <select th:field="*{tienda.distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
+                            <option th:each="distrito:${distritoscrear}"
+                                    th:value="${distrito.id}"
+                                    th:text="${distrito.descripcion}"		
+                                    />					
+                        </select>
+                    </div>
+                    <div class="card-footer bg-dark">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+                    </div>
+                </form>
             </div>
-        
-        
+        </div>
+
+
         <div class="container">
-        
-            
+
+
 
         </div>
 

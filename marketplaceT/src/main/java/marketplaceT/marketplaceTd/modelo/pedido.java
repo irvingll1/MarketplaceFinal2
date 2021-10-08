@@ -30,22 +30,11 @@ public class pedido implements Serializable{
     @ManyToOne
     @JoinColumn(name="idtipopago")
     private tipopago tipopago;
-    @ManyToOne
-    @JoinColumn(name="idcliente")
-    private persona persona;
-    @ManyToOne
-    @JoinColumn(name="idtienda")
-    private tienda tienda;
+
+    private int idvendedor;
+    private int idtienda;
     private int cantidad;
     private double total;
-
-    public int getIdPedido() {
-        return id;
-    }
-
-    public void setIdPedido(int id) {
-        this.id = id;
-    }
 
     public Date getFechapedido() {
         return fechapedido;
@@ -79,13 +68,31 @@ public class pedido implements Serializable{
         this.tipopago = tipopago;
     }
 
-    public persona getPersona() {
-        return persona;
+    public int getId() {
+        return id;
     }
 
-    public void setPersona(persona persona) {
-        this.persona = persona;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public int getIdvendedor() {
+        return idvendedor;
+    }
+
+    public void setIdvendedor(int idvendedor) {
+        this.idvendedor = idvendedor;
+    }
+
+    public int getIdtienda() {
+        return idtienda;
+    }
+
+    public void setIdtienda(int idtienda) {
+        this.idtienda = idtienda;
+    }
+
+    
 
     public int getCantidad() {
         return cantidad;
@@ -105,9 +112,7 @@ public class pedido implements Serializable{
 
     @Override
     public String toString() {
-        return "pedido{" + "idPedido=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", persona=" + persona + ", cantidad=" + cantidad + ", total=" + total + '}';
+        return "pedido{" + "id=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", idvendedor=" + idvendedor + ", idtienda=" + idtienda + ", cantidad=" + cantidad + ", total=" + total + '}';
     }
 
-    
-    
 }

@@ -5,54 +5,78 @@
     <body>
         <header th:replace="template :: cabecera"></header>
 
-        <div class="row">
+        <div class="row ">
             <div class="column" th:replace="template :: menuvendedor"></div>
 
-            <div class="column">
-               
+            <div class="column text-center">
+
                 <h1>Productos</h1>
-                    <a class="btn btn-primary btn-sm text-center" th:href="@{/agregarp}"
-                       th:text="'Agregar Producto'" title="Agregar Producto ">
-                    </a>
-                    <br> <br>
-                    <table id="example" class="table text-center" style="width: 50%;margin-left: auto;margin-right: auto;">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Marca</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">Eliminar</th>
+                <a class="btn btn-primary btn-sm text-center" th:href="@{/agregarp}"
+                   th:text="'Agregar Producto'" title="Agregar Producto ">
+                </a>
+                <br> <br>
+                <table id="example" class="table text-center" style="width: 70%;margin-left: auto;margin-right: auto;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Unidad</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Eliminar</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="cl:${productos}">
-                                <th scope="row" th:text="${cl.id}"></th>
-                                <td th:text="${cl.nombre}"></td>
-                                <td th:text="${cl.descripcion}"></td>
-                                <td th:text="${cl.marca}"></td>
-                                <td th:text="${cl.precio}"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cl:${productos}">
+                            <th scope="row" th:text="${cl.id}"></th>
+                            <td th:text="${cl.nombre}"></td>
+                            <td th:text="${cl.descripcion}"></td>
+                            <td th:text="${cl.marca}"></td>
+                            <td th:text="${cl.precio}"></td>
+                            <td th:text="${cl.unidadmedida}"></td>                        
+                            <td th:text="${cl.categoriaproducto.nombre}"></td>
+                            <td th:text="${cl.estado == '1'} ? 'Activo' : 'Desactivado'"></td>
+                            <td>
+                                <a class="btn btn-success btn-sm" th:href="@{/editproducto/} + ${cl.id}"
+                                   th:text="'Editar'" title="Editar Registro">
+                                </a>
+                            </td>	
+                            <td>
+                                <a class="btn btn-danger btn-sm" th:href="@{/deleteproducto/} + ${cl.id}"
+                                   th:text="'Eliminar'" title="Eliminar Registro"
+                                   onclick="return confirm('Esta seguro de eliminar el registro?');">
+                                </a>
+                            </td>					
+                        </tr>
+                    </tbody>
+                </table>
+                <nav  aria-label="Page navigation example" th:if = "${totalPages > 1}" >
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                <a class="page-link" style="display:inline;" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+<!--                                <span th:unless="${currentPage != i}">[[${i}]]</span>-->
+                            </span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" style="display:inline;" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Siguiente</a>
+<!--                            <span th:unless="${currentPage < totalPages}">Siguiente</span>-->
+                        </li>
 
-                                <td>
-                                    <a class="btn btn-success btn-sm" th:href="@{/editproducto/} + ${cl.id}"
-                                       th:text="'Editar'" title="Editar Registro">
-                                    </a>
-                                </td>	
-                                <td>
-                                    <a class="btn btn-danger btn-sm" th:href="@{/deleteproducto/} + ${cl.id}"
-                                       th:text="'Eliminar'" title="Eliminar Registro"
-                                       onclick="return confirm('Esta seguro de eliminar el registro?');">
-                                    </a>
-                                </td>					
-                            </tr>
-                        </tbody>
-                    </table>
+                        <li class="page-item" style="display:inline;">
+                            <a class="page-link" style="display:inline;"  th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Ultimo</a>
+<!--                            <span th:unless="${currentPage < totalPages}">Ultimo</span>-->
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        
+
         <footer th:replace="template :: footer"></footer>
 
     </body>

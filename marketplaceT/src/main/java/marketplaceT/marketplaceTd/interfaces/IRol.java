@@ -17,4 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IRol extends CrudRepository<rol, Integer> {
     
+    
+    
 }

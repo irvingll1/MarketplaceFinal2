@@ -10,6 +10,9 @@ import marketplaceT.marketplaceTd.interfaces.Iproducto;
 import marketplaceT.marketplaceTd.interfaceservice.IproductoService;
 import marketplaceT.marketplaceTd.modelo.producto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +24,7 @@ public class productoService implements IproductoService{
 
     @Autowired
     private Iproducto data;
+    
     @Override
     public List<producto> listar() {
         return (List<producto>)data.findAll();
@@ -40,5 +44,13 @@ public class productoService implements IproductoService{
     public void delete(int id) {
         data.deleteById(id);
     }
+
+    @Override
+    public Page<producto> findPaginated(int pagno, int pagesize) {
+        Pageable pageable = PageRequest.of(pagno-1, pagesize);
+        return data.findAll(pageable);
+    }
     
+
+
 }
