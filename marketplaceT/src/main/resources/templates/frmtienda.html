@@ -8,6 +8,7 @@
         <div class="container">
 
             <h2 class="h4 m-4 text-primary">Tienda</h2>
+
             <div class="card" >
                 <div class="card-body">
                     <a>Provincia</a>
@@ -28,16 +29,23 @@
                                 />					
                     </select>
                 </div>
+
                 <div class="card-body">
                     <br>
                     <a>Tienda</a>
-                    <select th:field="*{tiendas}" class="form-control form-control-sm col-md-6" id="tienda"> 
-                        <option th:each="tienda:${tiendas}"
-                                th:value="${tienda.id}"
-                                th:text="${tienda.nombre}"		
-                                />					
-                    </select>
+                    <form th:action="@{/filtrotienda}" th:object="${tienda}" method="get">
+                        <select class="form-control form-control-sm col-md-6" name="tienda">
+                            <option>Todas las tiendas</option>
+                            <option th:each="tienda:${tiendas}"
+                                    th:value="${tienda.id}"
+                                    th:text="${tienda.nombre}"		
+                                    />					
+                        </select>
+                        <p><input type="submit" value="Buscar" /></p>
+                    </form>
                 </div>
+
+
             </div>
             <br><br>
             <div id="map"></div>
@@ -50,9 +58,9 @@
                     aria-labelledby="pills-profile-tab"
                     >
                     <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-
                         <div class="col d-flex justify-content-center mb-auto" th:each="producto: ${productos}">
-                            <div  class="card shadow mb-2 bg-light rounded">
+
+                            <div class="card shadow mb-2 bg-light rounded">
                                 <div hidden=""><p class="ideee"  th:text="${producto.id}" ></p></div>
                                 <h5  class="card-title pt-4 text-center text-primary" th:text="${producto.nombre}"></h5>
                                 <img th:src="${producto.foto}" class="card-img-top" alt="..." width="100" height="200">
@@ -60,45 +68,48 @@
                                     <p class="card-text text-black-50 description" th:text="${producto.descripcion}"></p>
                                     <h5 class="text-primary">Precio: <span th:text="${producto.precio}" class="precio"></span></h5>
                                     <div class="d-grid gap-2">
+
                                         <button  class="btn btn-primary button">Añadir a Carrito</button>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div
-        class="tab-pane fade carrito"
-        id="pills-contact"
-        role="tabpanel"
-        aria-labelledby="pills-contact-tab"
-      >
-      <br>
-      <table class="table table-hover">
-        <thead>
-          <tr class="text-primary">
-            <th scope="col">#</th>
-            <th scope="col">Productos</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Cantidad</th>
-          </tr>
-        </thead>
-        <tbody class="tbody">
-          
-        
-          
-        </tbody>
-      </table>
-      <br><br>
-      <div class="row mx-4">
-        <div class="col">
-          <h3 class="itemCartTotal">Total: 0</h3>
-        </div>
-        <div class="col d-flex justify-content-end">
-          <button class="btn btn-success">COMPRAR</button>
-        </div>
-      </div>
-      
-      </div>
+                        class="tab-pane fade carrito"
+                        id="pills-contact"
+                        role="tabpanel"
+                        aria-labelledby="pills-contact-tab"
+                        >
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-primary">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Productos</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody">
+
+
+
+                            </tbody>
+                        </table>
+                        <br><br>
+                        <div class="row mx-4">
+                            <div class="col">
+                                <h3 class="itemCartTotal">Total: 0</h3>
+                                <input class="json" name="json" type="hidden" value="1">
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-success">COMPRAR</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,7 +118,7 @@
     </body>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9_9XBYADMhQ4d_mI35CewUqouPE1rlA&callback=iniciarMap"></script>
     <script th:inline="javascript">
-    /*<![CDATA[*/
+        /*<![CDATA[*/
         function iniciarMap() {
             var map;
             var bounds = new google.maps.LatLngBounds();
@@ -119,18 +130,9 @@
             map.setTilt(50);
 
 // Multiple markers location, latitude, and longitude
-//            var coord = {lat:-16.3997172 ,lng: -71.5383948};
             var markers = [[${tiendas}]];
             console.log(markers);
 
-// Info window content
-            var infoWindowContent;
-            for (i = 0; i < markers.length; i++) {
-            infoWindowContent +=
-                '<div class="info_content">' +
-                            '<h3>wewerwer'+markers[i].nombre+'</h3>' +
-                            '<p>werwer'+markers[i].descripcion+'</p>' + '</div>';
-            }
 // Add multiple markers to map
             var infoWindow = new google.maps.InfoWindow(), marker, i;
 
@@ -147,8 +149,11 @@
                 // Add info window to marker    
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infoWindow.setContent(infoWindowContent[i].descripcion);
+                        infoWindow.setContent('<div class="info_content">' +
+                                '<h3>' + markers[i].nombre + '</h3>' +
+                                '<p>' + markers[i].descripcion + '</p>' + '</div>');
                         infoWindow.open(map, marker);
+                        //alert(markers[i].nombre);
                     }
                 })(marker, i));
 
@@ -165,6 +170,6 @@
         }
 // Load initialize function
 //        google.maps.event.addDomListener(window, 'load', initMap);
-    /*]]>*/
+        /*]]>*/
     </script>
 </html>

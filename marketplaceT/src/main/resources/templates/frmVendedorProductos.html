@@ -59,17 +59,17 @@
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
                             <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                <a class="page-link" style="display:inline;" th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                                <a class="page-link" style="display:inline;" th:if="${currentPage != i}" th:href="@{'/page1/' + ${i}}">[[${i}]]</a>
 <!--                                <span th:unless="${currentPage != i}">[[${i}]]</span>-->
                             </span>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" style="display:inline;" th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Siguiente</a>
+                            <a class="page-link" style="display:inline;" th:if="${currentPage < totalPages}" th:href="@{'/page1/' + ${currentPage + 1}}">Siguiente</a>
 <!--                            <span th:unless="${currentPage < totalPages}">Siguiente</span>-->
                         </li>
 
                         <li class="page-item" style="display:inline;">
-                            <a class="page-link" style="display:inline;"  th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Ultimo</a>
+                            <a class="page-link" style="display:inline;"  th:if="${currentPage < totalPages}" th:href="@{'/page1/' + ${totalPages}}">Ultimo</a>
 <!--                            <span th:unless="${currentPage < totalPages}">Ultimo</span>-->
                         </li>
                     </ul>

@@ -13,7 +13,7 @@
                 role="tabpanel"
                 >
                 <br>
-                <form action="/comprar" method="post">
+                <<form th:action="@{agregacarrito}" th:object="${carritos}" method="post">
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-primary">
@@ -23,18 +23,16 @@
                                 <th scope="col">Cantidad</th>
                             </tr>
                         </thead>
-                        <tbody class="tbody">
-
-
-
+                        <tbody  class="tbody">
+  
                         </tbody>
                     </table>
 
                     <div class="row mx-4">
                         <div class="col d-flex justify-content-end">
-                            <h3 class="itemCartTotal">Total: 0</h3>
+                            <h3  class="itemCartTotal"></h3>
+                            <input th:field="*{nombre}" class="json" name="json" type="hidden" value="1">
                         </div>
-
                     </div>
                     <hr>
                     <div class="container">
@@ -45,7 +43,7 @@
                                 <label>Metodo de pago</label>
 
                                 <select class="form-control form-control-sm col-md-6" name="tipopago"> 
-                                    <option th:each="tipopago:${tipopagos}"
+                                    <option th:field="*{tipopago}" th:each="tipopago:${tipopagos}"
                                             th:value="${tipopago.id}"
                                             th:text="${tipopago.nombre}"		
                                             />					
@@ -53,7 +51,7 @@
                             </div>
                             <div class="col">
                                 <label class="" for="fecha">Fecha Estimada</label> 
-                                <input type="datetime-local" class="form-control form-control-sm" id="fecha"
+                                <input type="datetime-local" th:field="*{fecha}" class="form-control form-control-sm" id="fecha"
                                        placeholder="Fecha Estimada">
                             </div>
                         </div>
@@ -61,7 +59,7 @@
                     </div>
                     <hr>
                     <div class="col d-flex justify-content-end">
-                        <button class="btn btn-success">COMPRAR</button>
+                        <button sec:authorize="isAuthenticated()"  class="btn btn-success">COMPRAR</button>
                     </div>
                 </form>
             </div>

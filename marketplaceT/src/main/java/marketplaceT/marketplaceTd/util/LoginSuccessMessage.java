@@ -28,7 +28,7 @@ public class LoginSuccessMessage extends SimpleUrlAuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, 
             Authentication authentication) throws IOException, ServletException {
         SessionFlashMapManager fManager = new SessionFlashMapManager();
-        FlashMap fMap = new FlashMap();        
+        FlashMap fMap = new FlashMap();  
         fMap.put("success", "Ha iniciado session con exito");
         fManager.saveOutputFlashMap(fMap, request, response);
         super.onAuthenticationSuccess(request, response, authentication); //To change body of generated methods, choose Tools | Templates.

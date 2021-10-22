@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -24,6 +27,8 @@ public class atencionpedido implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date Fechapedido;
     @ManyToOne
     @JoinColumn(name="idpedido")

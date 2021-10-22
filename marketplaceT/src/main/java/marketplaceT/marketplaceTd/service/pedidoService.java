@@ -9,7 +9,11 @@ import java.util.List;
 import marketplaceT.marketplaceTd.interfaces.Ipedido;
 import marketplaceT.marketplaceTd.interfaceservice.IpedidoService;
 import marketplaceT.marketplaceTd.modelo.pedido;
+import marketplaceT.marketplaceTd.modelo.producto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +25,7 @@ public class pedidoService implements IpedidoService{
 
     @Autowired
     private Ipedido data;
+    
     @Override
     public List<pedido> listar() {
         return (List<pedido>)data.findAll();
@@ -41,4 +46,9 @@ public class pedidoService implements IpedidoService{
         data.deleteById(id);
     }
     
+    @Override
+    public Page<pedido> findPaginated(int pagno, int pagesize) {
+        Pageable pageable = PageRequest.of(pagno-1, pagesize);
+        return data.findAll(pageable);
+    }
 }

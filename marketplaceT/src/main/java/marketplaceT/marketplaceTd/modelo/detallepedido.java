@@ -28,10 +28,17 @@ public class detallepedido implements Serializable{
     private double precio;
     private double subtotal;
     
-    private int idpedido;
-    private int idproducto;
+    
+    @ManyToOne
+    @JoinColumn(name="idpedido")
+    private pedido pedido;
+    @ManyToOne
+    @JoinColumn(name="idproducto")
+    private producto producto;
 
-    private int idcliente;
+    @ManyToOne
+    @JoinColumn(name="idcliente")
+    private persona persona;
 
     public int getId() {
         return id;
@@ -73,39 +80,34 @@ public class detallepedido implements Serializable{
         this.subtotal = subtotal;
     }
 
-    public int getIdpedido() {
-        return idpedido;
+    public pedido getPedido() {
+        return pedido;
     }
 
-    public void setIdpedido(int idpedido) {
-        this.idpedido = idpedido;
+    public void setPedido(pedido pedido) {
+        this.pedido = pedido;
     }
 
-    public int getIdproducto() {
-        return idproducto;
+    public producto getProducto() {
+        return producto;
     }
 
-    public void setIdproducto(int idproducto) {
-        this.idproducto = idproducto;
+    public void setProducto(producto producto) {
+        this.producto = producto;
     }
 
-    public int getIdcliente() {
-        return idcliente;
+    public persona getPersona() {
+        return persona;
     }
 
-    public void setIdcliente(int idcliente) {
-        this.idcliente = idcliente;
+    public void setPersona(persona persona) {
+        this.persona = persona;
     }
 
     @Override
     public String toString() {
-        return "detallepedido{" + "id=" + id + ", estado=" + estado + ", cantidad=" + cantidad + ", precio=" + precio + ", subtotal=" + subtotal + ", idpedido=" + idpedido + ", idproducto=" + idproducto + ", idcliente=" + idcliente + '}';
+        return "detallepedido{" + "id=" + id + ", estado=" + estado + ", cantidad=" + cantidad + ", precio=" + precio + ", subtotal=" + subtotal + ", pedido=" + pedido + ", producto=" + producto + ", persona=" + persona + '}';
     }
-
-    
-
-    
-    
     
     
 }

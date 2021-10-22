@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -24,15 +27,24 @@ public class pedido implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date fechapedido;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date fechaenvio;
     private int estado;
     @ManyToOne
     @JoinColumn(name="idtipopago")
     private tipopago tipopago;
+    
+    @ManyToOne
+    @JoinColumn(name="idvendedor")
+    private persona  persona;
+    @ManyToOne
+    @JoinColumn(name="idtienda")
+    private tienda tienda;
 
-    private int idvendedor;
-    private int idtienda;
     private int cantidad;
     private double total;
 
@@ -76,21 +88,39 @@ public class pedido implements Serializable{
         this.id = id;
     }
 
-    public int getIdvendedor() {
-        return idvendedor;
+//    public int getIdvendedor() {
+//        return idvendedor;
+//    }
+//
+//    public void setIdvendedor(int idvendedor) {
+//        this.idvendedor = idvendedor;
+//    }
+//
+//    public int getIdtienda() {
+//        return idtienda;
+//    }
+//
+//    public void setIdtienda(int idtienda) {
+//        this.idtienda = idtienda;
+//    }
+
+    public persona getPersona() {
+        return persona;
     }
 
-    public void setIdvendedor(int idvendedor) {
-        this.idvendedor = idvendedor;
+    public void setPersona(persona persona) {
+        this.persona = persona;
     }
 
-    public int getIdtienda() {
-        return idtienda;
+    public tienda getTienda() {
+        return tienda;
     }
 
-    public void setIdtienda(int idtienda) {
-        this.idtienda = idtienda;
+    public void setTienda(tienda tienda) {
+        this.tienda = tienda;
     }
+    
+    
 
     
 
@@ -110,9 +140,15 @@ public class pedido implements Serializable{
         this.total = total;
     }
 
+//    @Override
+//    public String toString() {
+//        return "pedido{" + "id=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", idvendedor=" + idvendedor + ", idtienda=" + idtienda + ", cantidad=" + cantidad + ", total=" + total + '}';
+//    }
+
     @Override
     public String toString() {
-        return "pedido{" + "id=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", idvendedor=" + idvendedor + ", idtienda=" + idtienda + ", cantidad=" + cantidad + ", total=" + total + '}';
+        return "pedido{" + "id=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", persona=" + persona + ", tienda=" + tienda + ", cantidad=" + cantidad + ", total=" + total + '}';
     }
+    
 
 }

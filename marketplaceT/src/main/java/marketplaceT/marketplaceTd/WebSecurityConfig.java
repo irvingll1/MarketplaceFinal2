@@ -37,9 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/index", "/registrocliente/**",
-                "/registrovendedor/**", "/savepersonacliente/**","/savepersonavendedor/**",
-                "/carrito/**","/static/**", "/tienda/**", "/home", "/", "/css/**", 
-                "/js/**", "/images/**").permitAll()
+                "/registrovendedor/**","/registro/**", "/savepersonacliente/**","/savepersonavendedor/**",
+                "/carrito/**","/static/**", "/tienda/**", "/home", "/**", "/css/**", 
+                "/js/**","/comprando/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**","/static/**");
+                .antMatchers("/resources/static/**","/agregacarrito/**");
     }
 
     @Autowired

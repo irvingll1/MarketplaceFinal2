@@ -5,13 +5,13 @@
  */
 package marketplaceT.marketplaceTd.interfaces;
 import marketplaceT.marketplaceTd.modelo.pedido;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 /**
  *
  * @author PC
  */
 @Repository
-public interface Ipedido extends CrudRepository<pedido, Integer>{
+public interface Ipedido extends JpaRepository<pedido, Integer>{
     
 }

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="template :: head">
+        <style>
+            /* Establezca siempre la altura del mapa explícitamente para definir el tamaño del div
+            * elemento que contiene el mapa. */
+            #map {
+                width: 600px;
+                height: 400px;
+                
+            }
+            /* Opcional: hace que la página de muestra llene la ventana. */
+
+        </style>
     </head>
     <body>
         <header th:replace="template :: cabecera"></header>
@@ -99,19 +110,70 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="dni">Latitud</label> 
-                        <input type="text"  th:field="*{tienda.latitud}" class="form-control form-control-sm col-md-6"
+                        <input type="text"  th:field="*{tienda.latitud}" class="lati form-control form-control-sm col-md-6"
                                placeholder="Latitud"> 
-
-                    </div>
-                    <div class="form-group row">
-                        <input hidden="" type="text"  th:field="*{tienda.estado}" th:value="1"> 
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="dni">Longitud</label> 
-                        <input type="text"  th:field="*{tienda.longitud}" class="form-control form-control-sm col-md-6"
+                        <input type="text"  th:field="*{tienda.longitud}" class="longi form-control form-control-sm col-md-6"
                                placeholder="Longitud"> 
 
                     </div>
+                    <div id="map"></div>
+                    <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9_9XBYADMhQ4d_mI35CewUqouPE1rlA&callback=initMap">
+                    </script>
+                    <script async defer>
+                        var map;
+                        var lati;
+                        var longi;
+
+                        // Devolución de llamada ejecutada cuando se ha cargado el script de Google Maps
+                        function initMap() {
+                            map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 10,
+                                center: {
+                                    lat: -16.4096939, 
+                                    lng: -71.5405849
+                                }
+                            });
+
+                            // Agregar oyente de clics en el mapa
+                            google.maps.event.addListener(map, "click", function (event) {
+                                var latLng = event.latLng;
+                                marker = new google.maps.Marker({
+                                   position: event.latLng,
+                                   map: map
+                                 });
+
+                                //alert("Latitude: " + latLng.lat() + ", Longitude: " + latLng.lng());
+                                lati=latLng.lat();
+                                longi=latLng.lng();
+                                var latitud = document.querySelector('.lati').addEventListener("click", cambiaValores);
+                                var longitud = document.querySelector('.longi').addEventListener("click", cambiaValores);
+                                
+                                
+                            });
+                            latitud.value=latLng.lat();
+                            longitud.value=latLng.lng();
+//                            latitud.innerHTML=`${latLng.lng()}`
+//                            longitud.innerHTML=`${latLng.lng()}`
+                        }
+
+                        function cambiaValores() {
+                            var la = document.querySelector(".lati");
+                            var lo = document.querySelector(".longi");
+                            la.value = lati;
+                            lo.value = longi;
+}
+                    </script>
+                    <div class="form-group row">
+                        <input hidden="" type="text"  th:field="*{tienda.estado}" th:value="1"> 
+                    </div>
+                    
+                    
+                    
+                    
                     <div class="form-group row">
                         <label class="col-md-2" for="dni">Direccion Empresa</label> 
                         <input type="text"  th:field="*{tienda.direccion}" class="form-control form-control-sm col-md-6"

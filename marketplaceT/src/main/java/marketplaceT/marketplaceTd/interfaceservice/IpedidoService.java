@@ -7,6 +7,7 @@ package marketplaceT.marketplaceTd.interfaceservice;
 
 import java.util.List;
 import marketplaceT.marketplaceTd.modelo.pedido;
+import org.springframework.data.domain.Page;
 
 /**
  *
@@ -17,4 +18,5 @@ public interface IpedidoService {
     public pedido listarId(int id);
     public void save(pedido p);
     public void delete(int id);
+    Page<pedido> findPaginated(int pagno,int pagesize); 
 }

@@ -9,7 +9,11 @@ import java.util.List;
 import marketplaceT.marketplaceTd.interfaces.Iatencionpedido;
 import marketplaceT.marketplaceTd.interfaceservice.IatencionpedidoService;
 import marketplaceT.marketplaceTd.modelo.atencionpedido;
+import marketplaceT.marketplaceTd.modelo.pedido;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -42,5 +46,9 @@ public class atencionpedidoService implements IatencionpedidoService{
     public void delete(int id) {
         data.deleteById(id);
     }
-    
+    @Override
+    public Page<atencionpedido> findPaginated(int pagno, int pagesize) {
+        Pageable pageable = PageRequest.of(pagno-1, pagesize);
+        return data.findAll(pageable);
+    }
 }
