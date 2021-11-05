@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -26,10 +29,13 @@ public class calificacion implements Serializable{
     private int id;
     
     private int numero;
-    private int cometario;
-    private int idpersona;
-    private Date fecha;
+    private String cometario;
     
+    private int idpersona;
+    
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date fecha;   
     @ManyToOne
     @JoinColumn(name="idtienda")
     private tienda tienda;
@@ -50,11 +56,11 @@ public class calificacion implements Serializable{
         this.numero = numero;
     }
 
-    public int getCometario() {
+    public String getCometario() {
         return cometario;
     }
 
-    public void setCometario(int cometario) {
+    public void setCometario(String cometario) {
         this.cometario = cometario;
     }
 

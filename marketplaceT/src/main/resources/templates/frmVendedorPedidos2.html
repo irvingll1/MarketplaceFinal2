@@ -5,17 +5,18 @@
     </head>
 
     <body>    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <header th:replace="template :: cabecera"></header>
         <div class="row">
-            <div class="column" th:replace="template :: menuvendedor"></div>
-            <div class="column text-center">
+            <nav class="column" th:replace="template :: menuvendedor"></nav>
+             <div class="container" style="position: absolute;top: 8%;left: 20%;bottom: 50%;width: 100%;">
 
                 <h1>Pedidos</h1>
 <!--                <a class="btn btn-primary btn-sm text-center" th:href="@{/agregarp}"
                    th:text="'Pedido'" title="Pedido ">
                 </a>-->
                 <br> <br>               
-                <table id="example2" class="table text-center" style="width: 70%;margin-left: auto;margin-right: auto;">
+                <table id="example" class="table text-center" style="width: 70%;margin-left: auto;margin-right: auto;">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Id</th>
@@ -53,25 +54,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <nav  aria-label="Page navigation example" th:if = "${totalPages2 > 1}" >
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <span th:each="i: ${#numbers.sequence(1, totalPages2)}">
-                                <a class="page-link" style="display:inline;" th:if="${currentPage2 != i}" th:href="@{'/page2/' + ${i}}">[[${i}]]</a>
-<!--                                <span th:unless="${currentPage != i}">[[${i}]]</span>-->
-                            </span>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" style="display:inline;" th:if="${currentPage2 < totalPages2}" th:href="@{'/page2/' + ${currentPage2 + 1}}">Siguiente</a>
-<!--                            <span th:unless="${currentPage < totalPages}">Siguiente</span>-->
-                        </li>
-
-                        <li class="page-item" style="display:inline;">
-                            <a class="page-link" style="display:inline;"  th:if="${currentPage2 < totalPages2}" th:href="@{'/page2/' + ${totalPages2}}">Ultimo</a>
-<!--                            <span th:unless="${currentPage < totalPages}">Ultimo</span>-->
-                        </li>
-                    </ul>
-                </nav>
+                
             </div>
         </div>
         <footer th:replace="template :: footer"></footer>

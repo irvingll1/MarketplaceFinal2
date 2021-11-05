@@ -17,22 +17,23 @@
                         <label class="col-md-2" for="nombre">Nombre:</label> 
                         <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
                                placeholder="Nombres del cliente" required> 
-<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
                                th:errors="*{nombre}">
-                        </small>-->
+                        </small>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-md-2" for="apellidos">Apellidos:</label> 
                         <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos"
-                               placeholder="Apellidos del cliente" required> 
-<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
+                               placeholder="Apellidos del cliente" > 
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
                                th:errors="*{apellidos}">
-                        </small>-->
+                        </small>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="apellidos">Sexo</label> 
-                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" required> 
+                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" required>
+                            <option value="0" selected>Eliga su sexo</option>
                             <option th:value="masculino">masculino</option>
                             <option th:value="femenino">femenino</option>
                         </select>
@@ -46,13 +47,13 @@
                         <label class="col-md-2" for="email">Email:</label> 
                         <input type="email" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email"
                                placeholder="Email del cliente" required> 
-<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
                                th:errors="*{email}">
-                        </small>-->
+                        </small>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="telefono">Telefono</label> 
-                        <input type="text"  th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
+                        <input type="text" pattern="[0-9]+" maxlength="9" th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
                                placeholder="Telefono del cliente" required> 
 <!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
                                th:errors="*{telefono}">
@@ -60,7 +61,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="dni">DNI</label> 
-                        <input type="text"  th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                        <input type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
                                placeholder="dni del cliente" required> 
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
                                th:errors="*{dni}">
@@ -75,6 +76,7 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="provincia">Provincia</label>                
                         <select class="form-control form-control-sm col-md-6" id="provincia" required> 
+                            <option th:value="0" selected>Eliga una provincia</option>
                             <option th:each="provincia:${provinciascrear}"
                                     th:value="${provincia.id}"
                                     th:text="${provincia.descripcion}"		
@@ -84,7 +86,8 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="distrito">Distrito</label> 
                         <select th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
-                        <option th:each="distrito:${distritoscrear}"
+                            <option value="0" selected>Eliga un distrito</option>
+                            <option th:each="distrito:${distritoscrear}"
                                 th:value="${distrito.id}"
                                 th:text="${distrito.descripcion}"		
                                 />					
@@ -104,6 +107,21 @@
 
 
         </div>
+        
+        <script type="text/javascript">
+                // Initialize our function when the document is ready for events.
+                jQuery(document).ready(function(){
+                        // Listen for the input event.
+                        jQuery("#telefono").on('input', function (evt) {
+                                // Allow only numbers.
+                                jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                        });
+                        jQuery("#dni").on('input', function (evt) {
+                                // Allow only numbers.
+                                jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                        });
+                });
+        </script> 
 
         <footer th:replace="template :: footer"></footer>
 

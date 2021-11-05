@@ -7,17 +7,17 @@ package marketplaceT.marketplaceTd.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -32,15 +32,26 @@ public class persona implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @NotEmpty
     private String nombre;
+    @NotEmpty
     private String apellidos;
+    @NotEmpty
     private String sexo;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = ISO.DATE)
+    @NotEmpty
     private Date fechanacimieno;
+    @NotEmpty
+    @Email
     private String email;
+    @NotEmpty
+    @Pattern(regexp="[0-9]{9}")
     private int telefono;
+    @NotEmpty
+    @Pattern(regexp="[0-9]{9}")
     private int dni;
+    @NotEmpty
     private String direccion;
     @ManyToOne
     @JoinColumn(name="idusuario")
@@ -50,6 +61,7 @@ public class persona implements Serializable{
     private tienda tienda;
     @ManyToOne
     @JoinColumn(name="iddistrito")
+    @NotEmpty
     private distrito distrito;
 
     public int getId() {

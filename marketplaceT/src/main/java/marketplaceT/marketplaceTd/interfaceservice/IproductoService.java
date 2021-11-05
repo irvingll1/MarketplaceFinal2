@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.interfaceservice;
 
+import java.util.HashMap;
 import java.util.List;
 import marketplaceT.marketplaceTd.modelo.producto;
 import org.springframework.data.domain.Page;

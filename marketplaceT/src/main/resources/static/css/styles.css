@@ -95,3 +95,15 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.centrado2{
+  position: absolute;
+  margin-top: 120px;
+  max-width: 600px;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/*calificacion*/

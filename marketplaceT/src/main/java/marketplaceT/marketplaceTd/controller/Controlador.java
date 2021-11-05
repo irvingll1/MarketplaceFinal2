@@ -9,7 +9,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import static java.time.Instant.now;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import marketplaceT.marketplaceTd.modelo.usuario;
 import java.util.List;
 import javax.validation.Valid;
@@ -17,6 +24,7 @@ import marketplaceT.marketplaceTd.interfaceservice.IPersonaService;
 import marketplaceT.marketplaceTd.interfaceservice.IRolService;
 import marketplaceT.marketplaceTd.interfaceservice.IUsuarioService;
 import marketplaceT.marketplaceTd.interfaceservice.IatencionpedidoService;
+import marketplaceT.marketplaceTd.interfaceservice.IcalificacionService;
 import marketplaceT.marketplaceTd.interfaceservice.IcategoriaproductoService;
 import marketplaceT.marketplaceTd.interfaceservice.IdetallepedidoService;
 import marketplaceT.marketplaceTd.interfaceservice.IdistritoService;
@@ -26,6 +34,7 @@ import marketplaceT.marketplaceTd.interfaceservice.IprovinciaService;
 import marketplaceT.marketplaceTd.interfaceservice.ItiendaService;
 import marketplaceT.marketplaceTd.interfaceservice.ItipopagoService;
 import marketplaceT.marketplaceTd.modelo.atencionpedido;
+import marketplaceT.marketplaceTd.modelo.calificacion;
 import marketplaceT.marketplaceTd.modelo.carrito;
 import marketplaceT.marketplaceTd.modelo.detallepedido;
 import marketplaceT.marketplaceTd.modelo.distrito;
@@ -95,9 +104,13 @@ public class Controlador {
     
     @Autowired
     private IatencionpedidoService atencionpedidoService;
+    
+    @Autowired
+    private IcalificacionService calificacionService;
 
 //    private int idCliente;
     private List<persona> listaper;
+    private tienda tiendacali;
 
     @GetMapping({"/index", "/home", "/"})
     public String index(Model model, Principal principal) {
@@ -209,6 +222,7 @@ public class Controlador {
     @GetMapping("/tienda")
     public String crearTienda(Model model,Principal principal) {
         tienda objtienda = new tienda();
+        calificacion objcalif = new calificacion();
         List<provincia> listadoprovincia = provinciaService.listar();
         List<distrito> listadodistrito = distritoService.listar();
         List<tienda> listadotienda = tiendaService.listar();
@@ -229,7 +243,7 @@ public class Controlador {
         model.addAttribute("tiendas", listadotienda);
         model.addAttribute("tienda", objtienda);
         model.addAttribute("productos", listadoproducto2);
-
+        model.addAttribute("calificacion", objcalif);
 
         return "frmtienda";
     }
@@ -248,33 +262,57 @@ public class Controlador {
         return "frmcarrito";
     }
     @GetMapping("/filtrotienda")
-    public String tiendaVendedor(@ModelAttribute tienda tienda,RedirectAttributes attribute,Model model){
+    public String tiendaVendedor(@ModelAttribute tienda tienda,Principal principal,RedirectAttributes attribute,Model model){
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
         List<provincia> listadoprovincia = provinciaService.listar();
         List<distrito> listadodistrito = distritoService.listar();
         List<tienda> listadotienda = tiendaService.listar();
+        calificacion objcalif = new calificacion();
         tienda objtienda = new tienda();
         System.out.println("ID TIENDA:"+tienda.toString());
+//        if(tiendacali.getId()>0){
+//            
+//        }
+        tiendacali=tienda;
+        
         List<producto> listadoproducto = productoService.listar();
         List<producto> listadoproducto2= new ArrayList();
         
-        
         for (int i = 0; i < listadoproducto.size(); i++) {
-          
             if(!listadoproducto.get(i).getEstado().equals("0")){
                 if(listadoproducto.get(i).getTienda().equals(tienda)){
                     listadoproducto2.add(listadoproducto.get(i));
                 }      
-            }
+            }  
         }
-         model.addAttribute("provincias", listadoprovincia);
+        model.addAttribute("provincias", listadoprovincia);
         model.addAttribute("distritos", listadodistrito);
         model.addAttribute("tiendas", listadotienda);
+        model.addAttribute("calificacion", objcalif);
         model.addAttribute("tienda", objtienda);
         model.addAttribute("productos", listadoproducto2);
         
         return "frmtienda";
     }
-    
+    @GetMapping("/cali")
+    public String calificatienda(@ModelAttribute calificacion calificacion,Principal principal,RedirectAttributes attribute,Model model){
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+        
+        Date todaysDate = Date.from(Instant.now());
+        
+        calificacion.setFecha(todaysDate);
+        calificacion.setIdpersona(listaper.get(0).getId());
+        calificacion.setTienda(tiendacali);
+        
+        
+        System.out.println("calificacion: "+calificacion.toString());
+        calificacionService.save(calificacion);
+        return "home";
+    }
     
     
     @PostMapping("/agregacarrito")
@@ -383,7 +421,7 @@ public class Controlador {
                 listadoproducto2.add(listadoproducto.get(i));
             }
         }
-//        System.out.println("listaproductos"+listadoproducto2.get(1).getEstado());
+        System.out.println("listaproductos:"+listadoproducto2.get(1).getNombre());
         
         if (principal != null) {
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
@@ -459,7 +497,7 @@ public class Controlador {
         model.addAttribute("currentPage3", pageNo);
         model.addAttribute("totalPages3", page3.getTotalPages());
         model.addAttribute("totalItems3", page3.getTotalElements());
-        model.addAttribute("atencionpedidos", listadoatencionpedido);
+        model.addAttribute("atencionpedidos", listadoatencionpedido2);
 
         return "frmVendedorAtencionP";
     }
@@ -552,12 +590,13 @@ public class Controlador {
     public String ProductosVendedor(Model model,
             Principal principal) {
 
-//        List<producto> listadoproducto = productoService.listar();
-//        model.addAttribute("productos", listadoproducto);
+        List<producto> listadoproducto = productoService.listar();
+        model.addAttribute("productos", listadoproducto);
+        
         if (principal != null) {
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
-        return findPaginated1(1, principal, model);
+        return "frmVendedorProductos2";
     }
 
     @Secured({"ROLE_GUESS", "ROLE_ADMIN"})

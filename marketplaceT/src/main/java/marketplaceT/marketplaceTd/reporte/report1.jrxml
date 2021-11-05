@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc014abe-2571-40ae-bf14-5401cdd68764">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="37"/>
+	<queryString>
+		<![CDATA[Select p.fechapedido,p.total,po.nombre,dt.precio from pedido p inner join persona u on p.idvendedor=u.id INNER join detallepedido dt on dt.idpedido=p.id INNER JOIN producto po on dt.idproducto=po.id]]>
+	</queryString>
+	<field name="fechapedido" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="nombre_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{nombre}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="104" y="19" width="347" height="47" uuid="89641aa2-aefa-49dd-b931-6a3bce2b8686"/>
+				<textElement>
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PEDIDOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="76" y="2" width="100" height="20" uuid="5c1454ae-3a8d-4915-8c4c-de717a717826"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="2" width="100" height="20" uuid="2eb60eb4-c148-4a7b-9c88-14e7378fcb19"/>
+				<text><![CDATA[fechapedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="2" width="100" height="20" uuid="c095870b-b7e3-41d8-801e-07c75dc34dcf"/>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="35" width="100" height="20" uuid="fa083756-9be7-4b17-8359-1458fb19e425"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="40" width="100" height="20" uuid="9f2b7fd0-bd9c-46e2-8418-c2e809d92058"/>
+				<textFieldExpression><![CDATA[$F{fechapedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="45" width="100" height="20" uuid="2809c6f0-68ab-4699-92b0-236eee503097"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="19" width="100" height="20" uuid="1ddefbc2-4370-4c5c-bade-39b96ab0c608"/>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

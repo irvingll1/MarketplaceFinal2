@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.service;
 
+import java.util.HashMap;
 import java.util.List;
 import marketplaceT.marketplaceTd.interfaces.Iproducto;
 import marketplaceT.marketplaceTd.interfaceservice.IproductoService;
@@ -48,9 +49,8 @@ public class productoService implements IproductoService{
     @Override
     public Page<producto> findPaginated(int pagno, int pagesize) {
         Pageable pageable = PageRequest.of(pagno-1, pagesize);
+        
         return data.findAll(pageable);
     }
-    
-
 
 }
