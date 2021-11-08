@@ -7,33 +7,12 @@
 
         <header th:replace="template :: cabecera"></header>
         <div class="container">
-            <h2 class="h4 m-4 text-primary">Seleccione la Tienda</h2>
-            <div class="card" >             
+            <div style="display: inline-block">
+            <h2 class="h4 m-4 text-primary" style="display: inline-block">Tienda <div style="display: inline-block" th:text="${nomtienda}"></div></h2></div>
+            <div class="card" >               
                 <div class="card-body">
-                    <p>&nbsp;Distrito</p>
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                    <select th:field="*{distritos}" class="form-control form-control-sm col-md-6" id="distrito" name="distrito" > 
-                        <option value="0">Seleccione el distrito</option>
-                        <option th:each="distrito:${distritos}"
-                                th:value="${distrito.id}"
-                                th:text="${distrito.descripcion}"		
-                                />					
-                    </select>
-           
-                </div>
-                <div id="map"></div>
-                <div class="card-body">
-                    <a>Tienda</a>
-                    <form th:action="@{/filtrotienda}" th:object="${tienda}" method="get">
-                        <select class="form-control form-control-sm col-md-6"  id="tienda" name="tienda">
-                            <option value="0" selected>Seleccione una tienda</option>
-                            <option th:each="tienda:${tiendas}"
-                                    th:value="${tienda.id}"
-                                    th:text="${tienda.nombre}"		
-                                    />					
-                        </select>
-                        <br>
-                        <p>&nbsp;<input class="btn btn-success" type="submit" value="Buscar" /></p>
+                    <form th:action="@{/tienda}" method="get"> 
+                        <p>&nbsp;<input class="btn btn-success" type="submit" value="Atras" /></p>
                     </form>
                 </div>
             </div>
@@ -65,10 +44,10 @@
                         </div>
                     </div>
                     <br>
-                    <div class="card" hidden="true">
+                    <div class="card">
                         <div class="card-body">
                             <p class="h4 m-2 text-primary">Calificacion</p>
-                            <div class="card-text">
+                            <div class="card-text">                                
                                 <form th:action="@{/cali}" th:object="${calificacion}" method="get">
                                     <div class="rating" >
 
@@ -84,13 +63,34 @@
                                         <label for="star1" >☆</label>
                                         <div class="clear"></div>
                                     </div>
-
                                     <p><textarea th:field="*{cometario}" class="form-control" id="cometario" rows="10" cols="50" placeholder="Escriba su Comentario"></textarea></p>
                                     <p><input type="submit" class="btn btn-primary" value="Enviar"></p>
                                 </form>
                             </div>
+                        </div> 
+                    </div>
+                    <div class="card">
+                        <p class="h4 m-4 text-primary">Calificacion de la tienda</p>
+                        <div class="card-text" style="width: available;height: available "> 
+                            <div style="width: available; height: available; overflow-y: scroll;">
+                            <div  class="card m-4" th:each="cl:${calitienda}">
+                                <div style="display: inline-block">
+                                <div class="m-2 text-primary" th:text="${cl.persona.nombre}"></div>
+                                
+                                <div class="m-2" style="display: inline-block">Calificacion: </div>
+                                <div style="display: inline-block" th:text="${cl.numero}"></div>
+                                <div style="display: inline-block">/5</div>
+                                
+                                <label style="font-size: 20px;">☆</label>
+                                <div class="card" >
+                                    <div class="card-body" th:text="${cl.cometario}"></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
+                
                     <div
                         class="tab-pane fade carrito"
                         id="pills-contact"

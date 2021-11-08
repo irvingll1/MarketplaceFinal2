@@ -45,11 +45,7 @@ public class persona implements Serializable{
     @NotEmpty
     @Email
     private String email;
-    @NotEmpty
-    @Pattern(regexp="[0-9]{9}")
     private int telefono;
-    @NotEmpty
-    @Pattern(regexp="[0-9]{9}")
     private int dni;
     @NotEmpty
     private String direccion;

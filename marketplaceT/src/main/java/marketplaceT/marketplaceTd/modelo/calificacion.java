@@ -31,7 +31,9 @@ public class calificacion implements Serializable{
     private int numero;
     private String cometario;
     
-    private int idpersona;
+    @ManyToOne
+    @JoinColumn(name="idpersona")
+    private persona persona;
     
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -64,13 +66,15 @@ public class calificacion implements Serializable{
         this.cometario = cometario;
     }
 
-    public int getIdpersona() {
-        return idpersona;
+    public persona getPersona() {
+        return persona;
     }
 
-    public void setIdpersona(int idpersona) {
-        this.idpersona = idpersona;
+    public void setPersona(persona persona) {
+        this.persona = persona;
     }
+
+    
 
     public Date getFecha() {
         return fecha;
@@ -90,10 +94,8 @@ public class calificacion implements Serializable{
 
     @Override
     public String toString() {
-        return "calificacion{" + "id=" + id + ", numero=" + numero + ", cometario=" + cometario + ", idpersona=" + idpersona + ", fecha=" + fecha + ", tienda=" + tienda + '}';
+        return "calificacion{" + "id=" + id + ", numero=" + numero + ", cometario=" + cometario + ", persona=" + persona + ", fecha=" + fecha + ", tienda=" + tienda + '}';
     }
-
-    
     
     
 }
