@@ -5,7 +5,7 @@
     </head>
     <body>
 
-        <header th:replace="template :: cabecera"></header>
+        <header th:replace="templatecliente :: cabecera"></header>
         <div class="container">
             <h2 class="h4 m-4 text-primary">Seleccione la Tienda</h2>
             <div class="card" >             
@@ -19,7 +19,7 @@
                                 th:text="${distrito.descripcion}"		
                                 />					
                     </select>
-           
+
                 </div>
                 <div id="map"></div>
                 <div class="card-body">
@@ -37,105 +37,19 @@
                     </form>
                 </div>
             </div>
-            <br><br>
-            <div class="tab-content" id="pills-tabContent">
-                <div
-                    class="tab-pane fade show active container"
-                    id="pills-profile"
-                    role="tabpanel"
-                    aria-labelledby="pills-profile-tab"
-                    >
-                    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                        <div class="col d-flex justify-content-center mb-auto" th:each="producto: ${productos}">
-
-                            <div class="card shadow mb-2 bg-light rounded">
-                                <div hidden=""><p class="ideee"  th:text="${producto.id}" ></p></div>
-                                <h5  class="card-title pt-4 text-center text-primary" th:text="${producto.nombre}"></h5>
-                                <img th:src="${producto.foto}" class="card-img-top" alt="..." width="100" height="200">
-                                <div class="card-body">
-                                    <p class="card-text text-black-50 description" th:text="${producto.descripcion}"></p>
-                                    <h5 class="text-primary">Precio: <span th:text="${producto.precio}" class="precio"></span></h5>
-                                    <div class="d-grid gap-2">
-
-                                        <button onclick="Swal.fire('Agregado al carrito', 'Producto registrado!', 'success')" class="btn btn-primary button">Añadir a Carrito</button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="card" hidden="true">
-                        <div class="card-body">
-                            <p class="h4 m-2 text-primary">Calificacion</p>
-                            <div class="card-text">
-                                <form th:action="@{/cali}" th:object="${calificacion}" method="get">
-                                    <div class="rating" >
-
-                                        <input id="star5"  th:field="*{numero}" name="star" type="radio" value="5" class="radio-btn hide" />
-                                        <label for="star5" >☆</label>
-                                        <input id="star4" th:field="*{numero}" name="star" type="radio" value="4" class="radio-btn hide" />
-                                        <label for="star4" >☆</label>
-                                        <input id="star3" th:field="*{numero}"  name="star" type="radio" value="3" class="radio-btn hide" />
-                                        <label for="star3" >☆</label>
-                                        <input id="star2" th:field="*{numero}" name="star" type="radio" value="2" class="radio-btn hide" />
-                                        <label for="star2" >☆</label>
-                                        <input id="star1"  th:field="*{numero}" name="star" type="radio" value="1" class="radio-btn hide" />
-                                        <label for="star1" >☆</label>
-                                        <div class="clear"></div>
-                                    </div>
-
-                                    <p><textarea th:field="*{cometario}" class="form-control" id="cometario" rows="10" cols="50" placeholder="Escriba su Comentario"></textarea></p>
-                                    <p><input type="submit" class="btn btn-primary" value="Enviar"></p>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="tab-pane fade carrito"
-                        id="pills-contact"
-                        role="tabpanel"
-                        aria-labelledby="pills-contact-tab"
-                        hidden>
-                        <br>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr class="text-primary">
-                                    <th scope="col">#</th>
-                                    <th scope="col">Productos</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tbody">
-                            </tbody>
-                        </table>
-                        <br><br>
-                        <div class="row mx-4">
-                            <div class="col">
-                                <h3 class="itemCartTotal">Total: 0</h3>
-                                <input class="json" name="json" type="hidden" value="1">
-                            </div>
-                            <div class="col d-flex justify-content-end">
-                                <button class="btn btn-success">COMPRAR</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
         </div>
         <footer th:replace="template :: footer"></footer>
 
     </body>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9_9XBYADMhQ4d_mI35CewUqouPE1rlA&callback=iniciarMap"></script>
     <script th:inline="javascript">
-        /*<![CDATA[*/  
+        /*<![CDATA[*/
         var map;
         var ubicacion = [[${distritos}]];
         var tiendass = [[${jtiendas}]];
+
         function iniciarMap() {
+
             var bounds = new google.maps.LatLngBounds();
             var mapOptions = {
                 mapTypeId: 'roadmap',
@@ -145,14 +59,14 @@
                     lng: parseFloat(ubicacion[0].longitud)
                 }
             };
-        // Display a map on the web page
+            // Display a map on the web page
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
-        //                                                map.setTilt(50);
-        // Multiple markers location, latitude, and longitude
+            //                                                map.setTilt(50);
+            // Multiple markers location, latitude, and longitude
             console.log(tiendass);
-        // Add multiple markers to map
+            // Add multiple markers to map
             var infoWindow = new google.maps.InfoWindow(), marker, i;
-        // Place each marker on the map  
+            // Place each marker on the map  
             for (i = 0; i < tiendass.length; i++) {
                 var position = new google.maps.LatLng(tiendass[i].latitud, tiendass[i].longitud);
                 bounds.extend(position);
@@ -174,116 +88,10 @@
                 })(marker, i));
                 // Center the map to fit all markers on the screen
                 //map.fitBounds(bounds);         
-            }  
-            
-        // Set zoom level
-        //                                                var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-        //                                                    this.setZoom(14);
-        //                                                    google.maps.event.removeListener(boundsListener);
-        //                                                });
+            }
 
         }
-        
-        function newLocation(newLat,newLng)
-        {
-                    map.setCenter({
-                        lat : newLat,
-                        lng : newLng
-                });
-        }
-        // Load initialize function
-        //google.maps.event.addDomListener(window, 'load', iniciarMap);
-        $(document).on('change', '#distrito', function() {
-            var tiendas = document.getElementById("tienda");
-            var length = tiendas.options.length;
-            for (i = length-1; i > 0; i--) {
-              tiendas.options[i] = null;
-}          
-            switch($("#distrito option:selected").val()){
-                case '1':
-                    newLocation(parseFloat(ubicacion[0].latitud),parseFloat(ubicacion[0].longitud));
-                    for (var i = 0; i < tiendass.length; i++) {
-                          console.log(tiendass[i].distrito.descripcion);
-                          //console.log(ubicacion[i].descripcion);
-                        if (tiendass[i].distrito.descripcion==ubicacion[0].descripcion) {
-                            var option = document.createElement("option");
-                            option.text = tiendass[i].nombre;
-                            option.value= tiendass[i].id;
-                            tiendas.add(option);
-                        }
-                    }
-                    break;
-                case '2':
-                    newLocation(parseFloat(ubicacion[1].latitud),parseFloat(ubicacion[1].longitud));
-                    for (var i = 0; i < tiendass.length; i++) {
-                          console.log(tiendass[i].distrito.descripcion);
-                          //console.log(ubicacion[i].descripcion);
-                        if (tiendass[i].distrito.descripcion==ubicacion[1].descripcion) {
-                            var option = document.createElement("option");
-                            option.text = tiendass[i].nombre;
-                            option.value= tiendass[i].id;
-                            tiendas.add(option);
-                        }
-                    }
-                    break;
-                case '3':
-                    newLocation(parseFloat(ubicacion[2].latitud),parseFloat(ubicacion[2].longitud));
-                    for (var i = 0; i < tiendass.length; i++) {
-                          console.log(tiendass[i].distrito.descripcion);
-                          //console.log(ubicacion[i].descripcion);
-                        if (tiendass[i].distrito.descripcion==ubicacion[2].descripcion) {
-                            var option = document.createElement("option");
-                            option.text = tiendass[i].nombre;
-                            option.value= tiendass[i].id;
-                            tiendas.add(option);
-                        }
-                    }
-                    break;
-                case '4':
-                    newLocation(parseFloat(ubicacion[3].latitud),parseFloat(ubicacion[3].longitud));
-                    for (var i = 0; i < tiendass.length; i++) {
-                          console.log(tiendass[i].distrito.descripcion);
-                          //console.log(ubicacion[i].descripcion);
-                        if (tiendass[i].distrito.descripcion==ubicacion[3].descripcion) {
-                            var option = document.createElement("option");
-                            option.text = tiendass[i].nombre;
-                            option.value= tiendass[i].id;
-                            tiendas.add(option);
-                        }
-                    }
-                    break;
-                case '5':
-                    newLocation(parseFloat(ubicacion[4].latitud),parseFloat(ubicacion[4].longitud));
-                    for (var i = 0; i < tiendass.length; i++) {
-                          console.log(tiendass[i].distrito.descripcion);
-                          //console.log(ubicacion[i].descripcion);
-                        if (tiendass[i].distrito.descripcion==ubicacion[4].descripcion) {
-                            var option = document.createElement("option");
-                            option.text = tiendass[i].nombre;
-                            option.value= tiendass[i].id;
-                            tiendas.add(option);
-                        }
-                    }
-                    break;              
-                case '6':
-                    newLocation(parseFloat(ubicacion[5].latitud),parseFloat(ubicacion[5].longitud));
-                    for (var i = 0; i < tiendass.length; i++) {
-                          console.log(tiendass[i].distrito.descripcion);
-                          //console.log(ubicacion[i].descripcion);
-                        if (tiendass[i].distrito.descripcion==ubicacion[5].descripcion) {
-                            var option = document.createElement("option");
-                            option.text = tiendass[i].nombre;
-                            option.value= tiendass[i].id;
-                            tiendas.add(option);
-                        }
-                    }
-                    break;
-            }
-//            var ubicacion = [[${distritos}]];
-//            var center = new google.maps.LatLng(10.23,123.45);
-//            map.panTo(center);
-            });
-        
-    /*]]>*/
+        /*]]>*/
     </script>
+    <script  src="/js/menutienda.js"></script>
 </html>

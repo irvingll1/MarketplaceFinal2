@@ -24,7 +24,7 @@ public class tienda implements Serializable{
     private int id;
     
     private String nombre;
-    private int telefono;
+    private String telefono;
     private String descripcion;
     private String latitud;
     private String longitud; 
@@ -51,11 +51,11 @@ public class tienda implements Serializable{
         this.nombre = nombre;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -108,7 +108,7 @@ public class tienda implements Serializable{
         this.distrito = distrito;
     }
 
-    public tienda(int id,String nombre, int telefono, String descripcion, String latitud, String longitud, int estado, String direccion, distrito distrito) {
+    public tienda(int id,String nombre, String telefono, String descripcion, String latitud, String longitud, int estado, String direccion, distrito distrito) {
         this.id=id;
         this.nombre = nombre;
         this.telefono = telefono;

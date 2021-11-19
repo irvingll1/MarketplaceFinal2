@@ -5,15 +5,45 @@
     </head>
     <body>
 
-        <header th:replace="template :: cabecera"></header>
+        <header th:replace="templatecliente :: cabecera"></header>
         <div class="container">
             <div style="display: inline-block">
             <h2 class="h4 m-4 text-primary" style="display: inline-block">Tienda <div style="display: inline-block" th:text="${nomtienda}"></div></h2></div>
+            <form th:action="@{/tienda}" method="get"> 
+                <p>&nbsp;<input class="btn btn-success" type="submit" value="Atras" /></p>
+            </form>
+            <div class="card" >
+                <div class="card-body">
+                    <div class="input-group">
+                        <h5>Busqueda: </h5>
+                        &nbsp;&nbsp;
+                        <input type="text" class="form-control" name="busqueda" placeholder="¿Que producto necesita?" > 
+                        &nbsp;&nbsp;
+                            <button type="submit" class="btn btn-outline-secondary" >Buscar</button>
+                    </div>
+                </div>
+            </div>
+            
             <div class="card" >               
                 <div class="card-body">
-                    <form th:action="@{/tienda}" method="get"> 
-                        <p>&nbsp;<input class="btn btn-success" type="submit" value="Atras" /></p>
-                    </form>
+                    
+                    <div class="input-group" style="" >
+                        
+                        <form class="input-group" th:action="@{/busquedacategoria}" method="get"> 
+                            <select class="custom-select">
+                                <option value="">Seleccione una categoria</option>
+                                <option th:each="cat:${categoriap}"
+                                        th:value="${cat.id}"
+                                        th:text="${cat.nombre}"		
+                                        />
+                            </select>  
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                    
                 </div>
             </div>
             <br><br>
@@ -30,14 +60,20 @@
                             <div class="card shadow mb-2 bg-light rounded">
                                 <div hidden=""><p class="ideee"  th:text="${producto.id}" ></p></div>
                                 <h5  class="card-title pt-4 text-center text-primary" th:text="${producto.nombre}"></h5>
-                                <img th:src="${producto.foto}" class="card-img-top" alt="..." width="100" height="200">
+                                <img th:src="@{'/images/' + ${producto.foto}}" class="card-img-top" alt="..." width="100" height="200">
                                 <div class="card-body">
-                                    <p class="card-text text-black-50 description" th:text="${producto.descripcion}"></p>
-                                    <h5 class="text-primary">Precio: <span th:text="${producto.precio}" class="precio"></span></h5>
-                                    <div class="d-grid gap-2">
-
+                                    <p class="card-text text-black-50 description" th:text="${producto.descripcion}">
+                                        
+                                    </p>
+                                    <a class="btn btn-success btn-sm" th:href="@{/detalleproducto/} + ${producto.id}"
+                                        th:text="'ver +'" title="Ver +">
+                                     </a>
+                                    <h5 class="text-primary">Precio: <span th:text="${producto.precio}" class="precio"></span></h5>           
+                                    <h6 class="text-primary input-group">
+                                        <p class="h6">Cantidad:</p>&nbsp;
+                                        <input class="cantidad form-control" type="number" value="1" min="1"></h6>
+                                    <div class="d-grid gap-2">                      
                                         <button onclick="Swal.fire('Agregado al carrito', 'Producto registrado!', 'success')" class="btn btn-primary button">Añadir a Carrito</button>
-
                                     </div>
                                 </div>
                             </div>

@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -27,11 +26,9 @@ public class pedido implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechapedido;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaenvio;
     private int estado;
     @ManyToOne
@@ -88,22 +85,6 @@ public class pedido implements Serializable{
         this.id = id;
     }
 
-//    public int getIdvendedor() {
-//        return idvendedor;
-//    }
-//
-//    public void setIdvendedor(int idvendedor) {
-//        this.idvendedor = idvendedor;
-//    }
-//
-//    public int getIdtienda() {
-//        return idtienda;
-//    }
-//
-//    public void setIdtienda(int idtienda) {
-//        this.idtienda = idtienda;
-//    }
-
     public persona getPersona() {
         return persona;
     }
@@ -140,15 +121,11 @@ public class pedido implements Serializable{
         this.total = total;
     }
 
-//    @Override
-//    public String toString() {
-//        return "pedido{" + "id=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", idvendedor=" + idvendedor + ", idtienda=" + idtienda + ", cantidad=" + cantidad + ", total=" + total + '}';
-//    }
-
     @Override
     public String toString() {
         return "pedido{" + "id=" + id + ", fechapedido=" + fechapedido + ", fechaenvio=" + fechaenvio + ", estado=" + estado + ", tipopago=" + tipopago + ", persona=" + persona + ", tienda=" + tienda + ", cantidad=" + cantidad + ", total=" + total + '}';
     }
-    
+
+   
 
 }

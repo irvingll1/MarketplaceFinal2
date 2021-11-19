@@ -38,7 +38,7 @@ public class PersonaService implements IPersonaService{
 
     @Override
     public void save(persona p) {
-        persona perso = data.save(p);
+        data.save(p);
     }
     
     @Override
@@ -47,7 +47,7 @@ public class PersonaService implements IPersonaService{
     }
 
     @Override
-    public List<persona> buscarnombre(int dni){
+    public List<persona> buscarnombre(String dni){
         return data.buscarnombre(dni);
     }
     

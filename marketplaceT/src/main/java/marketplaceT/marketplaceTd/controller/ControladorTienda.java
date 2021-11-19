@@ -10,6 +10,8 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,7 @@ import marketplaceT.marketplaceTd.interfaceservice.ItiendaService;
 import marketplaceT.marketplaceTd.interfaceservice.ItipopagoService;
 import marketplaceT.marketplaceTd.modelo.calificacion;
 import marketplaceT.marketplaceTd.modelo.carrito;
+import marketplaceT.marketplaceTd.modelo.categoriaproducto;
 import marketplaceT.marketplaceTd.modelo.detallepedido;
 import marketplaceT.marketplaceTd.modelo.distrito;
 import marketplaceT.marketplaceTd.modelo.pedido;
@@ -44,6 +47,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -107,15 +111,9 @@ public class ControladorTienda {
         List<tienda> listadotienda = tiendaService.listar();
 //        List<producto> listadoproducto = productoService.listar();
         List<producto> listadoproducto2= new ArrayList();
-        
-        
-//        for (int i = 0; i < listadoproducto.size(); i++) {
-//            if(!listadoproducto.get(i).getEstado().equals("0")){
-//                listadoproducto2.add(listadoproducto.get(i));
-//            }
-//        }
+
         if (principal != null) {
-            listaper = personaService.buscarnombre(Integer.parseInt(principal.getName()));
+            listaper = personaService.buscarnombre(principal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
         model.addAttribute("provincias", listadoprovincia);
@@ -146,7 +144,7 @@ public class ControladorTienda {
         if (principal != null) {
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
-        String ocultar ="hidden";
+//        String ocultar ="hidden";
         List<provincia> listadoprovincia = provinciaService.listar();
         List<distrito> listadodistrito = distritoService.listar();
         List<tienda> listadotienda = tiendaService.listar();
@@ -154,14 +152,12 @@ public class ControladorTienda {
         List<calificacion> listadocalifica2= new ArrayList();
         System.out.println("calificaion:"+listadocalifica.toString());
         
+        List<categoriaproducto> listadocategorias = categoriaproductoService.listar();
+     
         calificacion objcalif = new calificacion();
         tienda objtienda = new tienda();
         System.out.println("ID TIENDA:"+tienda.toString());
-//        if(tiendacali.getId()>0){
-//            
-//        }
-        tiendacali=tienda;
-        
+        tiendacali=tienda;      
         List<producto> listadoproducto = productoService.listar();
         List<producto> listadoproducto2= new ArrayList();
         
@@ -181,7 +177,7 @@ public class ControladorTienda {
  
         }
         model.addAttribute("nomtienda", tienda.getNombre());
-        model.addAttribute("oculta", ocultar);
+//        model.addAttribute("oculta", ocultar);
         model.addAttribute("provincias", listadoprovincia);
         model.addAttribute("calitienda", listadocalifica2);
         model.addAttribute("distritos", listadodistrito);
@@ -189,9 +185,18 @@ public class ControladorTienda {
         model.addAttribute("calificacion", objcalif);
         model.addAttribute("tienda", objtienda);
         model.addAttribute("productos", listadoproducto2);
+         model.addAttribute("categoriap", listadocategorias);
         
         return "frmtienda2";
     }
+    
+    @GetMapping("/busquedacategoria")
+    public String busquedacategoria(@ModelAttribute tienda tienda,Principal principal,RedirectAttributes attribute,Model model){
+        
+        
+        return "";
+    }
+    
     @GetMapping("/cali")
     public String calificatienda(@ModelAttribute calificacion calificacion,Principal principal,RedirectAttributes attribute,Model model){
         if (principal != null) {
@@ -207,7 +212,7 @@ public class ControladorTienda {
         
         System.out.println("calificacion: "+calificacion.toString());
         calificacionService.save(calificacion);
-        return "home";
+        return "tienda";
     }
     
     
@@ -237,9 +242,10 @@ public class ControladorTienda {
         } 
         pedido.setTotal(total);
         
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm"); 
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         pedido.setFechapedido(formato.parse(carrito.getFecha()));
-        tipopago=tipopagoService.listarId(Integer.parseInt(carrito.getTipopago()));      
+        pedido.setFechaenvio(formato.parse(carrito.getFecha()));
+        tipopago=tipopagoService.listarId(Integer.parseInt(carrito.getTipopago())); 
         pedido.setTipopago(tipopago);    
         pedidoService.save(pedido);
         
@@ -263,9 +269,24 @@ public class ControladorTienda {
 
         System.out.println("fecha: "+carrito.getFecha());     
         System.out.println("pedido:"+pedido.toString());
-       // System.out.println("Detalle pedido"+detallepedidos.toString());
-        
-        
+   
         return "redirect:/home";
     }
+    
+    @GetMapping("/detalleproducto/{id}")
+    public String detalleproducto(@PathVariable("id") int idproducto,Principal principal,
+            Model model, RedirectAttributes attribute) {
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+        producto producto = productoService.listarId(idproducto);
+        
+        model.addAttribute("titulo","Detalle del producto  " +producto.getNombre());
+        model.addAttribute("producto",producto);
+        
+        return "frmtiendadetalleproducto";
+    }
+    
+    
+    
 }

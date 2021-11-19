@@ -2,7 +2,6 @@ package marketplaceT.marketplaceTd.interfaceservice;
 
 import java.util.List;
 import marketplaceT.marketplaceTd.modelo.persona;
-import marketplaceT.marketplaceTd.modelo.rol;
 
 /**
  *
@@ -13,5 +12,5 @@ public interface IPersonaService {
     public persona listarId(int id);
     public void save(persona p);
     public void delete(int id);
-    public List<persona> buscarnombre(int dni);
+    public List<persona> buscarnombre(String dni);
 }

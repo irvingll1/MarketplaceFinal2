@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="template :: head">
+    </head>
+    <body>
+
+        <header th:replace="templatecliente :: cabecera"></header>
+        <div class="container">
+             <br>
+            <button class="btn btn-success" onclick="goBack()">&laquo;Regresar</button>
+            <div class="card">
+                <div class="card-header" th:text="${titulo}"></div>
+                <div class="card-body row offset-lg-1" >
+                    <img class="card-img-top row-cols-2 img-thumbnail rounded" 
+                          th:src="@{'/images/'+${producto.foto}}" 
+                          alt="@{producto.foto}"
+                          style="max-width: 40%;">
+
+                    <ul class=" row-cols-2 list-group">
+                        <li hidden="" class="list-group-item">
+                            <p class="ideee"  th:text="${producto.id}"></p>
+                        </li>
+                        <li class="card-title list-group-item">Nombre del producto: 
+                            <p class="card-title text-black-50" th:text="${producto.nombre}"></p>
+                        </li>
+                        <li class="list-group-item">Descripcion del producto: 
+                            <p class="card-text text-black-50 description" th:text="${producto.descripcion}"></p>
+                        </li>
+                        <li class="list-group-item">Marca del producto: 
+                            <p class="card-text text-black-50" th:text="${producto.marca}"></p>
+                        </li>
+                        <li class="list-group-item">Medida: 
+                            <p class="card-text text-black-50" th:text="${producto.unidadmedida}"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="input-group">
+                                <p>Cantidad:</p>&nbsp;
+                                <input class="cantidad form-control" type="number" value="1" min="1">
+                            </a>
+                        </li>
+                        <li class="list-group-item">Precio: <span th:text="${producto.precio}" class="precio"></span></li>
+                        <li class="list-group-item">
+                            <button onclick="Swal.fire('Agregado al carrito', 'Producto registrado!', 'success')" 
+                                    class="btn btn-primary button">Añadir a Carrito</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                        class="tab-pane fade carrito"
+                        id="pills-contact"
+                        role="tabpanel"
+                        aria-labelledby="pills-contact-tab"
+                        hidden>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-primary">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Productos</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody">
+                            </tbody>
+                        </table>
+                        <br><br>
+                        <div class="row mx-4">
+                            <div class="col">
+                                <h3 class="itemCartTotal">Total: 0</h3>
+                                <input class="json" name="json" type="hidden" value="1">
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-success">COMPRAR</button>
+                            </div>
+                        </div>
+
+                    </div>
+        </div>
+        <footer th:replace="template :: footer"></footer>
+        
+    </body>
+    <script>
+		function goBack(){
+			window.history.back();
+		}
+	</script>
+    <script  src="/js/menutienda.js"></script>
+</html>

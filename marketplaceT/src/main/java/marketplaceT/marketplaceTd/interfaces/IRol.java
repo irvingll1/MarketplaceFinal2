@@ -6,7 +6,6 @@
 package marketplaceT.marketplaceTd.interfaces;
 
 import marketplaceT.marketplaceTd.modelo.rol;
-import marketplaceT.marketplaceTd.modelo.usuario;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

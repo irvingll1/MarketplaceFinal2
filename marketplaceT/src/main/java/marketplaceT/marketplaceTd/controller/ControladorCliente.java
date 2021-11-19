@@ -9,6 +9,7 @@ import java.util.List;
 import javax.validation.Valid;
 import marketplaceT.marketplaceTd.interfaceservice.IPersonaService;
 import marketplaceT.marketplaceTd.interfaceservice.IRolService;
+import marketplaceT.marketplaceTd.interfaceservice.ITipoPersonaService;
 import marketplaceT.marketplaceTd.interfaceservice.IUsuarioService;
 import marketplaceT.marketplaceTd.interfaceservice.IatencionpedidoService;
 import marketplaceT.marketplaceTd.interfaceservice.IcalificacionService;
@@ -45,6 +46,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ControladorCliente {
     @Autowired
     private IPersonaService personaService;
+    @Autowired
+    private ITipoPersonaService tipopersonaService;
 
     @Autowired
     private IUsuarioService usuarioService;
@@ -96,7 +99,7 @@ public class ControladorCliente {
         //si es vendedor su tienda
         tienda tienda = new tienda();
         persona persona = new persona();
-
+        
         
         model.addAttribute("titulo", "Formulario: Nuevo Cliente");
         model.addAttribute("provinciascrear", listarprovincia);
@@ -153,6 +156,8 @@ public class ControladorCliente {
         ro.setIdusuario(usu.getId());
         System.out.println(ro.toString());
         rolService.save(ro);
+        //agrega tipopersona
+        persona.setTipopersona(tipopersonaService.listarId(3));
         //agrega persona a base de datos
         personaService.save(persona);
         System.out.println("Cliente guardado con exito!");
@@ -202,6 +207,8 @@ public class ControladorCliente {
 
         tiendaService.save(tienda);
         System.out.println(tienda.toString());
+        //agrega tipopersona
+        persona.setTipopersona(tipopersonaService.listarId(2));
         personaService.save(persona);
         System.out.println("Cliente guardado con exito!");
         attribute.addFlashAttribute("success", "Cliente guardado con exito,su usuario y contraseña es su DNI");

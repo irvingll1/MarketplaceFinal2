@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="template :: head">
-    </head>
+    <head th:replace="template :: head"></head>
     <body>
         <header th:replace="template :: cabecera"></header>
-        <div class="card bg-light">
-            <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
-            <div class="card-body">
+        <div class="modal-content">
+            <div class="card-header h2" th:text="Registro"></div>
+            <div class="modal-content">
 
-                <form th:action="@{/savepersonacliente}" th:object="${cliente}" method="post">
-                    <a class="text-info">Datos Personales</a>
+                <form class=" modal-body col-lg-9 offset-lg-3" th:action="@{/savepersonacliente}" th:object="${cliente}" method="post">
+                    <a class="text-info h3">Datos Personales</a>
                     <hr>
                     <div  class="form-group row">
-
                         <input type="hidden" th:field="*{id}">
                         <label class="col-md-2" for="nombre">Nombre:</label> 
-                        <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
+                        <input type="text" th:field="*{nombre}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm col-md-6" id="nombre"
                                placeholder="Nombres del cliente" required> 
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
                                th:errors="*{nombre}">
@@ -24,16 +22,16 @@
 
                     <div class="form-group row">
                         <label class="col-md-2" for="apellidos">Apellidos:</label> 
-                        <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos"
-                               placeholder="Apellidos del cliente" > 
+                        <input type="text" th:field="*{apellidos}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm col-md-6" id="apellidos"
+                               placeholder="Apellidos del cliente" required> 
                         <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
                                th:errors="*{apellidos}">
                         </small>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="apellidos">Sexo</label> 
-                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" required>
-                            <option value="0" selected>Eliga su sexo</option>
+                        <select required="required" th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" >
+                            <option value="" selected>Eliga su sexo</option>
                             <option th:value="masculino">masculino</option>
                             <option th:value="femenino">femenino</option>
                         </select>
@@ -55,28 +53,24 @@
                         <label class="col-md-2" for="telefono">Telefono</label> 
                         <input type="text" pattern="[0-9]+" maxlength="9" th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
                                placeholder="Telefono del cliente" required> 
-<!--                        <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
-                               th:errors="*{telefono}">
-                        </small>-->
+
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="dni">DNI</label> 
-                        <input type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                               placeholder="dni del cliente" required> 
-                        <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
-                               th:errors="*{dni}">
-                        </small>
+                        <input value="" type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                               placeholder="Dni del cliente" required> 
+                     
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2" for="direccion">direccion</label> 
-                        <input type="text" th:field="*{direccion}" class="form-control form-control-sm col-md-6" name="direccion"
+                        <label class="col-md-2" for="direccion">Direccion</label> 
+                        <input type="text" th:field="*{direccion}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm col-md-6" name="direccion"
                                placeholder="direccion del cliente" required> 
 
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="provincia">Provincia</label>                
-                        <select class="form-control form-control-sm col-md-6" id="provincia" required> 
-                            <option th:value="0" selected>Eliga una provincia</option>
+                        <select required class="form-control form-control-sm col-md-6" id="provincia" name="provincia"> 
+                            <option value="" selected>Eliga una provincia</option>
                             <option th:each="provincia:${provinciascrear}"
                                     th:value="${provincia.id}"
                                     th:text="${provincia.descripcion}"		
@@ -85,29 +79,21 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2" for="distrito">Distrito</label> 
-                        <select th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
-                            <option value="0" selected>Eliga un distrito</option>
+                        <select required="required" th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito"> 
+                            <option value="" selected>Eliga un distrito</option>
                             <option th:each="distrito:${distritoscrear}"
                                 th:value="${distrito.id}"
                                 th:text="${distrito.descripcion}"		
                                 />					
                         </select>
                     </div>
-                    <div class="card-footer bg-dark">
-                        <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+                    <div class="card-body offset-lg-3">
+                        <input id="validate" type="submit" class="btn btn-primary" value="Guardar">
                     </div>
 
                 </form>
             </div>
-        </div>
-
-
-        <div class="container">
-
-
-
-        </div>
-        
+        </div>       
         <script type="text/javascript">
                 // Initialize our function when the document is ready for events.
                 jQuery(document).ready(function(){
@@ -120,10 +106,18 @@
                                 // Allow only numbers.
                                 jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
                         });
+
                 });
+//                $('#validate').click(function() {
+//                    if ($('#provincia').val().trim() === '') {
+//                            alert('Debe seleccionar una opción');
+//
+//                        }
+//                });
+$(document).on('change', '#provincia', function () {
+                alert("hola");
+            }
         </script> 
-
         <footer th:replace="template :: footer"></footer>
-
     </body>
 </html>

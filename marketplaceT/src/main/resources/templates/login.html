@@ -13,16 +13,21 @@
                 <form class="form-signin" th:action="@{/login}" method="post">        
                     <h3 class="form-signin-heading text-center">Iniciar Session</h3>        
                     <label for="username" class="sr-only">Usuario</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required autofocus>
+                    <input type="text" id="username" name="username" class="form-control" 
+                           placeholder="Usuario" required autofocus>
                     <label for="password" class="sr-only">Contraseña</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
+                    <input type="password" id="password" name="password" class="form-control" 
+                           placeholder="Contraseña" required>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
                 </form>
             </div>   
             
         </div>
+        <footer class="text-center text-white fixed-bottom" style="background-color: #316B83;">
 
-        <footer th:replace="template :: footer"></footer>
-
+            <div class="container">
+                <p>MarketplaceUTP - 2021</p>
+            </div>
+        </footer>
     </body>
 </html>

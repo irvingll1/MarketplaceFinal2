@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:fragment="head">
+        <meta charset="UTF-8">
+        <title>Marketplace</title>
+        <!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" > -->
+        <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+                      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+                      crossorigin="anonymous">-->
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{/css/signin.css}">
+
+        <link rel="stylesheet" 
+              href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css"/>
+
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"/>
+        <style type="text/css">
+            .txt-center {
+                text-align: center;
+            }
+            .hide {
+                display: none;
+            }
+
+            .clear {
+                float: none;
+                clear: both;
+            }
+
+            .rating {
+                width: 110px;
+                unicode-bidi: bidi-override;
+                direction: rtl;
+                text-align: center;
+                position: relative;
+            }
+
+            .rating > label {
+                float: right;
+                display: inline;
+                padding: 0;
+                margin: 0;
+                position: relative;
+                cursor: pointer;
+                color: #888;
+            	font-size: 25px;
+            }
+
+            .rating > label:hover,
+            .rating > label:hover ~ label,
+            .rating > input.radio-btn:checked ~ label {
+                color: transparent;
+            }
+
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating > input.radio-btn:checked ~ label:before,
+            .rating > input.radio-btn:checked ~ label:before {
+                content: "\2605";
+                position: absolute;
+                left: 0;
+                color: #00ccff;
+            }
+
+            /* Establezca siempre la altura del mapa explícitamente para definir el tamaño del div
+            * elemento que contiene el mapa. */
+            #mapaa {
+                width: 600px;
+                height: 400px;
+                
+            }
+            /* Opcional: hace que la página de muestra llene la ventana. */
+
+        </style>
+        
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+    </head>
+    <body>
+
+        <!-- BARRA DE NAVEGACION -->
+        
+        <header th:fragment="cabecera">
+            <nav class="navbar navbar-expand-md navbar-dark"  style="background-color: #316B83;">
+                <div class="container">
+                    <a class="navbar-brand" th:href="@{/index}">
+                        <strong>MarketplaceUTP</strong>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- ENLACES DEL MENU -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto" style="text-align: left;">
+                            <li class="nav-item active" sec:authorize="isAuthenticated()">
+                                <a class="nav-link"th:href="@{/vendedor}">Vendedor</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav nav-bar-right">
+                        <li sec:authorize="!isAuthenticated()">
+                            <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
+                        </li>
+                        <li class="dropdown" sec:authorize="isAuthenticated()">
+                            <a class="btn btn-outline-warning dropdown-toggle" href="#"
+                               role="button" id="dropdownMenuLink" data-toggle="dropdown" 
+                               aria-haspopup="true" aria-expanded="false">
+                                <span th:text="${objetopersona}"></span> <!-- No ".getUsername()"-->
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                <li><a class="dropdown-item">                             
+                                        <p  th:each="authority :${#authentication.getAuthorities()}"
+                                            th:if="${authority.getAuthority().startsWith('ROLE_ADMIN')}"
+                                            th:text="${authority.getAuthority().replaceFirst('ROLE_ADMIN', 'Administrador')}"></p>
+                                        <p  th:each="authority :${#authentication.getAuthorities()}"
+                                            th:if="${authority.getAuthority().startsWith('ROLE_USER')}"
+                                            th:text="${authority.getAuthority().replaceFirst('ROLE_USER', 'Cliente')}"></p>
+                                        <p  th:each="authority :${#authentication.getAuthorities()}"
+                                            th:if="${authority.getAuthority().startsWith('ROLE_GUESS')}"
+                                            th:text="${authority.getAuthority().replaceFirst('ROLE_GUESS', 'Vendedor')}"></p>
+                                    </a></li>
+                                <form th:action="@{/logout}" method="post">
+                                    <button class="dropdown-item" type="submit">Cerrar Sesion</button>
+                                </form>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <!-- MENSAJES -->
+            <div class="alert alert-success alert-dismissable" role="alert" th:if="${success != null}">
+                <label th:text="${success}"></label>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <div class="alert alert-danger alert-dismissable" role="alert" th:if="${error != null}">
+                <label th:text="${error}"></label>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <div class="alert alert-warning alert-dismissable" role="alert" th:if="${warning != null}">
+                <label th:text="${warning}"></label>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <div class="alert alert-info alert-dismissable" role="alert" th:if="${info != null}">
+                <label th:text="${info}"></label>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <div class="alert container position-sticky top-0 alert-primary hide" role="alert">
+                Producto Añadido al carrito!
+            </div>
+            <div class="alert container position-sticky top-0 alert-danger remove" role="alert">
+                Producto removido!
+            </div>
+        </header>
+        <!--        BARRA LATERAL VENDEDOR-->
+        <nav th:fragment="menuvendedor" class="sidebar">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;height:150vh;">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                    <span class="fs-4 active">Menu de Vendedor</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a th:href="@{/adminproductos}" class="nav-link text-white" >
+
+                            Administracion Catalogo de Productos
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/adminpedidos}" class="nav-link text-white">
+                            Administracion de Pedidos
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/adminatencion}" class="nav-link text-white">
+                            Administracion de Atencion pedidos
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/reportes}" class="nav-link text-white">
+                            Reporte de Pedidos
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </nav>
+        <!-- CONTENIDO -->
+        <div class="container"></div>
+     <!-- PIE DE PAGINA -->
+        <footer th:fragment="footer" class="text-center text-white" style="background-color: #316B83;">
+
+            <div class="container">
+                <p>MarketplaceUTP - 2021</p>
+            </div>
+            <script
+                type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"
+                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+
+            <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js">
+            </script>
+
+            <script
+                src="https://code.jquery.com/jquery-3.5.1.js"
+                integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+                crossorigin="anonymous"
+            ></script>
+            <!-- JavaScript Bundle with Popper -->
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+                crossorigin="anonymous"
+            ></script>
+            <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    var table = $('#example').DataTable({
+                        responsive: true
+
+                    });
+
+                    new $.fn.dataTable.FixedHeader(table);
+                });
+            </script>
+
+            <script async defer src="/js/carrito.js" ></script>
+        </footer>
+
+    </body>
+</html>

@@ -83,9 +83,21 @@ public class ControladorHome {
     public String index(Model model, Principal principal) {
 
         if (principal != null) {
-            listaper = personaService.buscarnombre(Integer.parseInt(principal.getName()));
+            listaper = personaService.buscarnombre(principal.getName());
             System.out.println("devuelve" + listaper.toString());
+            if (listaper.get(0).getTipopersona().getNombre().equals("Administrador")) {
+                model.addAttribute("objetopersona", listaper.get(0).getNombre());
+                return "home";
+            }else if (listaper.get(0).getTipopersona().getNombre().equals("Vendedor")) {
+                model.addAttribute("objetopersona", listaper.get(0).getNombre());
+                return "homevendedor";
+            }
+            else if (listaper.get(0).getTipopersona().getNombre().equals("Cliente")) {
+                model.addAttribute("objetopersona", listaper.get(0).getNombre());
+                return "templatecliente";
+            }
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
+            
         }
         return "home";
     }

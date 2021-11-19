@@ -5,10 +5,17 @@
  */
 package marketplaceT.marketplaceTd.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.validation.Valid;
+import marketplaceT.marketplaceTd.correo.SendMailService;
 import marketplaceT.marketplaceTd.interfaceservice.IPersonaService;
 import marketplaceT.marketplaceTd.interfaceservice.IRolService;
 import marketplaceT.marketplaceTd.interfaceservice.IUsuarioService;
@@ -39,6 +46,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -86,6 +95,9 @@ public class ControladorVendedor {
     
     @Autowired
     private IcalificacionService calificacionService;
+    
+    @Autowired
+    private SendMailService sendmailService;
 
     private List<persona> listaper;
     private tienda tiendacali;
@@ -96,7 +108,7 @@ public class ControladorVendedor {
     @GetMapping("/vendedor")
     public String adminVendedor(Model model, Principal priincipal) {
         if (priincipal != null) {
-            listaper = personaService.buscarnombre(Integer.parseInt(priincipal.getName()));
+            listaper = personaService.buscarnombre(priincipal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
         List<producto> listadoproducto = productoService.listar();
@@ -142,12 +154,25 @@ public class ControladorVendedor {
     @Secured({"ROLE_USER","ROLE_GUESS", "ROLE_ADMIN"})
     @PostMapping("/saveproductos")
     public String guardarProducto(@Valid @ModelAttribute producto producto, BindingResult result,
-            Model model, RedirectAttributes attribute) {
+            Model model,@RequestParam("foto") MultipartFile imagen, RedirectAttributes attribute) {
         //List<usuario> listCiudades = usuarioService.listar();
         
         //Agregar tienda
         producto.setTienda(listaper.get(0).getTienda());   
-        
+        if (!imagen.isEmpty()) {
+            Path directorioImagenes = Paths.get("src//main//resources//static//images");
+            String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+            try { 
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta= Paths.get(rutaAbsoluta+ "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                
+                producto.setFoto(imagen.getOriginalFilename());
+                
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
         System.out.println("Producto"+producto.toString());
         productoService.save(producto);
 
@@ -155,6 +180,9 @@ public class ControladorVendedor {
         attribute.addFlashAttribute("success", "Producto guardado con exito!");
         return "redirect:/vendedor";
     }
+    
+    
+  
     @Secured({"ROLE_GUESS", "ROLE_ADMIN"})
     @GetMapping("/editproducto/{id}")
     public String editarproducto(@PathVariable("id") int idProducto, Model model, RedirectAttributes attribute) {
@@ -254,15 +282,16 @@ public class ControladorVendedor {
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
         
+        
         model.addAttribute("pedidos", listadopedidos2);
         
         return "frmVendedorPedidos2";
     }
     @GetMapping("/detapedido/{id}")
     public String detallepedido(@PathVariable("id") int idpedido,Model model,Principal principal){       
-        int id;
+        int id=0;
         if (principal != null) {
-            listaper = personaService.buscarnombre(Integer.parseInt(principal.getName()));
+            listaper = personaService.buscarnombre(principal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
         List<detallepedido> listadetalles=new ArrayList<>();
@@ -275,15 +304,54 @@ public class ControladorVendedor {
                 }
             }      
         }
+        model.addAttribute("idped",idpedido);
         model.addAttribute("detallepedido", listadetalles);
         
         return "frmVendedordetallePedidos";
     }
+    @PostMapping("/correo")
+    public String correo(@RequestParam("idped") int idpedido){
+        
+        int id;
+        String subject;
+        String message;
+        List<detallepedido> listadetalles=new ArrayList<>();
+        if (idpedido > 0) {
+            
+            for (int i = 0; i < detallepedidoService.listar().size(); i++) {
+                id=detallepedidoService.listar().get(i).getPedido().getId();
+                if (id == idpedido ){
+                    listadetalles.add(detallepedidoService.listar().get(i));
+                }
+            }      
+        }
+        pedido pedido = pedidoService.listarId(idpedido);
+        subject="Detalle de pedido";
+        message= "Productos del Pedido:\n";
+        for (int i = 0; i < listadetalles.size(); i++) {
+            String estado=listadetalles.get(i).getProducto().getEstado().equals("1") ? "disponible" : "no disponible";
+            message +="\nProducto "+(i+1)+": "+listadetalles.get(i).getProducto().getNombre()+" "+
+                    "Cantidad: "+listadetalles.get(i).getCantidad()+" "+
+                    "Precio: "+listadetalles.get(i).getProducto().getPrecio()+" "+
+                    "Disponibilidad: "+estado;
+        }
+        message+="\nCantidad: "+pedido.getCantidad();
+        
+        
+        sendmailService.sendMail("iakmarketplace@gmail.com", "irvingllerena@gmail.com", subject, message);
+        
+        
+        
+        return "redirect:/vendedor";
+    }
+    
+    
+    
     @GetMapping("/adetapedido/{id}")
     public String adetallepedido(@PathVariable("id") int idapedido,Model model,Principal principal){       
         
         if (principal != null) {
-            listaper = personaService.buscarnombre(Integer.parseInt(principal.getName()));
+            listaper = personaService.buscarnombre(principal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
         detallepedido objdetalle= detallepedidoService.listarId(idapedido);
@@ -296,7 +364,7 @@ public class ControladorVendedor {
     public String adeletedpedido(@PathVariable("id") int idapedido,Model model,Principal principal){       
         
         if (principal != null) {
-            listaper = personaService.buscarnombre(Integer.parseInt(principal.getName()));
+            listaper = personaService.buscarnombre(principal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
         detallepedido objdetalle= detallepedidoService.listarId(idapedido);

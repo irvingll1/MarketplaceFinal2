@@ -1,214 +1,227 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="template :: head">
-        
+
     </head>
     <body>
         <header th:replace="template :: cabecera"></header>
 
 
         <div class="card bg-light">
-            <div class="card-header bg-dark text-white" th:text="${titulo}"></div>
+            <div class="card-header h3">Nuevo Vendedor</div>
             <div class="card-body">
+                <form class="" th:action="@{/savepersonavendedor}" th:object="${cliente} " method="post"> 
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col py-3 px-lg-5 border bg-light" >
+                            <a class="text-info h4">Datos Personales</a>
+                            <hr>
+                            <div class="form-group row">
 
-                <form th:action="@{/savepersonavendedor}" th:object="${cliente} " method="post"> 
-                    <a class="text-info">Datos Personales</a>
-                    <hr>
-                    <div class="form-group row">
+                                <input type="hidden" th:field="*{id}">
+                                <label for="nombres">Nombre:</label> 
+                                <input type="text" th:field="*{nombre}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm " id="nombre"
+                                       placeholder="Nombres del cliente" required> 
+                            </div>
 
-                        <input type="hidden" th:field="*{id}">
-                        <label class="col-md-2" for="nombres">Nombre:</label> 
-                        <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
-                               placeholder="Nombres del cliente" required> 
-                    </div>
+                            <div class="form-group row">
+                                <label  for="apellidos">Apellidos:</label> 
+                                <input type="text" th:field="*{apellidos}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm" id="apellidos"
+                                       placeholder="Apellidos del cliente" required> 
 
-                    <div class="form-group row">
-                        <label class="col-md-2" for="apellidos">Apellidos:</label> 
-                        <input type="text" th:field="*{apellidos}" class="form-control form-control-sm col-md-6" id="apellidos"
-                               placeholder="Apellidos del cliente" required> 
+                            </div>
+                            <div class="form-group row">
+                                <label  for="apellidos">Sexo</label> 
+                                <select required th:field="*{sexo}" class="form-control form-control-sm" id="sexo" > 
+                                    <option value="" selected>Eliga su sexo</option>
+                                    <option th:value="masculino">masculino</option>
+                                    <option th:value="femenino">femenino</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label  for="fechanacimieno">Fecha Nacimiento</label> 
+                                <input type="date"  th:field="*{fechanacimieno}" class="form-control form-control-sm" id="fechanacimieno"
+                                       placeholder="Fecha Nacimiento" required> 
+                            </div>
+                            <div class="form-group row">
+                                <label  for="email">Email:</label> 
+                                <input type="email" th:field="*{email}" class="form-control form-control-sm" id="email"
+                                       placeholder="Email del cliente" required> 
 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="apellidos">Sexo</label> 
-                        <select th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" required> 
-                            <option value="0" selected>Eliga su sexo</option>
-                            <option th:value="masculino">masculino</option>
-                            <option th:value="femenino">femenino</option>
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="fechanacimieno">Fecha Nacimiento</label> 
-                        <input type="date"  th:field="*{fechanacimieno}" class="form-control form-control-sm col-md-6" id="fechanacimieno"
-                               placeholder="Fecha Nacimiento" required> 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="email">Email:</label> 
-                        <input type="email" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email"
-                               placeholder="Email del cliente" required> 
+                            </div>
+                            <div class="form-group row">
+                                <label  for="telefono">Telefono</label> 
+                                <input type="text" pattern="\d*" maxlength="9" th:field="*{telefono}" class="form-control form-control-sm" id="telefono"
+                                       placeholder="Telefono del cliente" required> 
 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="telefono">Telefono</label> 
-                        <input type="text" pattern="\d*" maxlength="9"  th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
-                               placeholder="Telefono del cliente" required> 
+                            </div>
+                            <div class="form-group row">
+                                <label  for="dni">DNI</label> 
+                                <input type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm" id="dni"
+                                       placeholder="Dni del cliente" required> 
 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="dni">DNI</label> 
-                        <input type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
-                               placeholder="dni del cliente" required> 
+                            </div>
+                            <div class="form-group row">
+                                <label  for="direccion">Direccion</label> 
+                                <input type="text" th:field="*{direccion}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm" name="direccion"
+                                       placeholder="direccion del cliente" required> 
 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="direccion">Direccion</label> 
-                        <input type="text" th:field="*{direccion}" class="form-control form-control-sm col-md-6" name="direccion"
-                               placeholder="direccion del cliente" required> 
+                            </div>
+                            <div class="form-group row">
+                                <label for="provincia">Provincia</label>                
+                                <select required class="form-control form-control-sm" id="provincia" > 
+                                    <option value="" selected>Eliga una provincia</option>
+                                    <option th:each="provincia:${provinciascrear}"
+                                            th:value="${provincia.id}"
+                                            th:text="${provincia.descripcion}"		
+                                            />					
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label for="distrito">Distrito</label> 
+                                <select required th:field="*{distrito}" class="form-control form-control-sm" name="distrito" > 
+                                    <option value="" selected>Eliga un distrito</option>
+                                    <option th:each="distrito:${distritoscrear}"
+                                            th:value="${distrito.id}"
+                                            th:text="${distrito.descripcion}"		
+                                            />					
+                                </select>
+                            </div> 
+                        </div>
+                            <div class="col py-3 px-lg-5 border bg-light" >
+                            <a class="text-info h4">Datos de la empresa</a><hr>
+                            <div class="form-group row">
+                                <label for="nombre">Nombre Empresa</label> 
+                                <input required type="text"  th:field="*{tienda.nombre}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm"
+                                       placeholder="Nombre de la Empresa"> 
+                            </div>
+                            <div class="form-group row">
+                                <label for="dni">Telefono</label> 
+                                <input required type="text" pattern="\d*" maxlength="9"  id="telefono2" th:field="*{tienda.telefono}" class="form-control form-control-sm"
+                                       placeholder="Telefono"> 
+                            </div>
+                            <div class="form-group row">
+                                <label  for="dni">Descripcion</label> 
+                                <input required type="text"  th:field="*{tienda.descripcion}" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm"
+                                       placeholder="Descripcion"> 
+                            </div>
+                            <div class="form-group row">
+                                <label hidden for="dni">Latitud</label> 
+                                <input required type="text"  th:field="*{tienda.latitud}" class="lati form-control form-control-sm"
+                                       placeholder="Latitud"  hidden> 
+                            </div>
+                            <div class="form-group row">
+                                <label hidden for="dni">Longitud</label> 
+                                <input required type="text"  th:field="*{tienda.longitud}" class="longi form-control form-control-sm"
+                                       placeholder="Longitud" hidden> 
 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="provincia">Provincia</label>                
-                        <select class="form-control form-control-sm col-md-6" id="provincia" required> 
-                            <option th:value="0" selected>Eliga una provincia</option>
-                            <option th:each="provincia:${provinciascrear}"
-                                    th:value="${provincia.id}"
-                                    th:text="${provincia.descripcion}"		
-                                    />					
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="distrito">Distrito</label> 
-                        <select th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
-                            <option value="0" selected>Eliga un distrito</option>
-                            <option th:each="distrito:${distritoscrear}"
-                                    th:value="${distrito.id}"
-                                    th:text="${distrito.descripcion}"		
-                                    />					
-                        </select>
-                    </div> 
-                    <a class="text-info">Datos de la empresa</a><hr>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="nombre">Nombre Empresa</label> 
-                        <input type="text"  th:field="*{tienda.nombre}" class="form-control form-control-sm col-md-6"
-                               placeholder="Nombre de la Empresa"> 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="dni">Telefono</label> 
-                        <input type="text" pattern="\d*" maxlength="9" id="telefono2" th:field="*{tienda.telefono}" class="form-control form-control-sm col-md-6"
-                               placeholder="Telefono"> 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="dni">Descripcion</label> 
-                        <input type="text"  th:field="*{tienda.descripcion}" class="form-control form-control-sm col-md-6"
-                               placeholder="Descripcion"> 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="dni">Latitud</label> 
-                        <input type="text"  th:field="*{tienda.latitud}" class="lati form-control form-control-sm col-md-6"
-                               placeholder="Latitud"> 
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="dni">Longitud</label> 
-                        <input type="text"  th:field="*{tienda.longitud}" class="longi form-control form-control-sm col-md-6"
-                               placeholder="Longitud"> 
+                            </div>
+                            
+                            <div id="mapaa"></div>
 
-                    </div>
-                    <div id="mapaa"></div>
-                    <script async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9_9XBYADMhQ4d_mI35CewUqouPE1rlA&callback=initMap">
-                    </script>
-                    <script type="text/javascript">
-                            // Initialize our function when the document is ready for events.
-                            jQuery(document).ready(function(){
+                            <script async defer
+                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9_9XBYADMhQ4d_mI35CewUqouPE1rlA&callback=initMap">
+                            </script>
+                            <script type="text/javascript">
+                                // Initialize our function when the document is ready for events.
+                                jQuery(document).ready(function () {
                                     // Listen for the input event.
                                     jQuery("#telefono").on('input', function (evt) {
-                                            // Allow only numbers.
-                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                                        // Allow only numbers.
+                                        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
                                     });
                                     jQuery("#telefono2").on('input', function (evt) {
-                                            // Allow only numbers.
-                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                                        // Allow only numbers.
+                                        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
                                     });
                                     jQuery("#dni").on('input', function (evt) {
-                                            // Allow only numbers.
-                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                                        // Allow only numbers.
+                                        jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
                                     });
-                            });
-                    </script>
-                    <script async defer>
-                        var map;
-                        var lati;
-                        var longi;
+                                });
+                            </script>
+                            <script async defer>
+                                var map;
+                                var lati;
+                                var longi;
 
-                        // Devolución de llamada ejecutada cuando se ha cargado el script de Google Maps
-                        function initMap() {
-                            map = new google.maps.Map(document.getElementById('mapaa'), {
-                                zoom: 10,
-                                center: {
-                                    lat: -16.4096939, 
-                                    lng: -71.5405849
+                                // Devolución de llamada ejecutada cuando se ha cargado el script de Google Maps
+                                function initMap() {
+                                    map = new google.maps.Map(document.getElementById('mapaa'), {
+                                        zoom: 10,
+                                        center: {
+                                            lat: -16.4096939,
+                                            lng: -71.5405849
+                                        }
+                                    });
+
+                                    // Agregar oyente de clics en el mapa
+                                    google.maps.event.addListener(map, "click", function (event) {
+                                        var latLng = event.latLng;
+                                        marker = new google.maps.Marker({
+                                            position: event.latLng,
+                                            map: map
+                                        });
+
+                                        //alert("Latitude: " + latLng.lat() + ", Longitude: " + latLng.lng());
+                                        lati = latLng.lat();
+                                        longi = latLng.lng();
+                                        var latitud = document.querySelector('.lati').addEventListener("click", cambiaValores);
+                                        var longitud = document.querySelector('.longi').addEventListener("click", cambiaValores);
+
+
+                                    });
+                                    latitud.value = latLng.lat();
+                                    longitud.value = latLng.lng();
+        //                            latitud.innerHTML=`${latLng.lng()}`
+        //                            longitud.innerHTML=`${latLng.lng()}`
                                 }
-                            });
 
-                            // Agregar oyente de clics en el mapa
-                            google.maps.event.addListener(map, "click", function (event) {
-                                var latLng = event.latLng;
-                                marker = new google.maps.Marker({
-                                   position: event.latLng,
-                                   map: map
-                                 });
+                                function cambiaValores() {
+                                    var la = document.querySelector(".lati");
+                                    var lo = document.querySelector(".longi");
+                                    la.value = lati;
+                                    lo.value = longi;
+                                }
+                            </script>
+                            <div class="form-group row">
+                                <input hidden="" type="text"  th:field="*{tienda.estado}" th:value="1"> 
+                            </div>
+                            <div class="form-group row">
+                                <label for="dni">Direccion Empresa</label> 
+                                <input type="text"  th:field="*{tienda.direccion}" class="form-control form-control-sm"
+                                       placeholder="Direccion Empresa"> 
 
-                                //alert("Latitude: " + latLng.lat() + ", Longitude: " + latLng.lng());
-                                lati=latLng.lat();
-                                longi=latLng.lng();
-                                var latitud = document.querySelector('.lati').addEventListener("click", cambiaValores);
-                                var longitud = document.querySelector('.longi').addEventListener("click", cambiaValores);
-                                
-                                
-                            });
-                            latitud.value=latLng.lat();
-                            longitud.value=latLng.lng();
-//                            latitud.innerHTML=`${latLng.lng()}`
-//                            longitud.innerHTML=`${latLng.lng()}`
-                        }
-
-                        function cambiaValores() {
-                            var la = document.querySelector(".lati");
-                            var lo = document.querySelector(".longi");
-                            la.value = lati;
-                            lo.value = longi;
-}
-                    </script>
-                    <div class="form-group row">
-                        <input hidden="" type="text"  th:field="*{tienda.estado}" th:value="1"> 
+                            </div>
+                            <div class="form-group row">
+                                <label for="provincia">Provincia</label>                
+                                <select class="form-control form-control-sm" id="provincia" required> 
+                                    <option th:value="0" selected>Eliga una provincia</option>
+                                    <option th:each="provincia:${provinciascrear}"
+                                            th:value="${provincia.id}"
+                                            th:text="${provincia.descripcion}"		
+                                            />					
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label for="distrito">Distrito</label> 
+                                <select th:field="*{tienda.distrito}" class="form-control form-control-sm" name="distrito" required> 
+                                    <option th:value="0" selected>Eliga un disitrito</option>
+                                    <option th:each="distrito:${distritoscrear}"
+                                            th:value="${distrito.id}"
+                                            th:text="${distrito.descripcion}"		
+                                            />					
+                                </select>
+                            </div>
+                        </div>
+                            </div>
+                       
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="dni">Direccion Empresa</label> 
-                        <input type="text"  th:field="*{tienda.direccion}" class="form-control form-control-sm col-md-6"
-                               placeholder="Direccion Empresa"> 
-
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="provincia">Provincia</label>                
-                        <select class="form-control form-control-sm col-md-6" id="provincia" required> 
-                            <option th:value="0" selected>Eliga una provincia</option>
-                            <option th:each="provincia:${provinciascrear}"
-                                    th:value="${provincia.id}"
-                                    th:text="${provincia.descripcion}"		
-                                    />					
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2" for="distrito">Distrito</label> 
-                        <select th:field="*{tienda.distrito}" class="form-control form-control-sm col-md-6" name="distrito" required> 
-                            <option th:value="0" selected>Eliga un disitrito</option>
-                            <option th:each="distrito:${distritoscrear}"
-                                    th:value="${distrito.id}"
-                                    th:text="${distrito.descripcion}"		
-                                    />					
-                        </select>
-                    </div>
-                    <div class="card-footer bg-dark">
-                        <input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+                    <div class="card-footer bg-light">
+                        <div class="offset-lg-5">
+                            <input type="submit" class="btn btn-primary btn-lg" value="Guardar">
+                        </div>
+                        
                     </div>
                     <br>
                 </form>

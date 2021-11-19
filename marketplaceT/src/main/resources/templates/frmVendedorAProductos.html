@@ -6,7 +6,7 @@
         <header th:replace="template :: cabecera"></header>
         <div class="card bg-light">
         <div class="row">
-            <div class="column" th:replace="template :: menuvendedor"></div>
+            <div class="column" th:replace="templatevendedor :: menuvendedor"></div>
 
             <div class="column">
 
@@ -14,46 +14,45 @@
                 <br> <br>
                 <div class="card-body">
 
-                    <form th:action="@{/saveproductos}" th:object="${producto}" method="post" style="width: 350%;margin-left: auto;margin-right: auto;">
+                    <form th:action="@{/saveproductos}" th:object="${producto}" method="post" enctype="multipart/form-data" style="width: 350%;margin-left: auto;margin-right: auto;">
                         <div class="form-group row">
-
-                            <input type="hidden" th:field="*{id}">
-                            
-                            <label class="col-md-2" for="urlfoto">Url de Foto</label> 
-                            <input type="text" th:field="*{foto}" class="form-control form-control-sm col-md-6" id="foto"
-                                   placeholder="foto del producto"> 
-            
+                            <input type="hidden" th:field="*{id}">  
+                                
+                            <label class="col-md-2" for="urlfoto">Foto</label> 
+                            <input type="file" th:field="*{foto}" class="form-control-sm col-md-6" name="foto" id="foto"> 
+<!--                            <hr>
+                            <div id="preview"></div>-->
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="nombre">Nombre</label> 
-                            <input type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
+                            <input required type="text" th:field="*{nombre}" class="form-control form-control-sm col-md-6" id="nombre"
                                    placeholder="nombre del producto"> 
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="descripcion">Descripcion</label> 
-                            <input type="text"  th:field="*{descripcion}" class="form-control form-control-sm col-md-6" id="descripcion"
+                            <input required type="text"  th:field="*{descripcion}" class="form-control form-control-sm col-md-6" id="descripcion"
                                    placeholder="descripcion del producto"> 
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="marca">Marca</label> 
-                            <input type="text"  th:field="*{marca}" class="form-control form-control-sm col-md-6" id="marca"
+                            <input type="text" required th:field="*{marca}" class="form-control form-control-sm col-md-6" id="marca"
                                    placeholder="marca del producto"> 
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="estado">Estado</label> 
-                            <select th:field="*{estado}" class="form-control form-control-sm col-md-6" id="tienda"> 
+                            <select required th:field="*{estado}" class="form-control form-control-sm col-md-6" id="tienda"> 
                                 <option th:value="1" th:text="activo"/>	
                                 <option th:value="0" th:text="desactivo"/>	
                             </select>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="precio">Precio</label> 
-                            <input type="text"  th:field="*{precio}" class="form-control form-control-sm col-md-6" id="precio"
+                            <input required type="text"  th:field="*{precio}" class="form-control form-control-sm col-md-6" id="precio"
                                    placeholder="precio del producto"> 
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="categoria">Categoria Producto</label> 
-                            <select th:field="*{categoriaproducto}" class="form-control form-control-sm col-md-6" id="provincia"> 
+                            <select required th:field="*{categoriaproducto}" class="form-control form-control-sm col-md-6" id="provincia"> 
                                 <option th:each="cate:${categoriaproductos}"
                                         th:value="${cate.id}"
                                         th:text="${cate.nombre}"		
@@ -62,7 +61,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2" for="unidadmedida">Unidad Medida</label> 
-                            <select th:field="*{unidadmedida}" class="form-control form-control-sm col-md-6" id="tienda"> 
+                            <select required th:field="*{unidadmedida}" class="form-control form-control-sm col-md-6" id="tienda"> 
                                 <option th:value="litros" th:text="litros"/>	
                                 <option th:value="gramos" th:text="gramos"/>	
                             </select>
@@ -77,6 +76,26 @@
             </div>
         </div>
 </div>
+        <script>
+            document.getElementById("foto").onchange = function(e) {
+            // Creamos el objeto de la clase FileReader
+            let reader = new FileReader();
+
+            // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+            reader.readAsDataURL(e.target.files[0]);
+
+            // Le decimos que cuando este listo ejecute el código interno
+            reader.onload = function(){
+              let preview = document.getElementById('preview'),
+                      image = document.createElement('img');
+
+              image.src = reader.result;
+
+              preview.innerHTML = '';
+              preview.append(image);
+            };
+          }
+        </script>
         <footer th:replace="template :: footer"></footer>
 
     </body>
