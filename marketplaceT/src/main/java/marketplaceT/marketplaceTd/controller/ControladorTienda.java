@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -177,6 +178,7 @@ public class ControladorTienda {
  
         }
         model.addAttribute("nomtienda", tienda.getNombre());
+        model.addAttribute("tiendaid", tienda.getId());
 //        model.addAttribute("oculta", ocultar);
         model.addAttribute("provincias", listadoprovincia);
         model.addAttribute("calitienda", listadocalifica2);
@@ -190,11 +192,16 @@ public class ControladorTienda {
         return "frmtienda2";
     }
     
-    @GetMapping("/busquedacategoria")
-    public String busquedacategoria(@ModelAttribute tienda tienda,Principal principal,RedirectAttributes attribute,Model model){
+    @PostMapping("/busquedacategoria")
+    public String busquedacategoria(@RequestParam("catego") int cate,
+            Principal principal,RedirectAttributes attribute,Model model){
+        System.out.println("categoria: "+cate);
+        System.out.println("Tienda: "+tiendacali.getId());
         
         
-        return "";
+        
+        
+        return "redirect:filtrotienda";
     }
     
     @GetMapping("/cali")
@@ -270,7 +277,7 @@ public class ControladorTienda {
         System.out.println("fecha: "+carrito.getFecha());     
         System.out.println("pedido:"+pedido.toString());
    
-        return "redirect:/home";
+        return "redirect:/tienda";
     }
     
     @GetMapping("/detalleproducto/{id}")

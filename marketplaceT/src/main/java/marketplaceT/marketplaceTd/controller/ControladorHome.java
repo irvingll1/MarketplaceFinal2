@@ -94,7 +94,7 @@ public class ControladorHome {
             }
             else if (listaper.get(0).getTipopersona().getNombre().equals("Cliente")) {
                 model.addAttribute("objetopersona", listaper.get(0).getNombre());
-                return "templatecliente";
+                return "homecliente";
             }
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
             

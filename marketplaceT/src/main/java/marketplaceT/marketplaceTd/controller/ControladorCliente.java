@@ -151,11 +151,7 @@ public class ControladorCliente {
         usuarioService.save(usu);
         System.out.println(usuarioService.listarId(usuarioService.listar().size()).toString());
         //agrega rol
-        rol ro = new rol();
-        ro.setNombre("ROLE_USER");
-        ro.setIdusuario(usu.getId());
-        System.out.println(ro.toString());
-        rolService.save(ro);
+        persona.setRol(rolService.listarId(3));
         //agrega tipopersona
         persona.setTipopersona(tipopersonaService.listarId(3));
         //agrega persona a base de datos
@@ -186,11 +182,7 @@ public class ControladorCliente {
         usuarioService.save(usu);
         System.out.println(usuarioService.listarId(usuarioService.listar().size()).toString());
         //agrega rol
-        rol ro = new rol();
-        ro.setNombre("ROLE_GUESS");
-        ro.setIdusuario(usu.getId());
-        System.out.println(ro.toString());
-        rolService.save(ro);
+        persona.setRol(rolService.listarId(2));
         //agrega persona a base de datos
         System.out.println(persona.toString());
         //AGREGANDO TIENDA DE PERSONA

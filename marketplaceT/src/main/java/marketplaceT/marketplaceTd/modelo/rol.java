@@ -29,7 +29,7 @@ public class rol implements Serializable{
     private int id;
     
     private String nombre;
-    private int idusuario;
+    
 
     public int getId() {
         return id;
@@ -47,29 +47,9 @@ public class rol implements Serializable{
         this.nombre = nombre;
     }
 
-    public int getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(int idusuario) {
-        this.idusuario = idusuario;
-    }
-
     @Override
     public String toString() {
-        return "rol{" + "id=" + id + ", nombre=" + nombre + ", idusuario=" + idusuario + '}';
+        return "rol{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-
-
-    
-
-    
-
-    
-    
-    
-    
-    
-    
     
 }

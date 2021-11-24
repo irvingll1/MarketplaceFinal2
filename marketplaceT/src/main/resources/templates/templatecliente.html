@@ -139,7 +139,7 @@
                                             th:text="${authority.getAuthority().replaceFirst('ROLE_GUESS', 'Vendedor')}"></p>
                                     </a></li>
                                 <form th:action="@{/logout}" method="post">
-                                    <button class="dropdown-item" type="submit">Cerrar Sesion</button>
+                                    <button class="dropdown-item" onclick="deleteLocalStorage();" type="submit">Cerrar Sesion</button>
                                 </form>
                             </ul>
                         </li>
@@ -174,7 +174,9 @@
         </header>
 
         <!-- CONTENIDO -->
-        <div class="container"></div>
+        <div class="container">
+            
+        </div>
      <!-- PIE DE PAGINA -->
         <footer th:fragment="footer" class="text-center text-white" style="background-color: #316B83;">
 

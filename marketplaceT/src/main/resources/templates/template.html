@@ -153,7 +153,7 @@
                                             th:text="${authority.getAuthority().replaceFirst('ROLE_GUESS', 'Vendedor')}"></p>
                                     </a></li>
                                 <form th:action="@{/logout}" method="post">
-                                    <button class="dropdown-item" type="submit">Cerrar Sesion</button>
+                                    <button class="dropdown-item" onclick="deleteLocalStorage();" type="submit">Cerrar Sesion</button>
                                 </form>
                             </ul>
                         </li>
@@ -265,7 +265,9 @@
                 });
             </script>
 
-            <script async defer src="/js/carrito.js" ></script>
+            <script async defer src="/js/carrito.js" >
+                
+            </script>
         </footer>
 
     </body>

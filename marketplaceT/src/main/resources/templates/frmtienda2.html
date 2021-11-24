@@ -17,6 +17,7 @@
                     <div class="input-group">
                         <h5>Busqueda: </h5>
                         &nbsp;&nbsp;
+                        <input th:value="${tiendaid}" name="idtiendaf">
                         <input type="text" class="form-control" name="busqueda" placeholder="¿Que producto necesita?" > 
                         &nbsp;&nbsp;
                             <button type="submit" class="btn btn-outline-secondary" >Buscar</button>
@@ -29,8 +30,8 @@
                     
                     <div class="input-group" style="" >
                         
-                        <form class="input-group" th:action="@{/busquedacategoria}" method="get"> 
-                            <select class="custom-select">
+                        <form class="input-group" th:action="@{/busquedacategoria}" method="post"> 
+                            <select class="custom-select" name="catego">
                                 <option value="">Seleccione una categoria</option>
                                 <option th:each="cat:${categoriap}"
                                         th:value="${cat.id}"
@@ -322,4 +323,5 @@
         
     /*]]>*/
     </script>
+    
 </html>

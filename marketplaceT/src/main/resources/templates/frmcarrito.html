@@ -46,7 +46,7 @@
                             <div class="col">
                                 <label>Metodo de pago</label>
 
-                                <select class="form-control form-control-sm col-md-6" name="tipopago"> 
+                                <select class="form-control form-control-sm col-md-6" name="tipopago" required> 
                                     <option th:field="*{tipopago}" th:each="tipopago:${tipopagos}"
                                             th:value="${tipopago.id}"
                                             th:text="${tipopago.nombre}"		
@@ -56,14 +56,14 @@
                             <div class="col">
                                 <label class="" for="fecha">Fecha Estimada</label> 
                                 <input type="datetime-local" th:field="*{fecha}" class="form-control form-control-sm" id="fecha"
-                                       placeholder="Fecha Estimada">
+                                       placeholder="Fecha Estimada" required>
                             </div>
                         </div>
 
                     </div>
                     <hr>
                     <div class="col d-flex justify-content-end">
-                        <button sec:authorize="isAuthenticated()" onclick="deleteLocalStorage()" class="btn btn-success">COMPRAR</button>
+                        <button sec:authorize="isAuthenticated()" onclick="procesarCompra()" class="btn btn-success">COMPRAR</button>
                     </div>
                 </form>
             </div>
@@ -74,6 +74,13 @@
 		function goBack(){
 			window.history.back();
 		}
+                
+                function procesarCompra(){
+                    deleteLocalStorage();
+                    Swal.fire('Compra Realizada Correctamente', 'Compra registrada!', 'success')
+                }
+                
+                
 	</script>
     </body>
 </html>

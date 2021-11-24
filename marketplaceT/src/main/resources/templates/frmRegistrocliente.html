@@ -81,10 +81,10 @@
                         <label class="col-md-2" for="distrito">Distrito</label> 
                         <select required="required" th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito"> 
                             <option value="" selected>Eliga un distrito</option>
-                            <option th:each="distrito:${distritoscrear}"
+<!--                            <option th:each="distrito:${distritoscrear}"
                                 th:value="${distrito.id}"
                                 th:text="${distrito.descripcion}"		
-                                />					
+                                />					-->
                         </select>
                     </div>
                     <div class="card-body offset-lg-3">
@@ -94,8 +94,14 @@
                 </form>
             </div>
         </div>       
-        <script type="text/javascript">
+        <script th:inline="javascript">
                 // Initialize our function when the document is ready for events.
+                var provinciasre = [[${provinciascrear}]];
+                var disitritore = [[${distritoscrear}]];
+                
+                var distr = document.getElementById("distrito");
+                
+                
                 jQuery(document).ready(function(){
                         // Listen for the input event.
                         jQuery("#telefono").on('input', function (evt) {
@@ -106,17 +112,47 @@
                                 // Allow only numbers.
                                 jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
                         });
+                        jQuery("#provincia").on('change',function (evt){
+                            var length = distr.options.length;
+                            for (i = length - 1; i > 0; i--) {
+                                distr.options[i] = null;
+                            }
+                            switch(jQuery(this).val()){
+                                case '1':
+                                    for (var j = 0; j < disitritore.length; j++) {
+                                        if(provinciasre[0].id == disitritore[j].provincia.id){
+                                            var option = document.createElement("option");
+                                            option.text = disitritore[j].descripcion;
+                                            option.value = disitritore[j].id;
+                                            distr.add(option);
+                                        }
+                                    }
+                                    break;
+                                case '2':
+                                    for (var j = 0; j < disitritore.length; j++) {
+                                        if(provinciasre[1].id == disitritore[j].provincia.id){
+                                            var option = document.createElement("option");
+                                            option.text = disitritore[j].descripcion;
+                                            option.value = disitritore[j].id;
+                                            distr.add(option);
+                                        }
+                                    }
+                                    break;
+                                case '3':
+                                    for (var j = 0; j < disitritore.length; j++) {
+                                        if(provinciasre[2].id == disitritore[j].provincia.id){
+                                            var option = document.createElement("option");
+                                            option.text = disitritore[j].descripcion;
+                                            option.value = disitritore[j].id;
+                                            distr.add(option);
+                                        }
+                                    }
+                                    break;  
+                            }
+                            
+                        });
 
                 });
-//                $('#validate').click(function() {
-//                    if ($('#provincia').val().trim() === '') {
-//                            alert('Debe seleccionar una opción');
-//
-//                        }
-//                });
-$(document).on('change', '#provincia', function () {
-                alert("hola");
-            }
         </script> 
         <footer th:replace="template :: footer"></footer>
     </body>

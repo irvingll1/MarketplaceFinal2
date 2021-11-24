@@ -328,17 +328,20 @@ public class ControladorVendedor {
         pedido pedido = pedidoService.listarId(idpedido);
         subject="Detalle de pedido";
         message= "Productos del Pedido:\n";
+        String cliente="";
         for (int i = 0; i < listadetalles.size(); i++) {
             String estado=listadetalles.get(i).getProducto().getEstado().equals("1") ? "disponible" : "no disponible";
+            cliente=listadetalles.get(i).getPersona().getEmail();
             message +="\nProducto "+(i+1)+": "+listadetalles.get(i).getProducto().getNombre()+" "+
                     "Cantidad: "+listadetalles.get(i).getCantidad()+" "+
                     "Precio: "+listadetalles.get(i).getProducto().getPrecio()+" "+
                     "Disponibilidad: "+estado;
+            
         }
         message+="\nCantidad: "+pedido.getCantidad();
+        message+="\nTotal Pedido: s./"+pedido.getTotal();
         
-        
-        sendmailService.sendMail("iakmarketplace@gmail.com", "irvingllerena@gmail.com", subject, message);
+        sendmailService.sendMail("iakmarketplace@gmail.com", cliente, subject, message);
         
         
         

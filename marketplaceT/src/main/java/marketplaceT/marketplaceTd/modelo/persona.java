@@ -65,7 +65,11 @@ public class persona implements Serializable{
     @ManyToOne
     @JoinColumn(name="iddistrito")
     @NotEmpty
-    private distrito distrito;    
+    private distrito distrito; 
+    
+    @ManyToOne
+    @JoinColumn(name="idrol")
+    private rol rol;
     
 
 
@@ -174,9 +178,21 @@ public class persona implements Serializable{
         this.tipopersona = tipopersona;
     }
 
+    public rol getRol() {
+        return rol;
+    }
+
+    public void setRol(rol rol) {
+        this.rol = rol;
+    }
+
     @Override
     public String toString() {
-        return "persona{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo + ", fechanacimieno=" + fechanacimieno + ", email=" + email + ", telefono=" + telefono + ", dni=" + dni + ", direccion=" + direccion + ", usuario=" + usuario + ", tienda=" + tienda + ", distrito=" + distrito + ", tipopersona=" + tipopersona + '}';
+        return "persona{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo + ", fechanacimieno=" + fechanacimieno + ", email=" + email + ", telefono=" + telefono + ", dni=" + dni + ", direccion=" + direccion + ", usuario=" + usuario + ", tienda=" + tienda + ", tipopersona=" + tipopersona + ", distrito=" + distrito + ", rol=" + rol + '}';
     }
+    
+    
+
+    
     
 }

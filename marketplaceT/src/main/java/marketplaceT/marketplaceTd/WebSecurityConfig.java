@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         builder.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("Select usuario,contrasena,estado from usuario where usuario=?")
-                .authoritiesByUsernameQuery("SELECT u.usuario, r.nombre FROM usuario u inner JOIN rol r on u.id=r.idusuario WHERE u.usuario=?")
+                .authoritiesByUsernameQuery("SELECT u.usuario, r.nombre FROM usuario u inner join persona p on p.idusuario=u.id INNER join rol r on p.idrol=r.id WHERE u.usuario=?")
                 .passwordEncoder(passwordEncoder());
     }
 
