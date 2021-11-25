@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:fragment="head">
         <meta charset="UTF-8">
@@ -13,78 +14,13 @@
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
               crossorigin="anonymous">
         <link rel="stylesheet" th:href="@{/css/signin.css}">
-
         <link rel="stylesheet" 
               href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.min.css"/>
-
-
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css"/>
-        <style type="text/css">
-            .txt-center {
-                text-align: center;
-            }
-            .hide {
-                display: none;
-            }
-
-            .clear {
-                float: none;
-                clear: both;
-            }
-
-            .rating {
-                width: 110px;
-                unicode-bidi: bidi-override;
-                direction: rtl;
-                text-align: center;
-                position: relative;
-            }
-
-            .rating > label {
-                float: right;
-                display: inline;
-                padding: 0;
-                margin: 0;
-                position: relative;
-                cursor: pointer;
-                color: #888;
-            	font-size: 25px;
-            }
-
-            .rating > label:hover,
-            .rating > label:hover ~ label,
-            .rating > input.radio-btn:checked ~ label {
-                color: transparent;
-            }
-
-            .rating > label:hover:before,
-            .rating > label:hover ~ label:before,
-            .rating > input.radio-btn:checked ~ label:before,
-            .rating > input.radio-btn:checked ~ label:before {
-                content: "\2605";
-                position: absolute;
-                left: 0;
-                color: #00ccff;
-            }
-
-            /* Establezca siempre la altura del mapa explícitamente para definir el tamaño del div
-            * elemento que contiene el mapa. */
-            #mapaa {
-                width: 600px;
-                height: 400px;
-                
-            }
-            /* Opcional: hace que la página de muestra llene la ventana. */
-
-        </style>
-        
-
+        <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/css/fixedHeader.bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/css/responsive.bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/css/califica.css}" >
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
     </head>
     <body>
 
@@ -249,11 +185,11 @@
                 integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
                 crossorigin="anonymous"
             ></script>
-            <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-            <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
-            <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js"></script>
-            <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-            <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+            <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+            <script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+            <script th:src="@{/js/dataTables.fixedHeader.min.js}"></script>
+            <script th:src="@{/js/dataTables.responsive.min.js}"></script>
+            <script th:src="@{/js/responsive.bootstrap.min.js}"></script>
             <script>
                 $(document).ready(function () {
                     var table = $('#example').DataTable({

@@ -386,7 +386,14 @@ public class ControladorVendedor {
         pedido objedido= pedidoService.listarId(idpedido);
         
         objedido.setEstado(1);
-        pedidoService.save(objedido);   
+        pedidoService.save(objedido);
+        //agregar Atencion de pedido
+        atencionpedido atencionpedido = new atencionpedido();
+        atencionpedido.setPersona(objedido.getPersona());
+        atencionpedido.setOrden(1);
+        atencionpedido.setPedido(objedido);
+        atencionpedido.setFechapedido(objedido.getFechapedido());
+        atencionpedidoService.save(atencionpedido);
         
         return "redirect:/adminpedidos";
     }
@@ -417,10 +424,11 @@ public class ControladorVendedor {
     public String AtencionPedidosVendedor(Model model,Principal principal) {
         List<atencionpedido> listadoatencionpedido = atencionpedidoService.listar();
         List<atencionpedido> listadoatencionpedido2= new ArrayList();
+        atencionpedido aten = new atencionpedido();
 //        
 
         for (int i = 0; i < listadoatencionpedido.size(); i++) {
-            if(listadoatencionpedido.get(i).getIdpersona().equals(listaper.get(0))){
+            if(listadoatencionpedido.get(i).getPersona().equals(listaper.get(0))){
                 listadoatencionpedido2.add(listadoatencionpedido.get(i));
             }
         }
@@ -430,9 +438,33 @@ public class ControladorVendedor {
         }
 
         //paginacion atencion pedidos
-        model.addAttribute("atencionpedidos", listadoatencionpedido2);
+        model.addAttribute("atencionpedidos", listadoatencionpedido);
+        model.addAttribute("atencionpedidom", aten);
         return "frmVendedorAtencionP";
     }
+    
+    @GetMapping("/atencionpeds/{id}")
+    public String atencionpeds(@PathVariable("id") int id ,Model model,Principal principal){
+
+        atencionpedido objate= atencionpedidoService.listarId(id);
+        objate.setOrden(objate.getOrden()+1);
+        
+        atencionpedidoService.save(objate);
+        
+        return "redirect:/adminatencion";
+
+    }
+    @GetMapping("/atencionpedb/{id}")
+    public String atencionpedb(@PathVariable("id") int id ,Model model,Principal principal){
+
+        atencionpedido objate= atencionpedidoService.listarId(id);
+        objate.setOrden(objate.getOrden()-1);
+        atencionpedidoService.save(objate);
+        
+        return "redirect:/adminatencion";
+
+    }
+    
     
     
     @GetMapping("/reportes")

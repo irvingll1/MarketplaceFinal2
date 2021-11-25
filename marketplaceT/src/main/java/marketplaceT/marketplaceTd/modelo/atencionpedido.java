@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -28,7 +27,6 @@ public class atencionpedido implements Serializable{
     private int id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date Fechapedido;
     @ManyToOne
     @JoinColumn(name="idpedido")
@@ -73,11 +71,11 @@ public class atencionpedido implements Serializable{
         this.orden = orden;
     }
 
-    public persona getIdpersona() {
+    public persona getPersona() {
         return persona;
     }
 
-    public void setIdpersona(persona persona) {
+    public void setPersona(persona persona) {
         this.persona = persona;
     }
 
