@@ -5,7 +5,7 @@
         <header th:replace="templatecliente :: cabecera"></header>
         <div class="container">
             <div style="display: inline-block">
-            <h2 class="h4 m-4 text-primary" style="display: inline-block">Tienda <div style="display: inline-block" th:text="${nomtienda}"></div></h2></div>
+                <h2 class="h4 m-4 text-primary" style="display: inline-block">Tienda <div style="display: inline-block" th:text="${nomtienda}"></div></h2></div>
             <form th:action="@{/tienda}" method="get"> 
                 <p>&nbsp;<input class="btn btn-success" type="submit" value="Atras" /></p>
             </form>
@@ -14,35 +14,21 @@
                     <div class="input-group">
                         <h5>Busqueda: </h5>
                         &nbsp;&nbsp;
-                        <input th:value="${tiendaid}" name="idtiendaf">
+                        <input th:value="${tiendaid}" name="idtiendaf" hidden>
                         <input type="text" class="form-control" name="busqueda" placeholder="¿Que producto necesita?" > 
                         &nbsp;&nbsp;
-                            <button type="submit" class="btn btn-outline-secondary" >Buscar</button>
+                        <button type="submit" class="btn btn-outline-secondary" >Buscar</button>
                     </div>
                 </div>
             </div>
-            
-            <div class="card" >               
-                <div class="card-body">
-                    
-                    <div class="input-group" style="" >
-                        
-                        <form class="input-group" th:action="@{/busquedacategoria}" method="post"> 
-                            <select class="custom-select" name="catego">
-                                <option value="">Seleccione una categoria</option>
-                                <option th:each="cat:${categoriap}"
-                                        th:value="${cat.id}"
-                                        th:text="${cat.nombre}"		
-                                        />
-                            </select>  
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-                            </div>
-                        </form>
-                        
-                    </div>
-                    
-                </div>
+
+            <div class="card">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/filtrotiendaca/}+ ${tiendaid} + '/' + 0">Todos</a></li>
+                    <li class="nav-item" th:each="cat:${categoriap}">  
+                        <a class="nav-link" id="cate" name="cate" th:value="${cat.id}"
+                        th:text="${cat.nombre}" th:href="@{/filtrotiendaca/}+ ${tiendaid} + '/' + ${cat.id}" ></a></li>
+                </ul>
             </div>
             <br><br>
             <div class="tab-content" id="pills-tabContent">
@@ -61,11 +47,11 @@
                                 <img th:src="@{'/images/' + ${producto.foto}}" class="card-img-top" alt="..." width="100" height="200">
                                 <div class="card-body">
                                     <p class="card-text text-black-50 description" th:text="${producto.descripcion}">
-                                        
+
                                     </p>
                                     <a class="btn btn-success btn-sm" th:href="@{/detalleproducto/} + ${producto.id}"
-                                        th:text="'ver +'" title="Ver +">
-                                     </a>
+                                       th:text="'ver +'" title="Ver +">
+                                    </a>
                                     <h5 class="text-primary">Precio: <span th:text="${producto.precio}" class="precio"></span></h5>           
                                     <h6 class="text-primary input-group">
                                         <p class="h6">Cantidad:</p>&nbsp;
@@ -107,24 +93,24 @@
                         <p class="h4 m-4 text-primary">Calificacion de la tienda</p>
                         <div class="card-text" style="width: available;height: available "> 
                             <div style="width: available; height: available; overflow-y: scroll;">
-                            <div  class="card m-4" th:each="cl:${calitienda}">
-                                <div style="display: inline-block">
-                                <div class="m-2 text-primary" th:text="${cl.persona.nombre}"></div>
-                                
-                                <div class="m-2" style="display: inline-block">Calificacion: </div>
-                                <div style="display: inline-block" th:text="${cl.numero}"></div>
-                                <div style="display: inline-block">/5</div>
-                                
-                                <label style="font-size: 20px;">☆</label>
-                                <div class="card" >
-                                    <div class="card-body" th:text="${cl.cometario}"></div>
-                                </div>
+                                <div  class="card m-4" th:each="cl:${calitienda}">
+                                    <div style="display: inline-block">
+                                        <div class="m-2 text-primary" th:text="${cl.persona.nombre}"></div>
+
+                                        <div class="m-2" style="display: inline-block">Calificacion: </div>
+                                        <div style="display: inline-block" th:text="${cl.numero}"></div>
+                                        <div style="display: inline-block">/5</div>
+
+                                        <label style="font-size: 20px;">☆</label>
+                                        <div class="card" >
+                                            <div class="card-body" th:text="${cl.cometario}"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
                     </div>
-                
+
                     <div
                         class="tab-pane fade carrito"
                         id="pills-contact"

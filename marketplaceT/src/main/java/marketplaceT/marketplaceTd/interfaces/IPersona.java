@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IPersona extends JpaRepository<persona, Integer>{
     
-     @Query("select p from persona p where p.dni=:dni")
-     List<persona> buscarnombre(String dni);
+    @Query("select p from persona p where p.dni=:dni")
+    List<persona> buscarnombre(String dni);
 
 }

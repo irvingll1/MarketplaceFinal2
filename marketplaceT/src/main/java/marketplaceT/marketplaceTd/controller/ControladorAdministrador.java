@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.controller;
 
+import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
 import marketplaceT.marketplaceTd.interfaceservice.IPersonaService;
@@ -20,6 +21,7 @@ import marketplaceT.marketplaceTd.interfaceservice.IproductoService;
 import marketplaceT.marketplaceTd.interfaceservice.IprovinciaService;
 import marketplaceT.marketplaceTd.interfaceservice.ItiendaService;
 import marketplaceT.marketplaceTd.interfaceservice.ItipopagoService;
+import marketplaceT.marketplaceTd.modelo.persona;
 import marketplaceT.marketplaceTd.modelo.usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -79,12 +81,15 @@ public class ControladorAdministrador {
     @Autowired
     private IcalificacionService calificacionService;
      
+    private List<persona> listaper;
     
     @Secured("ROLE_ADMIN")
     @GetMapping("/listar")
-    public String listarClientes(Model model) {
+    public String listarClientes(Model model,Principal principal) {
         List<usuario> listadoClientes = usuarioService.listar();
+        listaper = personaService.buscarnombre(principal.getName());
         model.addAttribute("titulo", "Lista de usuarios");
+        model.addAttribute("objetopersona", listaper.get(0).getNombre());
         model.addAttribute("usuarios", listadoClientes);
         return "listar";
     }

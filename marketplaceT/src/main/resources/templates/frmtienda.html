@@ -80,7 +80,8 @@
                     return function () {
                         infoWindow.setContent('<div class="info_content">' +
                                 '<h3>' + tiendass[i].nombre + '</h3>' +
-                                '<p>' + tiendass[i].descripcion + '</p>' + '</div>');
+                                '<p>' + tiendass[i].descripcion + '</p>' + 
+                                '<p>' + '<a href="/filtrotienda?tienda='+(i+1)+'">Ingresar</a>' +'</div>');
                         infoWindow.open(map, marker);
 
                         //alert(markers[i].nombre);

@@ -52,5 +52,9 @@ public class productoService implements IproductoService{
         
         return data.findAll(pageable);
     }
+    @Override
+    public List<producto> buscarproducto(String dni){
+        return data.buscarproducto(dni);
+    }
 
 }

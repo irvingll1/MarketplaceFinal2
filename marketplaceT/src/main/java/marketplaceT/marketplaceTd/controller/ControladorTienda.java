@@ -179,7 +179,6 @@ public class ControladorTienda {
         }
         model.addAttribute("nomtienda", tienda.getNombre());
         model.addAttribute("tiendaid", tienda.getId());
-//        model.addAttribute("oculta", ocultar);
         model.addAttribute("provincias", listadoprovincia);
         model.addAttribute("calitienda", listadocalifica2);
         model.addAttribute("distritos", listadodistrito);
@@ -191,17 +190,68 @@ public class ControladorTienda {
         
         return "frmtienda2";
     }
+    @GetMapping("/filtrotiendaca/{id}/{id2}")
+    public String tiendaVendedor2(@PathVariable("id") int id,
+            @PathVariable("id2") int idcategoria,
+            Principal principal,RedirectAttributes attribute,Model model){
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+        tienda tienda = tiendaService.listarId(id);
+        
+        List<provincia> listadoprovincia = provinciaService.listar();
+        List<distrito> listadodistrito = distritoService.listar();
+        List<tienda> listadotienda = tiendaService.listar();
+        List<calificacion> listadocalifica = calificacionService.listar();
+        List<calificacion> listadocalifica2= new ArrayList();
+        System.out.println("calificaion:"+listadocalifica.toString());
+        
+        List<categoriaproducto> listadocategorias = categoriaproductoService.listar();
+     
+        calificacion objcalif = new calificacion();
+        tienda objtienda = new tienda();    
+        List<producto> listadoproducto = productoService.listar();
+        List<producto> listadoproducto2= new ArrayList();
+        
+        for (int i = 0; i < listadoproducto.size(); i++) {
+            if(!listadoproducto.get(i).getEstado().equals("0")){
+                if(listadoproducto.get(i).getTienda().equals(tienda)){
+                    if(listadoproducto.get(i).getCategoriaproducto().getId()==idcategoria){
+                        listadoproducto2.add(listadoproducto.get(i));
+                    }else if(idcategoria==0){
+                        listadoproducto2.add(listadoproducto.get(i));
+                    }
+                }      
+            }  
+        }
+        for (int i = 0; i < listadocalifica.size(); i++) {
+            if(listadocalifica.get(i).getTienda().getNombre().equals(tienda.getNombre())){
+                listadocalifica2.add(listadocalifica.get(i));
+
+            }      
+ 
+        }
+        model.addAttribute("nomtienda", tiendacali.getNombre());
+        model.addAttribute("tiendaid", tiendacali.getId());
+        model.addAttribute("provincias", listadoprovincia);
+        model.addAttribute("calitienda", listadocalifica2);
+        model.addAttribute("distritos", listadodistrito);
+        model.addAttribute("tiendas", listadotienda);
+        model.addAttribute("calificacion", objcalif);
+        model.addAttribute("tienda", objtienda);
+        model.addAttribute("productos", listadoproducto2);
+         model.addAttribute("categoriap", listadocategorias);
+
+        return "frmtienda2";
+    }
     
     @PostMapping("/busquedacategoria")
     public String busquedacategoria(@RequestParam("catego") int cate,
             Principal principal,RedirectAttributes attribute,Model model){
         System.out.println("categoria: "+cate);
         System.out.println("Tienda: "+tiendacali.getId());
-        
-        
-        
-        
-        return "redirect:filtrotienda";
+
+        return "redirect:frmtienda2";
     }
     
     @GetMapping("/cali")
@@ -266,7 +316,7 @@ public class ControladorTienda {
             detallepedidos.setEstado(0);
             detallepedidos.setPrecio(pro.getPrecio());
             detallepedidos.setSubtotal(pro.getPrecio());
-            detallepedidos.setCantidad(1);
+            detallepedidos.setCantidad(Integer.parseInt(objeto.getString("cantidad")));
             detallepedidos.setPersona(perso);
             total+=pro.getPrecio();
             detallepedidos.setPedido(pedidoService.listarId(pedidoService.listar().size()));

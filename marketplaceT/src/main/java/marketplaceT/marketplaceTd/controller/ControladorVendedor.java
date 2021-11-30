@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -101,6 +102,7 @@ public class ControladorVendedor {
 
     private List<persona> listaper;
     private tienda tiendacali;
+    private detallepedido detallepedidopublic;
     
     
     //Tienda VEndedor
@@ -288,12 +290,15 @@ public class ControladorVendedor {
         return "frmVendedorPedidos2";
     }
     @GetMapping("/detapedido/{id}")
-    public String detallepedido(@PathVariable("id") int idpedido,Model model,Principal principal){       
+    public String detallepedido(@PathVariable("id") int idpedido,Model model,Principal principal,WebRequest request){       
         int id=0;
         if (principal != null) {
             listaper = personaService.buscarnombre(principal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
+        
+        detallepedidopublic=detallepedidoService.listarId(idpedido);
+        
         List<detallepedido> listadetalles=new ArrayList<>();
         if (idpedido > 0) {
             
@@ -308,6 +313,38 @@ public class ControladorVendedor {
         model.addAttribute("detallepedido", listadetalles);
         
         return "frmVendedordetallePedidos";
+    }
+    @GetMapping("/adetapedidosubirc/{id}/{cantidad}")
+    public String adetapedidosubirc(@PathVariable("id") int id,
+            @PathVariable("cantidad") int cant,Model model,Principal principal){       
+        
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+        detallepedido deta =detallepedidoService.listarId(id);
+        deta.setCantidad(cant+1);
+        deta.setPrecio(deta.getPrecio()*2);
+        deta.setSubtotal(deta.getSubtotal()*2);
+        detallepedidoService.save(deta);
+        return "redirect:/detapedido/"+detallepedidopublic.getId();
+    }
+    @GetMapping("/adetapedidobajarc/{id}/{cantidad}")
+    public String adetapedidobajarc(@PathVariable("id") int id,
+            @PathVariable("cantidad") int cant,
+            Model model,Principal principal){       
+        
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+        detallepedido deta =detallepedidoService.listarId(id);
+        deta.setCantidad(cant-1);
+        deta.setPrecio(deta.getPrecio()/2);
+        deta.setSubtotal(deta.getSubtotal()/2);
+        System.out.println("iddetallepedido: "+id);
+        System.out.println("cantidad: "+(cant-1));
+        detallepedidoService.save(deta);
+        
+        return "redirect:/detapedido/"+detallepedidopublic.getId();
     }
     @PostMapping("/correo")
     public String correo(@RequestParam("idped") int idpedido){
@@ -350,13 +387,18 @@ public class ControladorVendedor {
     
     
     
-    @GetMapping("/adetapedido/{id}")
-    public String adetallepedido(@PathVariable("id") int idapedido,Model model,Principal principal){       
+    @GetMapping("/adetapedido/{id}/{cantidad}")
+    public String adetallepedido(@PathVariable("id") int idapedido,
+            @PathVariable("cantidad") int cantidad,
+            Model model,
+            Principal principal){       
         
         if (principal != null) {
             listaper = personaService.buscarnombre(principal.getName());
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
         }
+
+        System.out.println("cantidad 2: "+cantidad);
         detallepedido objdetalle= detallepedidoService.listarId(idapedido);
         
         objdetalle.setEstado(1);

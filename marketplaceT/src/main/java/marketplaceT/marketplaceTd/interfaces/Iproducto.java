@@ -21,5 +21,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface Iproducto extends JpaRepository<producto, Integer>{
+    
+    @Query("select p from producto p where p.nombre like '%' || :nombre")
+    List<producto> buscarproducto(String nombre);
 
 }

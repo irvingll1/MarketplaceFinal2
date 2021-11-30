@@ -37,14 +37,20 @@
                     <tr th:each="cl:${detallepedido}">
                         <th scope="row" th:text="${cl.id}" ></th>
                         <td th:text="${cl.producto.nombre}"></td>
-                        <td th:text="${cl.cantidad}"></td>
+                        <td>
+                            <a th:text="${cl.cantidad}"></a>&nbsp;
+                            <a class="btn-sm btn-dark" th:href="@{/adetapedidosubirc/}+${cl.id}+'/' + ${cl.cantidad}">&uarr;
+                            </a>&nbsp;
+                            <a class="btn-sm btn-dark" th:href="@{/adetapedidobajarc/}+${cl.id}+'/' + ${cl.cantidad}">&darr;
+                            </a>
+                        </td>
                         <td th:text="${cl.precio}"></td>
                         <td th:text="${cl.subtotal}"></td>                        
                         <td th:text="${cl.pedido.id}"></td>
                         <td th:text="${cl.persona.nombre}"></td>
-                        <td th:text="${cl.estado == 1} ? 'Activo' : 'Desactivado'"></td>
+                        <td th:text="${cl.estado == 1} ? 'Aprobado' : 'No Aprobado'"></td>
                         <td>
-                            <a class="btn btn-success btn-sm" th:href="@{/adetapedido/} + ${cl.id}"
+                            <a class="btn btn-success btn-sm" th:href="@{/adetapedido/} + ${cl.id}+'/' + ${cl.cantidad}"
                                th:text="'Aprobar'" title="Aprobar">
                             </a>
                         </td>	

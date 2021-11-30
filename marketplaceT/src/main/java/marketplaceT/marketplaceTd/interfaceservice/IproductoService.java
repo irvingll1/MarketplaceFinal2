@@ -19,5 +19,6 @@ public interface IproductoService {
     public producto listarId(int id);
     public void save(producto p);
     public void delete(int id);
-    Page<producto> findPaginated(int pagno,int pagesize);  
+    Page<producto> findPaginated(int pagno,int pagesize); 
+    public List<producto> buscarproducto(String producto);
 }
