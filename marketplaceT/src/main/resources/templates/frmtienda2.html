@@ -14,10 +14,13 @@
                     <div class="input-group">
                         <h5>Busqueda: </h5>
                         &nbsp;&nbsp;
-                        <input th:value="${tiendaid}" name="idtiendaf" hidden>
-                        <input type="text" class="form-control" name="busqueda" placeholder="¿Que producto necesita?" > 
-                        &nbsp;&nbsp;
-                        <button type="submit" class="btn btn-outline-secondary" >Buscar</button>
+                        <form th:action="@{/busquedanombre/}" method="get">
+                            <input th:value="${tiendaid}" name="idtiendaf" hidden>
+                            <input type="text" class="form" th:value="${busquedastr}"
+                                   name="busqueda" placeholder="¿Que producto necesita?" style="width: 800px;"> 
+                            <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -27,7 +30,7 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/filtrotiendaca/}+ ${tiendaid} + '/' + 0">Todos</a></li>
                     <li class="nav-item" th:each="cat:${categoriap}">  
                         <a class="nav-link" id="cate" name="cate" th:value="${cat.id}"
-                        th:text="${cat.nombre}" th:href="@{/filtrotiendaca/}+ ${tiendaid} + '/' + ${cat.id}" ></a></li>
+                           th:text="${cat.nombre}" th:href="@{/filtrotiendaca/}+ ${tiendaid} + '/' + ${cat.id}" ></a></li>
                 </ul>
             </div>
             <br><br>

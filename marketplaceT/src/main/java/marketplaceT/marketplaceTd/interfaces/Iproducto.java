@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface Iproducto extends JpaRepository<producto, Integer>{
     
-    @Query("select p from producto p where p.nombre like '%' || :nombre")
+    @Query("select p from producto p where p.nombre like CONCAT('%',:nombre,'%')")
     List<producto> buscarproducto(String nombre);
 
 }

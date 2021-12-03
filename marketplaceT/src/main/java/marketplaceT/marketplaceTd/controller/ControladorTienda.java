@@ -245,6 +245,63 @@ public class ControladorTienda {
         return "frmtienda2";
     }
     
+    @GetMapping("/busquedanombre")
+    public String filtrobusquedatienda(@RequestParam("idtiendaf") int id,
+            @RequestParam("busqueda") String busqueda,
+            Principal principal,RedirectAttributes attribute,Model model){
+        
+        System.out.println("id: "+id);
+        System.out.println("busqueda: "+busqueda);
+        
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+        tienda tienda = tiendaService.listarId(id);
+        
+        List<provincia> listadoprovincia = provinciaService.listar();
+        List<distrito> listadodistrito = distritoService.listar();
+        List<tienda> listadotienda = tiendaService.listar();
+        List<calificacion> listadocalifica = calificacionService.listar();
+        List<calificacion> listadocalifica2= new ArrayList();
+        System.out.println("calificaion:"+listadocalifica.toString());
+        
+        List<categoriaproducto> listadocategorias = categoriaproductoService.listar();
+     
+        calificacion objcalif = new calificacion();
+        tienda objtienda = new tienda();    
+        List<producto> listadoproducto = productoService.buscarproducto(busqueda);
+        List<producto> listadoproducto2= new ArrayList();
+        
+        System.out.println("Lista: "+listadoproducto.toString());
+        
+        for (int i = 0; i < listadoproducto.size(); i++) {
+            if(!listadoproducto.get(i).getEstado().equals("0")){              
+                listadoproducto2.add(listadoproducto.get(i));
+            }  
+        }
+        for (int i = 0; i < listadocalifica.size(); i++) {
+            if(listadocalifica.get(i).getTienda().getNombre().equals(tienda.getNombre())){
+                listadocalifica2.add(listadocalifica.get(i));
+
+            }      
+ 
+        }
+        model.addAttribute("nomtienda", tiendacali.getNombre());
+        model.addAttribute("tiendaid", tiendacali.getId());
+        model.addAttribute("provincias", listadoprovincia);
+        model.addAttribute("calitienda", listadocalifica2);
+        model.addAttribute("distritos", listadodistrito);
+        model.addAttribute("tiendas", listadotienda);
+        model.addAttribute("calificacion", objcalif);
+        model.addAttribute("tienda", objtienda);
+        model.addAttribute("productos", listadoproducto2);
+         model.addAttribute("categoriap", listadocategorias);
+
+        return "frmtienda2";
+    }
+    
+    
+    
     @PostMapping("/busquedacategoria")
     public String busquedacategoria(@RequestParam("catego") int cate,
             Principal principal,RedirectAttributes attribute,Model model){
