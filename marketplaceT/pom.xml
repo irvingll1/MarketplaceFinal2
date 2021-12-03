@@ -91,6 +91,11 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.17.0</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -99,6 +104,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.10</version>
         </dependency>
     </dependencies>
 

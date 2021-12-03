@@ -5,10 +5,7 @@
     <head th:fragment="head">
         <meta charset="UTF-8">
         <title>Marketplace</title>
-        <!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" > -->
-        <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-                      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-                      crossorigin="anonymous">-->
+
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -49,7 +46,7 @@
                             </li>
 
                             <li class="nav-item"  sec:authorize="isAuthenticated()">
-                                <a  class="nav-link"th:href="@{/listar}">Administrador</a>
+                                <a  class="nav-link" th:href="@{/listarpersonas}">Administrador</a>
                             </li>
                         </ul>
                     </div>
@@ -110,34 +107,33 @@
                 Producto removido!
             </div>
         </header>
-        <!--        BARRA LATERAL VENDEDOR-->
-        <nav th:fragment="menuvendedor" class="sidebar">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;height:150vh;">
+        <!--        BARRA LATERAL Administrador-->
+        <nav th:fragment="menuAdminstrador" class="sidebar">
+            <div class="flex-column flex-shrink-0 p-3 text-white" style="width: 280px;height:150vh;background-color: #316B83;">
                 <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
                     <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-                    <span class="fs-4 active">Menu de Vendedor</span>
+                    <span class="fs-4 active">Menu de Administrador</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a th:href="@{/adminproductos}" class="nav-link text-white" >
-
-                            Administracion Catalogo de Productos
+                        <a th:href="@{/listarpersonas}" class="nav-link text-white" >
+                            <p style="color: #ffc107" >Administracion Clientes</p>
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/adminpedidos}" class="nav-link text-white">
-                            Administracion de Pedidos
+                    <li class="nav-item">
+                        <a th:href="@{/listarusuarios}" class="nav-link text-white" >
+                            <p style="color: #ffc107" >Administracion Usuarios</p>
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/adminatencion}" class="nav-link text-white">
-                            Administracion de Atencion pedidos
+                    <li class="nav-item">
+                        <a th:href="@{/listartiendas}" class="nav-link text-white" >
+                            <p style="color: #ffc107" >Administracion Tiendas</p>
                         </a>
                     </li>
-                    <li>
-                        <a th:href="@{/reportes}" class="nav-link text-white">
-                            Reporte de Pedidos
+                    <li class="nav-item">
+                        <a th:href="@{/listarRepartidores}" class="nav-link text-white" >
+                            <p style="color: #ffc107" >Administracion Repartidores</p>
                         </a>
                     </li>
                 </ul>
@@ -147,7 +143,7 @@
         <!-- CONTENIDO -->
         <div class="container"></div>
      <!-- PIE DE PAGINA -->
-        <footer th:fragment="footer" class="text-center text-white" style="background-color: #316B83;">
+        <footer th:fragment="footer" class="text-center text-white fixed-bottom" style="background-color: #316B83;">
 
             <div class="container">
                 <p>MarketplaceUTP - 2021</p>

@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <header th:replace="templatevendedor :: cabecera"></header>
 
-        <div class="sidebar" th:replace="template :: menuvendedor"></div>
+        <div class="sidebar" th:replace="templatevendedor :: menuvendedor"></div>
 
         <div class="container" style="position: absolute;top: 10%;left: 20%;bottom: 50%;width: 50%;">
 
@@ -39,7 +39,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div><button class="btn btn-success">Enviar correo repartidor</button></div>
+            <div><a  class="btn btn-success" th:href="@{/correorepartidor}">Enviar correo repartidor</a></div>
 
         </div>
 

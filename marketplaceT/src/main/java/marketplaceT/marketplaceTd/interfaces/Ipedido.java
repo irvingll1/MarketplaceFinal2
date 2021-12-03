@@ -6,6 +6,7 @@
 package marketplaceT.marketplaceTd.interfaces;
 import marketplaceT.marketplaceTd.modelo.pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 /**
  *

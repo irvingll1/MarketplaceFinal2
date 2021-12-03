@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="template :: head">
+    </head>
+    <body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <header th:replace="template :: cabecera"></header>
+        <div class="sidebar" th:replace="template :: menuAdminstrador"></div>
+
+        <div class="container" style="position: absolute;top: 10%;left: 20%;bottom: 50%;width: 100%;">
+            <h1>Administracion de Repartidores</h1>	<br>
+            <a class="btn btn-primary btn-sm" th:href="@{/createRepartidor}"
+			th:text="'Nuevo Repartidor'" title="Crear Nuevo Repartidor">
+            </a><br><br>
+            <table id="example" class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">FechaNacimiento</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Dni</th>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Distrito</th>
+                        <th scope="col">TipoPersona</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Desactivar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cl:${personas}">
+                        <th scope="row" th:text="${cl.id}"></th>
+                        <td th:text="${cl.nombre}"></td>
+                        <td th:text="${cl.apellidos}"></td>
+                        <td th:text="${cl.sexo}"></td>
+                        <td th:text="${cl.fechanacimieno}"></td>
+                        <td th:text="${cl.email}"></td>
+                        <td th:text="${cl.telefono}"></td>
+                        <td th:text="${cl.dni}"></td>
+                        <td th:text="${cl.direccion}"></td>
+                        <td th:text="${cl.distrito.descripcion}"></td>
+                        <td th:text="${cl.tipopersona.nombre}"></td>
+                        <td th:text="${cl.rol.nombre}"></td>
+                        <td>
+                            <a class="btn btn-success btn-sm" th:href="@{/edit/} + ${cl.id}"
+                               th:text="'Editar'" title="Editar">
+                            </a>
+                        </td>	
+                        <td>
+                            <a class="btn btn-danger btn-sm" th:href="@{/delete/} + ${cl.id}"
+                               th:text="'Desactivar'" title="Desactivar"
+                               onclick="return confirm('Esta seguro de desactivar el usuario?');">
+                            </a>
+                        </td>					
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <footer th:replace="template :: footer"></footer>
+
+    </body>
+</html>

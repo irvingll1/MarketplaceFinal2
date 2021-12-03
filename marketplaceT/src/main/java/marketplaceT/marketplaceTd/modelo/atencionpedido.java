@@ -35,6 +35,8 @@ public class atencionpedido implements Serializable{
     @ManyToOne
     @JoinColumn(name="idpersona")
     private persona persona;
+    
+    private int estado;
 
 
     public int getId() {
@@ -61,8 +63,6 @@ public class atencionpedido implements Serializable{
         this.pedido = pedido;
     }
 
-    
-
     public int getOrden() {
         return orden;
     }
@@ -79,13 +79,17 @@ public class atencionpedido implements Serializable{
         this.persona = persona;
     }
 
-    @Override
-    public String toString() {
-        return "atencionpedido{" + "id=" + id + ", Fechapedido=" + Fechapedido + ", pedido=" + pedido + ", orden=" + orden + ", persona=" + persona + '}';
+    public int getEstado() {
+        return estado;
     }
 
-    
-    
-    
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "atencionpedido{" + "id=" + id + ", Fechapedido=" + Fechapedido + ", pedido=" + pedido + ", orden=" + orden + ", persona=" + persona + ", estado=" + estado + '}';
+    }
     
 }

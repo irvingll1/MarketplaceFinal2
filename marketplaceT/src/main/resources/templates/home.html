@@ -3,10 +3,10 @@
     <head th:replace="template :: head">
     </head>
     <body>
-        <header th:replace="template :: cabecera"></header>
+        <header th:replace="templatecliente :: cabecera"></header>
         <div class="container">
             <h1 class="text-center" >Bienvenido al Marketplace</h1>
-            <div style="position: relative; display: inline-block; text-align: center;" class="container-fluid">
+             <div style="position: relative; display: inline-block; text-align: center;" class="container-fluid">
                 <img th:src="@{/images/fondo.jpeg}" class="container-fluid" alt="...">
                 
                 <br><br><br><br><br><br><br><br><br>
@@ -16,7 +16,7 @@
                     <div><a class="btn btn-light btn-lg" style="background-color: #FBD148;" th:href="@{/registrovendedor}" th:text="'Registrate Vendedor'" title="Crear Nuevo">                      
                 </a></div>
                 </div>
-            </div>  
+            </div> 
         </div>
         <footer th:replace="template :: footer"></footer>
     </body>

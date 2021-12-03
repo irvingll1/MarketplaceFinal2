@@ -21,13 +21,13 @@
                                     <input type="hidden" th:field="*{id}">
                                     <label for="nombres">Nombre:</label> 
                                     <input type="text" th:field="*{nombre}" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm " id="nombre"
-                                           placeholder="Nombres del cliente" required> 
+                                           placeholder="Nombres del vendedor" required> 
                                 </div>
 
                                 <div class="form-group row">
                                     <label  for="apellidos">Apellidos:</label> 
                                     <input type="text" th:field="*{apellidos}" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm" id="apellidos"
-                                           placeholder="Apellidos del cliente" required> 
+                                           placeholder="Apellidos del vendedor" required> 
 
                                 </div>
                                 <div class="form-group row">
@@ -46,25 +46,25 @@
                                 <div class="form-group row">
                                     <label  for="email">Email:</label> 
                                     <input type="email" th:field="*{email}" class="form-control form-control-sm" id="email"
-                                           placeholder="Email del cliente" required> 
+                                           placeholder="Email del Vendedor" required> 
 
                                 </div>
                                 <div class="form-group row">
                                     <label  for="telefono">Telefono</label> 
                                     <input type="text" pattern="\d*" maxlength="9" th:field="*{telefono}" class="form-control form-control-sm" id="telefono"
-                                           placeholder="Telefono del cliente" required> 
+                                           placeholder="Telefono del Vendedor" required> 
 
                                 </div>
                                 <div class="form-group row">
                                     <label  for="dni">DNI</label> 
                                     <input type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm" id="dni"
-                                           placeholder="Dni del cliente" required> 
+                                           placeholder="Dni del Vendedor" required> 
 
                                 </div>
                                 <div class="form-group row">
                                     <label  for="direccion">Direccion</label> 
                                     <input type="text" th:field="*{direccion}" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm" name="direccion"
-                                           placeholder="direccion del cliente" required> 
+                                           placeholder="Direccion del Vendedor" required> 
 
                                 </div>
                                 <div class="form-group row">

@@ -87,7 +87,7 @@ public class ControladorHome {
             System.out.println("devuelve" + listaper.toString());
             if (listaper.get(0).getTipopersona().getNombre().equals("Administrador")) {
                 model.addAttribute("objetopersona", listaper.get(0).getNombre());
-                return "home";
+                return "homeadmin";
             }else if (listaper.get(0).getTipopersona().getNombre().equals("Vendedor")) {
                 model.addAttribute("objetopersona", listaper.get(0).getNombre());
                 return "homevendedor";

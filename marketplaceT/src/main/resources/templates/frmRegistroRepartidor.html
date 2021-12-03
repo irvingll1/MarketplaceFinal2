@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="template :: head">
+    </head>
+    <body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <header th:replace="template :: cabecera"></header>
+        <div class="sidebar" th:replace="template :: menuAdminstrador"></div>
+
+        <div class="container" style="position: absolute;top: 10%;left: 20%;bottom: 50%;width: 100%;">
+            <h1>Administracion de Repartidores</h1>	<br>
+            <form class=" modal-body col-lg-9 offset-lg-3" th:action="@{/savepersonarepartidor}" th:object="${cliente}" method="post">
+                <a class="text-info h3">Datos Personales</a>
+                <hr>
+                <div  class="form-group row">
+                    <input type="hidden" th:field="*{id}">
+                    <label class="col-md-2" for="nombre">Nombre:</label> 
+                    <input type="text" th:field="*{nombre}" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm col-md-6" id="nombre"
+                           placeholder="Nombres del Repartidor" required> 
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                           th:errors="*{nombre}">
+                    </small>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2" for="apellidos">Apellidos:</label> 
+                    <input type="text" th:field="*{apellidos}" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm col-md-6" id="apellidos"
+                           placeholder="Apellidos del Repartidor" required> 
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"
+                           th:errors="*{apellidos}">
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="apellidos">Sexo</label> 
+                    <select required="required" th:field="*{sexo}" class="form-control form-control-sm col-md-6" id="sexo" >
+                        <option value="" selected>Eliga su sexo</option>
+                        <option th:value="masculino">masculino</option>
+                        <option th:value="femenino">femenino</option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="fechanacimieno">Fecha Nacimiento</label> 
+                    <input type="date"  th:field="*{fechanacimieno}" class="form-control form-control-sm col-md-6" id="fechanacimieno"
+                           placeholder="Fecha Nacimiento" required> 
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="email">Email:</label> 
+                    <input type="email" th:field="*{email}" class="form-control form-control-sm col-md-6" id="email"
+                           placeholder="Email del Repartidor" required> 
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}">
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="telefono">Telefono</label> 
+                    <input type="text" pattern="[0-9]+" maxlength="9" th:field="*{telefono}" class="form-control form-control-sm col-md-6" id="telefono"
+                           placeholder="Telefono del Repartidor" required> 
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="dni">DNI</label> 
+                    <input value="" type="text" pattern="\d*" maxlength="8" th:field="*{dni}" class="form-control form-control-sm col-md-6" id="dni"
+                           placeholder="Dni del Repartidor" required> 
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="direccion">Direccion</label> 
+                    <input type="text" th:field="*{direccion}" onKeyUp="document.getElementById(this.id).value = document.getElementById(this.id).value.toUpperCase()" class="form-control form-control-sm col-md-6" name="direccion"
+                           placeholder="direccion del Repartidor" required> 
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="provincia">Provincia</label>                
+                    <select required class="form-control form-control-sm col-md-6" id="provincia" name="provincia"> 
+                        <option value="" selected>Eliga una provincia</option>
+                        <option th:each="provincia:${provinciascrear}"
+                                th:value="${provincia.id}"
+                                th:text="${provincia.descripcion}"		
+                                />					
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2" for="distrito">Distrito</label> 
+                    <select required="required" th:field="*{distrito}" class="form-control form-control-sm col-md-6" name="distrito"> 
+                        <option value="" selected>Eliga un distrito</option>
+                        <!--                            <option th:each="distrito:${distritoscrear}"
+                                                        th:value="${distrito.id}"
+                                                        th:text="${distrito.descripcion}"		
+                                                        />					-->
+                    </select>
+                </div>
+                <div class="card-body offset-lg-3">
+                    <input id="validate" type="submit" class="btn btn-primary" value="Guardar">
+                </div>
+
+            </form>
+
+
+
+        </div>
+        <script th:inline="javascript">
+            // Initialize our function when the document is ready for events.
+            var provinciasre = [[${provinciascrear}
+            ]];
+                    var disitritore = [[${distritoscrear}
+                    ]];
+
+            var distr = document.getElementById("distrito");
+
+
+            jQuery(document).ready(function () {
+                // Listen for the input event.
+                jQuery("#telefono").on('input', function (evt) {
+                    // Allow only numbers.
+                    jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                });
+                jQuery("#dni").on('input', function (evt) {
+                    // Allow only numbers.
+                    jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                });
+                jQuery("#provincia").on('change', function (evt) {
+                    var length = distr.options.length;
+                    for (i = length - 1; i > 0; i--) {
+                        distr.options[i] = null;
+                    }
+                    switch (jQuery(this).val()) {
+                        case '1':
+                            for (var j = 0; j < disitritore.length; j++) {
+                                if (provinciasre[0].id == disitritore[j].provincia.id) {
+                                    var option = document.createElement("option");
+                                    option.text = disitritore[j].descripcion;
+                                    option.value = disitritore[j].id;
+                                    distr.add(option);
+                                }
+                            }
+                            break;
+                        case '2':
+                            for (var j = 0; j < disitritore.length; j++) {
+                                if (provinciasre[1].id == disitritore[j].provincia.id) {
+                                    var option = document.createElement("option");
+                                    option.text = disitritore[j].descripcion;
+                                    option.value = disitritore[j].id;
+                                    distr.add(option);
+                                }
+                            }
+                            break;
+                        case '3':
+                            for (var j = 0; j < disitritore.length; j++) {
+                                if (provinciasre[2].id == disitritore[j].provincia.id) {
+                                    var option = document.createElement("option");
+                                    option.text = disitritore[j].descripcion;
+                                    option.value = disitritore[j].id;
+                                    distr.add(option);
+                                }
+                            }
+                            break;
+                    }
+
+                });
+
+            });
+        </script> 
+        <footer th:replace="template :: footer"></footer>
+
+    </body>
+</html>

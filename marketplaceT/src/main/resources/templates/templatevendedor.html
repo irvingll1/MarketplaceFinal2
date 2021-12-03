@@ -101,32 +101,34 @@
         </header>
         <!--        BARRA LATERAL VENDEDOR-->
         <nav th:fragment="menuvendedor" class="sidebar">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;height:150vh;">
-                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+            <div class="flex-column flex-shrink-0 p-3 text-white" style="width: 280px;height:150vh;background-color: #316B83;">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
                     <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-                    <span class="fs-4 active">Menu de Vendedor</span>
+                    <span class="fs-4 active"><h4>Menu de Vendedor</h4></span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a th:href="@{/adminproductos}" class="nav-link text-white" >
+                        <a th:href="@{/adminproductos}" class="nav-link">
 
-                            Administracion Catalogo de Productos
+                            <p style="color: #ffc107" >Administracion Catalogo de Productos</p>
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/adminpedidos}" class="nav-link text-white">
-                            Administracion de Pedidos
+                            <p style="color: #ffc107" >Administracion de Pedidos</p>
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/adminatencion}" class="nav-link text-white">
-                            Administracion de Atencion pedidos
+                            
+                            <p style="color: #ffc107" >Administracion de Atencion pedidos</p>
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/reportes}" class="nav-link text-white">
-                            Reporte de Pedidos
+                            <p style="color: #ffc107" >Reporte de Pedidos</p>
+                            
                         </a>
                     </li>
                 </ul>
