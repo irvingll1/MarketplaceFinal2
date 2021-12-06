@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.service;
 
+import java.sql.Date;
 import java.util.List;
 import marketplaceT.marketplaceTd.interfaces.Ipedido;
 import marketplaceT.marketplaceTd.interfaceservice.IpedidoService;
@@ -45,10 +46,31 @@ public class pedidoService implements IpedidoService{
     public void delete(int id) {
         data.deleteById(id);
     }
+
+    @Override
+    public List<pedido> buscarentredos(Date des, Date has) {
+        return data.findByAllData(des, has);
+    }
     
     @Override
-    public Page<pedido> findPaginated(int pagno, int pagesize) {
-        Pageable pageable = PageRequest.of(pagno-1, pagesize);
-        return data.findAll(pageable);
+    public List<pedido> pedidosEntregados(){
+        return data.pedidosEntregados();
     }
+    
+    @Override
+    public List<pedido> pedidosNoEntregados(){
+        return data.pedidosNoEntregados();
+    }
+  
+    @Override
+    public List<pedido> pedidosMontoMayor(double total){
+        return data.pedidosMontoMayor(total);
+    }
+    
+    @Override
+    public List<pedido> pedidosMontoMenor(double total){
+        return data.pedidosMontoMenor(total);
+    }
+    
+    
 }

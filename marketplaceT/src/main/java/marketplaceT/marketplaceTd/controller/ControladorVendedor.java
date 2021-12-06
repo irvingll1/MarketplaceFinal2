@@ -12,6 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -114,10 +117,7 @@ public class ControladorVendedor {
     //----------------------------------------
 
     private List<atencionpedido> listatecionp;
-    
-    
-    
-    
+
     //Tienda VEndedor
     @Secured({"ROLE_GUESS", "ROLE_ADMIN"})
     @GetMapping("/vendedor")
@@ -170,7 +170,7 @@ public class ControladorVendedor {
     public String guardarProducto(@Valid @ModelAttribute producto producto, BindingResult result,
             Model model, @RequestParam("foto") MultipartFile imagen, RedirectAttributes attribute) {
         //List<usuario> listCiudades = usuarioService.listar();
-
+        producto product2 = productoService.listarId(producto.getId());
         //Agregar tienda
         producto.setTienda(listaper.get(0).getTienda());
         if (!imagen.isEmpty()) {
@@ -186,6 +186,8 @@ public class ControladorVendedor {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        } else {
+            producto.setFoto(product2.getFoto());
         }
         System.out.println("Producto" + producto.toString());
         productoService.save(producto);
@@ -197,7 +199,8 @@ public class ControladorVendedor {
 
     @Secured({"ROLE_GUESS", "ROLE_ADMIN"})
     @GetMapping("/editproducto/{id}")
-    public String editarproducto(@PathVariable("id") int idProducto, Model model, RedirectAttributes attribute) {
+    public String editarproducto(@PathVariable("id") int idProducto,
+            Model model, RedirectAttributes attribute, Principal principal) {
 
         producto producto = null;
 
@@ -286,7 +289,9 @@ public class ControladorVendedor {
 //        
         for (int i = 0; i < listadopedido.size(); i++) {
             if (listadopedido.get(i).getTienda().getNombre().equals(tienda.getNombre())) {
-                listadopedidos2.add(listadopedido.get(i));
+                if (listadopedido.get(i).getEstado() == 0) {
+                    listadopedidos2.add(listadopedido.get(i));
+                }
             }
         }
 //        System.out.println("listaproductos"+listadoproducto2.get(1).getEstado());
@@ -396,7 +401,7 @@ public class ControladorVendedor {
         servicioReporte.exportReport(listadetalles);
 
         sendmailService.sendMail("iakmarketplace@gmail.com", "irvingllerena@gmail.com",
-                subject, message,new File("C:\\Users\\PC\\Desktop\\Report\\pedidos.pdf"));
+                subject, message, new File("C:\\Users\\PC\\Desktop\\Report\\pedidos.pdf"));
 
         return "redirect:/vendedor";
     }
@@ -510,7 +515,7 @@ public class ControladorVendedor {
         }
 
         //paginacion atencion pedidos
-        listatecionp=listadoatencionpedido2;
+        listatecionp = listadoatencionpedido2;
         model.addAttribute("atencionpedidos", listadoatencionpedido2);
         model.addAttribute("atencionpedidom", aten);
         return "frmVendedorAtencionP";
@@ -538,9 +543,10 @@ public class ControladorVendedor {
         return "redirect:/adminatencion";
 
     }
+
     @GetMapping("/correorepartidor")
     public String correorepartidor(Model model, Principal principal) throws FileNotFoundException, JRException {
- 
+
         int id;
         String subject;
         String message;
@@ -554,26 +560,126 @@ public class ControladorVendedor {
                     + "Monto: " + listatecionp.get(i).getPedido().getTotal();
 
         }
-        
+
         servicioReporte.exportReportAtencionPedido(listatecionp);
 
-        sendmailService.sendMail("iakmarketplace@gmail.com", "irvingllerena@gmail.com", 
-                subject, message,new File("C:\\Users\\PC\\Desktop\\Report\\atencionpedidos.pdf"));
+        sendmailService.sendMail("iakmarketplace@gmail.com", "irvingllerena@gmail.com",
+                subject, message, new File("C:\\Users\\PC\\Desktop\\Report\\atencionpedidos.pdf"));
         for (int i = 0; i < listatecionp.size(); i++) {
-            atencionpedido at=listatecionp.get(i);
+            atencionpedido at = listatecionp.get(i);
             at.setEstado(1);
             atencionpedidoService.save(at);
         }
-        
+
         return "redirect:/adminatencion";
 
     }
 
     @GetMapping("/reportes")
     public String reportes(Model model, Principal principal) {
+
+        List<pedido> listadopedido = pedidoService.listar();
+        List<pedido> listadopedidos2 = new ArrayList();
+//        
+        tienda tienda = listaper.get(0).getTienda();
+//        
+        for (int i = 0; i < listadopedido.size(); i++) {
+            if (listadopedido.get(i).getTienda().getNombre().equals(tienda.getNombre())) {
+                listadopedidos2.add(listadopedido.get(i));
+            }
+        }
         if (principal != null) {
             model.addAttribute("objetopersona", listaper.get(0).getNombre());
-        };
+        }
+
+        model.addAttribute("pedidos", listadopedidos2);
+        model.addAttribute("detapedidos", listadopedidos2);
+
+        return "frmVendedorReportes";
+    }
+
+    @GetMapping("/reportebusqueda")
+    public String reportebusquedas(
+            @RequestParam("nombre") String nombre,
+            @RequestParam("tipo") int tipo,
+            @RequestParam("fecha1") String fecha1,
+            @RequestParam("fecha2") String fecha2,
+            @RequestParam("boton") String boton1,
+            Model model, Principal principal) throws FileNotFoundException, JRException {
+
+        System.out.println("nombre: " + nombre);
+        System.out.println("tipo: " + tipo);
+        System.out.println("fecha1: " + fecha1);
+        System.out.println("fecha2: " + fecha2);
+        System.out.println("boton: " + boton1);
+
+        List<pedido> listadopedido = pedidoService.listar();
+        List<pedido> listadopedidos2 = new ArrayList();
+
+//        
+        tienda tienda = listaper.get(0).getTienda();
+//        
+        switch(tipo){
+            case 1:
+                
+                for (int i = 0; i < listadopedido.size(); i++) {
+                    if (listadopedido.get(i).getTienda().getNombre().equals(tienda.getNombre())) {
+                        if (listadopedido.get(i).getPersona().getNombre().equals(nombre)) {
+                            listadopedidos2.add(listadopedido.get(i));
+                        }
+                    }
+                }
+                if (boton1.equals("2")) {
+                    servicioReporte.exportReportPedidosCliente(listadopedidos2);
+                }
+                break;
+            case 2:
+                if(!fecha1.isEmpty() && !fecha2.isEmpty()){
+                    Date desdee = Date.valueOf(fecha1);
+                    Date hastaa = Date.valueOf(fecha2);  
+                    listadopedidos2=pedidoService.buscarentredos(desdee, hastaa);
+                    if (boton1.equals("2")) {
+                        servicioReporte.exportReportPedidosFecha(listadopedidos2);
+                    }
+                }
+                
+                break;
+            case 3:
+                if(!nombre.isEmpty()){
+                    listadopedidos2=pedidoService.pedidosMontoMayor(Double.parseDouble(nombre));
+                    if (boton1.equals("2")) {
+                        servicioReporte.exportReportPedidosMontoMayor(listadopedidos2);
+                    }
+                }
+                break;
+            case 4:
+                if(!nombre.isEmpty()){
+                    listadopedidos2=pedidoService.pedidosMontoMenor(Double.parseDouble(nombre));
+                    if (boton1.equals("2")) {
+                        servicioReporte.exportReportPedidosMontoMenor(listadopedidos2);
+                    }
+                }
+                break;
+            case 5:      
+                listadopedidos2=pedidoService.pedidosEntregados();
+                if (boton1.equals("2")) {
+                    servicioReporte.exportReportPedidosEntregados(listadopedidos2);
+                }
+                break;
+            case 6:      
+                listadopedidos2=pedidoService.pedidosNoEntregados();
+                if (boton1.equals("2")) {
+                    servicioReporte.exportReportPedidosEntregados(listadopedidos2);
+                }
+                break;
+        }
+
+        if (principal != null) {
+            model.addAttribute("objetopersona", listaper.get(0).getNombre());
+        }
+
+        model.addAttribute("pedidos", listadopedidos2);
+        model.addAttribute("detapedidos", listadopedidos2);
 
         return "frmVendedorReportes";
     }

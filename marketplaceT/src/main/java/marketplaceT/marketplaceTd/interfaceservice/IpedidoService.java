@@ -5,6 +5,7 @@
  */
 package marketplaceT.marketplaceTd.interfaceservice;
 
+import java.sql.Date;
 import java.util.List;
 import marketplaceT.marketplaceTd.modelo.pedido;
 import org.springframework.data.domain.Page;
@@ -18,5 +19,9 @@ public interface IpedidoService {
     public pedido listarId(int id);
     public void save(pedido p);
     public void delete(int id);
-    Page<pedido> findPaginated(int pagno,int pagesize); 
+    public List<pedido> buscarentredos(Date des,Date has);
+    public List<pedido> pedidosEntregados();
+    public List<pedido> pedidosNoEntregados();
+    public List<pedido> pedidosMontoMayor(double total);
+    public List<pedido> pedidosMontoMenor(double total);
 }

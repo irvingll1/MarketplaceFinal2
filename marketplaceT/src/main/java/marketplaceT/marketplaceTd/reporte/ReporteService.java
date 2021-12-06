@@ -71,4 +71,124 @@ public class ReporteService {
         JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\atencionpedidos.pdf");
         JasperExportManager.exportReportToHtmlFile(jasperPrint, path+"\\atencionppagina.html");
     }
+    
+    public void exportReportPedidosCliente(List<pedido> lista) throws FileNotFoundException, JRException{
+        File directorio = new File("C:\\Users\\PC\\Desktop\\Reportes");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            }
+        }
+        String path="C:\\Users\\PC\\Desktop\\Reportes";
+        
+        //cargar y compilar       
+        File file= ResourceUtils.getFile("classpath:pedidosreporte.jrxml");
+        JasperReport JasperReport=JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(lista);
+        Map<String,Object> parametros = new HashMap<>();
+        parametros.put("creado por", "MarketplaceUTP");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperReport,parametros,dataSource);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\ReportePedidoCliente.pdf");
+    }
+    public void exportReportPedidosFecha(List<pedido> lista) throws FileNotFoundException, JRException{
+        File directorio = new File("C:\\Users\\PC\\Desktop\\Reportes");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            }
+        }
+        String path="C:\\Users\\PC\\Desktop\\Reportes";
+        
+        //cargar y compilar       
+        File file= ResourceUtils.getFile("classpath:pedidosreporte.jrxml");
+        JasperReport JasperReport=JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(lista);
+        Map<String,Object> parametros = new HashMap<>();
+        parametros.put("creado por", "MarketplaceUTP");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperReport,parametros,dataSource);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\ReportePedidoFecha.pdf");
+    }
+    public void exportReportPedidosMontoMayor(List<pedido> lista) throws FileNotFoundException, JRException{
+        File directorio = new File("C:\\Users\\PC\\Desktop\\Reportes");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            }
+        }
+        String path="C:\\Users\\PC\\Desktop\\Reportes";
+        
+        //cargar y compilar       
+        File file= ResourceUtils.getFile("classpath:pedidosreporte.jrxml");
+        JasperReport JasperReport=JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(lista);
+        Map<String,Object> parametros = new HashMap<>();
+        parametros.put("creado por", "MarketplaceUTP");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperReport,parametros,dataSource);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\ReportePedidoMontoMayor.pdf");
+    }
+    public void exportReportPedidosMontoMenor(List<pedido> lista) throws FileNotFoundException, JRException{
+        File directorio = new File("C:\\Users\\PC\\Desktop\\Reportes");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            }
+        }
+        String path="C:\\Users\\PC\\Desktop\\Reportes";
+        
+        //cargar y compilar       
+        File file= ResourceUtils.getFile("classpath:pedidosreporte.jrxml");
+        JasperReport JasperReport=JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(lista);
+        Map<String,Object> parametros = new HashMap<>();
+        parametros.put("creado por", "MarketplaceUTP");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperReport,parametros,dataSource);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\ReportePedidoMontoMenor.pdf");
+    }
+    public void exportReportPedidosEntregados(List<pedido> lista) throws FileNotFoundException, JRException{
+        
+        File directorio = new File("C:\\Users\\PC\\Desktop\\Reportes");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            }
+        }
+        String path="C:\\Users\\PC\\Desktop\\Reportes";
+        
+        //cargar y compilar       
+        File file= ResourceUtils.getFile("classpath:pedidosreporte.jrxml");
+        JasperReport JasperReport=JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(lista);
+        Map<String,Object> parametros = new HashMap<>();
+        parametros.put("creado por", "MarketplaceUTP");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperReport,parametros,dataSource);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\ReportePedidoEntregados.pdf");
+    }
+    public void exportReportPedidosNoEntregados(List<pedido> lista) throws FileNotFoundException, JRException{
+        
+        
+        
+        File directorio = new File("C:\\Users\\PC\\Desktop\\Reportes");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            }
+        }
+        
+        String path="C:\\Users\\PC\\Desktop\\Reportes";
+        
+        //cargar y compilar       
+        File file= ResourceUtils.getFile("classpath:pedidosreporte.jrxml");
+        JasperReport JasperReport=JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource= new JRBeanCollectionDataSource(lista);
+        Map<String,Object> parametros = new HashMap<>();
+        parametros.put("creado por", "MarketplaceUTP");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperReport,parametros,dataSource);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,path+"\\ReportePedidoNoEntregados.pdf");
+    }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head th:replace="template :: head"></head>
     <body>    
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -9,77 +10,54 @@
 
         <div class="container" style="position: absolute;top: 10%;left: 20%;bottom: 50%;width: 50%;">
 
-            <h1>Reportes Pedidos</h1><br>
+            <h1>Reportes Pedidos</h1>
 
-            <form>
-                <a>Buscar </a><input type="text" placeholder="Busqueda">
-                <!--                    <a>Buscar Fecha </a><input type="date">-->
-                <select>
-                    <option>Nombre</option>
-                    <option>Fecha</option>
-                    <option>Monto</option>
-                    <option>Estado de pedido</option>
+            <form th:action="@{/reportebusqueda}" method="get">
+                <a>Buscar </a>
+                <input type="text" th:value="*{nombre}" class="form-control-lg" name="nombre" placeholder="Busqueda">
+                <select class="form-control-lg" name="tipo" th:value="*{tipo}" required>
+                    <option value="" selected>Seleccione una opcion</option>
+                    <option th:value="1">Cliente</option>
+                    <option th:value="2">Fecha</option>
+                    <option th:value="3">Monto mayor</option>
+                    <option th:value="4">Monto menor</option>
+                    <option th:value="5">Pedidos entregados</option>
+                    <option th:value="6">Pedidos No entregados</option>
                 </select>
-                <button class="btn btn-success" name="Buscar" >Buscar</button>
+                <br>
+                <a>Busqueda por fecha</a>
+                <input class="form-control-lg" th:value="*{fecha1}" type="date" name="fecha1">
+                <input class="form-control-lg" th:value="*{fecha2}" type="date" name="fecha2">   
+                    <button class="btn btn-success" th:value="1" name="boton" >Buscar</button>
+                    <button class="btn btn-success" onclick="Swal.fire('Reporte Creado Correctamente', 'Reporte creado!', 'success')" th:value="2" name="boton" >Imprimir</button>
             </form>
-            <br> <br>
-            <table id="example3" class="table text-center" style="width: 70%;margin-left: auto;margin-right: auto;">
+            <br>
+            <table id="example" class="table text-center" style="width: 70%;margin-left: auto;margin-right: auto;">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Id</th>
+                        <th scope="col">Cliente</th>
                         <th scope="col">Fecha Pedido</th>
                         <th scope="col">Fecha Envio</th>                         
                         <th scope="col">Tipo Pago</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Total</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Editar</th>
-                        <th scope="col">Eliminar</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="cl:${pedidos}">
                         <th scope="row" th:text="${cl.id}"></th>
+                        <td th:text="${cl.persona.nombre}"></td>
                         <td th:text="${cl.fechapedido}"></td>
                         <td th:text="${cl.fechaenvio}"></td>
                         <td th:text="${cl.tipopago.nombre}"></td>
                         <td th:text="${cl.cantidad}"></td>                        
                         <td th:text="${cl.total}"></td>
-                        <td th:text="${cl.estado == '1'} ? 'Activo' : 'Desactivado'"></td>
-                        <td>
-                            <a class="btn btn-success btn-sm" th:href="@{/editpedido/} + ${cl.id}"
-                               th:text="'Editar'" title="Editar Registro">
-                            </a>
-                        </td>	
-                        <td>
-                            <a class="btn btn-danger btn-sm" th:href="@{/deletepedido/} + ${cl.id}"
-                               th:text="'Eliminar'" title="Eliminar Registro"
-                               onclick="return confirm('Esta seguro de eliminar el registro?');">
-                            </a>
-                        </td>					
+                        <td th:text="${cl.estado == 1} ? 'Entregados' : 'No entregados'"></td>				
                     </tr>
                 </tbody>
             </table>
-            <nav  aria-label="Page navigation example" th:if = "${totalPages2 > 1}" >
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <span th:each="i: ${#numbers.sequence(1, totalPages2)}">
-                            <a class="page-link" style="display:inline;" th:if="${currentPage2 != i}" th:href="@{'/page2/' + ${i}}">[[${i}]]</a>
-                            <!--                                <span th:unless="${currentPage != i}">[[${i}]]</span>-->
-                        </span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" style="display:inline;" th:if="${currentPage2 < totalPages2}" th:href="@{'/page2/' + ${currentPage2 + 1}}">Siguiente</a>
-                        <!--                            <span th:unless="${currentPage < totalPages}">Siguiente</span>-->
-                    </li>
-
-                    <li class="page-item" style="display:inline;">
-                        <a class="page-link" style="display:inline;"  th:if="${currentPage2 < totalPages2}" th:href="@{'/page2/' + ${totalPages2}}">Ultimo</a>
-                        <!--                            <span th:unless="${currentPage < totalPages}">Ultimo</span>-->
-                    </li>
-                </ul>
-            </nav>
         </div>
 
         <footer th:replace="template :: footer"></footer>
