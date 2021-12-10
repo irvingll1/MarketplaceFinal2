@@ -398,9 +398,11 @@ public class ControladorVendedor {
         message += "\nCantidad: " + pedido.getCantidad();
         message += "\nTotal Pedido: s./" + pedido.getTotal();
 
+        //envia o carga listadetalles al jasper report
         servicioReporte.exportReport(listadetalles);
 
-        sendmailService.sendMail("iakmarketplace@gmail.com", "irvingllerena@gmail.com",
+        //envia corro con el reporte adjunto
+        sendmailService.sendMail("iakmarketplace@gmail.com", pedido.getPersona().getEmail(),
                 subject, message, new File("C:\\Users\\PC\\Desktop\\Report\\pedidos.pdf"));
 
         return "redirect:/vendedor";
@@ -557,8 +559,8 @@ public class ControladorVendedor {
             message += "\nPedido " + (i + 1) + ": " + listatecionp.get(i).getFechapedido() + " "
                     + "Direccion: " + listatecionp.get(i).getPedido().getPersona().getDireccion() + " "
                     + "Orden: " + listatecionp.get(i).getOrden() + " "
+                    + "Tipo de Pago" + listatecionp.get(i).getPedido().getTipopago()
                     + "Monto: " + listatecionp.get(i).getPedido().getTotal();
-
         }
 
         servicioReporte.exportReportAtencionPedido(listatecionp);
@@ -669,7 +671,7 @@ public class ControladorVendedor {
             case 6:      
                 listadopedidos2=pedidoService.pedidosNoEntregados();
                 if (boton1.equals("2")) {
-                    servicioReporte.exportReportPedidosEntregados(listadopedidos2);
+                    servicioReporte.exportReportPedidosNoEntregados(listadopedidos2);
                 }
                 break;
         }
