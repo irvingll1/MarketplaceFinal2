@@ -123,66 +123,7 @@
                                 <script async defer
                                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9_9XBYADMhQ4d_mI35CewUqouPE1rlA&callback=initMap">
                                 </script>
-                                <script th:inline="javascript">
-                                    var provinciasre = [[${provinciascrear}]];
-                                    var disitritore = [[${distritoscrear}]];
-                                    var distr = document.getElementById("distrito");
-                                    // Initialize our function when the document is ready for events.
-                                    jQuery(document).ready(function () {
-                                        // Listen for the input event.
-                                        jQuery("#telefono").on('input', function (evt) {
-                                            // Allow only numbers.
-                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
-                                        });
-                                        jQuery("#telefono2").on('input', function (evt) {
-                                            // Allow only numbers.
-                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
-                                        });
-                                        jQuery("#dni").on('input', function (evt) {
-                                            // Allow only numbers.
-                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
-                                        });
-                                        jQuery("#provincia").on('change', function (evt) {
-                                            var length = distr.options.length;
-                                            for (i = length - 1; i > 0; i--) {
-                                                distr.options[i] = null;
-                                            }
-                                            switch (jQuery(this).val()) {
-                                                case '1':
-                                                    for (var j = 0; j < disitritore.length; j++) {
-                                                        if (provinciasre[0].id == disitritore[j].provincia.id) {
-                                                            var option = document.createElement("option");
-                                                            option.text = disitritore[j].descripcion;
-                                                            option.value = disitritore[j].id;
-                                                            distr.add(option);
-                                                        }
-                                                    }
-                                                    break;
-                                                case '2':
-                                                    for (var j = 0; j < disitritore.length; j++) {
-                                                        if (provinciasre[1].id == disitritore[j].provincia.id) {
-                                                            var option = document.createElement("option");
-                                                            option.text = disitritore[j].descripcion;
-                                                            option.value = disitritore[j].id;
-                                                            distr.add(option);
-                                                        }
-                                                    }
-                                                    break;
-                                                case '3':
-                                                    for (var j = 0; j < disitritore.length; j++) {
-                                                        if (provinciasre[2].id == disitritore[j].provincia.id) {
-                                                            var option = document.createElement("option");
-                                                            option.text = disitritore[j].descripcion;
-                                                            option.value = disitritore[j].id;
-                                                            distr.add(option);
-                                                        }
-                                                    }
-                                                    break;
-                                            }
-
-                                        });
-                                    });
-                                </script>
+                                
                                 <script async defer>
                                     var map;
                                     var lati;
@@ -238,7 +179,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="provincia">Provincia</label>                
-                                    <select class="form-control form-control-sm" id="provincia" required> 
+                                    <select class="form-control form-control-sm" id="provincia2" required> 
                                         <option value="" selected>Eliga una provincia</option>
                                         <option th:each="provincia:${provinciascrear}"
                                                 th:value="${provincia.id}"
@@ -248,14 +189,15 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="distrito">Distrito</label> 
-                                    <select th:field="*{tienda.distrito}" class="form-control form-control-sm" name="distrito" required> 
-                                        <option value="" selected>Eliga un disitrito</option>
+                                    <select th:field="*{tienda.distrito}" class="form-control form-control-sm" id="distrito2" name="distrito" required> 
+                                        <option value="" selected>Eliga un distrito</option>
                                         <!--                                    <option th:each="distrito:${distritoscrear}"
                                                                                     th:value="${distrito.id}"
                                                                                     th:text="${distrito.descripcion}"		
                                                                                     />					-->
                                     </select>
                                 </div>
+                                
                             </div>
                         </div>
 
@@ -277,8 +219,107 @@
 
 
         </div>
+        <script th:inline="javascript">
+                                    var provinciasre = [[${provinciascrear}]];
+                                    var disitritore = [[${distritoscrear}]];
+                                    var distr = document.getElementById("distrito");
+                                    var distr2 = document.getElementById("distrito2");
+                                    // Initialize our function when the document is ready for events.
+                                    jQuery(document).ready(function () {
+                                        // Listen for the input event.
+                                        jQuery("#telefono").on('input', function (evt) {
+                                            // Allow only numbers.
+                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                                        });
+                                        jQuery("#telefono2").on('input', function (evt) {
+                                            // Allow only numbers.
+                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                                        });
+                                        jQuery("#dni").on('input', function (evt) {
+                                            // Allow only numbers.
+                                            jQuery(this).val(jQuery(this).val().replace(/[^0-9]/g, ''));
+                                        });
+                                        jQuery("#provincia").on('change', function (evt) {
+                                            var length = distr.options.length;
+                                            for (i = length - 1; i > 0; i--) {
+                                                distr.options[i] = null;
+                                            }
+                                            switch (jQuery(this).val()) {
+                                                case '1':
+                                                    for (var j = 0; j < disitritore.length; j++) {
+                                                        if (provinciasre[0].id == disitritore[j].provincia.id) {
+                                                            var option = document.createElement("option");
+                                                            option.text = disitritore[j].descripcion;
+                                                            option.value = disitritore[j].id;
+                                                            distr.add(option);
+                                                        }
+                                                    }
+                                                    break;
+                                                case '2':
+                                                    for (var j = 0; j < disitritore.length; j++) {
+                                                        if (provinciasre[1].id == disitritore[j].provincia.id) {
+                                                            var option = document.createElement("option");
+                                                            option.text = disitritore[j].descripcion;
+                                                            option.value = disitritore[j].id;
+                                                            distr.add(option);
+                                                        }
+                                                    }
+                                                    break;
+                                                case '3':
+                                                    for (var j = 0; j < disitritore.length; j++) {
+                                                        if (provinciasre[2].id == disitritore[j].provincia.id) {
+                                                            var option = document.createElement("option");
+                                                            option.text = disitritore[j].descripcion;
+                                                            option.value = disitritore[j].id;
+                                                            distr.add(option);
+                                                        }
+                                                    }
+                                                    break;
+                                            }
 
-        <footer th:replace="template :: footer"></footer>
+                                        });
+                                        jQuery("#provincia2").on('change', function (evt) {
+                                            var length = distr.options.length;
+                                            for (i = length - 1; i > 0; i--) {
+                                                distr.options[i] = null;
+                                            }
+                                            switch (jQuery(this).val()) {
+                                                case '1':
+                                                    for (var j = 0; j < disitritore.length; j++) {
+                                                        if (provinciasre[0].id == disitritore[j].provincia.id) {
+                                                            var option = document.createElement("option");
+                                                            option.text = disitritore[j].descripcion;
+                                                            option.value = disitritore[j].id;
+                                                            distr2.add(option);
+                                                        }
+                                                    }
+                                                    break;
+                                                case '2':
+                                                    for (var j = 0; j < disitritore.length; j++) {
+                                                        if (provinciasre[1].id == disitritore[j].provincia.id) {
+                                                            var option = document.createElement("option");
+                                                            option.text = disitritore[j].descripcion;
+                                                            option.value = disitritore[j].id;
+                                                            distr2.add(option);
+                                                        }
+                                                    }
+                                                    break;
+                                                case '3':
+                                                    for (var j = 0; j < disitritore.length; j++) {
+                                                        if (provinciasre[2].id == disitritore[j].provincia.id) {
+                                                            var option = document.createElement("option");
+                                                            option.text = disitritore[j].descripcion;
+                                                            option.value = disitritore[j].id;
+                                                            distr2.add(option);
+                                                        }
+                                                    }
+                                                    break;
+                                            }
+
+                                        });
+                                    });
+                                </script>
+        <footer th:replace="templatevendedor :: footer"></footer>
 
     </body>
 </html>
